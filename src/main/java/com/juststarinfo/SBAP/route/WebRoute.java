@@ -21,6 +21,9 @@ public class WebRoute {
 	@GetMapping("/pages/ui-features/buttons.html")
 	public String buttons() { return "admin-panel/ui-features/buttons"; }
 	
+	@GetMapping("/error-403.html")
+	public String error403() { return "admin-panel/error/error-403"; }
+	
 	@GetMapping("/error-404.html")
 	public String error404() { return "admin-panel/error/error-404"; }
 	
