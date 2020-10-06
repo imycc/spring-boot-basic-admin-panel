@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WebRoute {
 
-	@GetMapping("/admin")
+	@GetMapping("/")
     public String home() { return "admin-panel/index"; }
 	
 	@GetMapping("/login")
