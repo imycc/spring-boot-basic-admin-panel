@@ -1,4 +1,4 @@
-package com.juststarinfo.SBAP.route;
+package com.imyc.SBAP.route;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

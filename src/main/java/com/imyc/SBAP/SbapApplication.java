@@ -1,4 +1,4 @@
-package com.juststarinfo.SBAP;
+package com.imyc.SBAP;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
