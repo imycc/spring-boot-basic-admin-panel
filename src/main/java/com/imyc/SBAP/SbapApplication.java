@@ -10,8 +10,8 @@ public class SbapApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SbapApplication.class, args);
 		
-		Flyway flyway = Flyway.configure().dataSource("jdbc:mysql://localhost:8889/sbap", "root", "root").load();
-		flyway.migrate();
+//		Flyway flyway = Flyway.configure().dataSource("jdbc:mysql://localhost:8889/sbap", "root", "root").load();
+//		flyway.migrate();
 	}
 
 }
