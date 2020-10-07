@@ -1,16 +1,11 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="admin-panel/layout/app :: layout(~{::title}, ~{::section})">
 
-<head th:replace="admin-panel/layout/app :: appHead(~{::title})">
-	<title>Home</title>
-</head>
+<title>Home</title>
 
-<body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+<section>
     <!-- preloader area start -->
-    <div id="preloader">
+	<div id="preloader">
         <div class="loader"></div>
     </div>
     <!-- preloader area end -->
@@ -874,6 +869,6 @@
             </div>
         </div>
     </div>
-</body>
+</section>
 
 </html>
