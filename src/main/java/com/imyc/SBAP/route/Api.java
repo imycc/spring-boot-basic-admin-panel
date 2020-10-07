@@ -1,5 +1,5 @@
 package com.imyc.SBAP.route;
 
-public class ApiRoute {
+public class Api {
 
 }
