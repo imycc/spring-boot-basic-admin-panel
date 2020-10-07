@@ -1,8 +1,10 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" 
-	th:replace="admin-panel/layout/layout :: layout(~{::title}, ~{::section}, ~{::script} )">
+	th:replace="admin-panel/layout/layout :: layout(~{::title}, ~{::section}, ~{::script}, ~{::h4.page-title})">
 
-<title>Home</title>
+<title>Dashboard</title>
+
+<h4 class="page-title pull-left">Dashboard</h4>
 
 <section>
 	<!-- timeline area start -->
