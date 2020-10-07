@@ -1,15 +1,40 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" 
-	th:replace="admin-panel/layout/layout :: layout(~{::title}, ~{::section}, ~{::script} )">
+	th:replace="admin-panel/layout/layout :: layout(~{::title}, ~{::section}, ~{::script}, ~{::h4.page-title})">
 
 <title>User</title>
 
+<h4 class="page-title pull-left">User</h4>
+
 <section>
+	<div class="row">
+	    <!-- data table start -->
+	    <div class="col-12 mt-5">
+	        <div class="card">
+	            <div class="card-body">
+	                <h4 class="header-title">Data Table Default</h4>
+	                <div class="data-tables">
+	                	<table id="user_table" class="display">
+						    <thead>
+						        <tr>
+						            <th>Column 1</th>
+						            <th>Column 2</th>
+						        </tr>
+						    </thead>
+						</table>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <!-- data table end -->
+	</div>
 
 </section>
 
 <script>
-
+$(document).ready( function () {
+    $('#user_table').DataTable();
+} );
 </script>
 
 </html>

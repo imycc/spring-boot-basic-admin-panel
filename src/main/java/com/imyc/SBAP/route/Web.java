@@ -2,7 +2,6 @@ package com.imyc.SBAP.route;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class Web {
@@ -25,11 +24,6 @@ public class Web {
 	@GetMapping("/role")
 	public String role() {
 		return "admin-panel/role/index";
-	}
-
-	@GetMapping("/user")
-	public String user() {
-		return "admin-panel/user/index";
 	}
 
 	@GetMapping("/error-403")
