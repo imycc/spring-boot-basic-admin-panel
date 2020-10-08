@@ -11,11 +11,6 @@ public class Web {
 		return "admin-panel/index";
 	}
 
-	@GetMapping("/login")
-	public String login() {
-		return "admin-panel/auth/login";
-	}
-
 	@GetMapping("/register")
 	public String register() {
 		return "admin-panel/auth/register";
