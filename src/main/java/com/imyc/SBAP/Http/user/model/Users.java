@@ -1,8 +1,8 @@
-package com.imyc.SBAP.Http.user;
+package com.imyc.SBAP.Http.user.model;
 
 import java.util.Date;
 
-public class User {
+public class Users {
 
 	private Integer id;
 	private String username;
@@ -12,6 +12,7 @@ public class User {
 	private String timezone;
 	private Date createdAt;
 	private Date updatedAt;
+	private Date deletedAt;
 
 	public Integer getId() {
 		return id;
@@ -85,5 +86,5 @@ public class User {
 		this.deletedAt = deletedAt;
 	}
 
-	private Date deletedAt;
+
 }

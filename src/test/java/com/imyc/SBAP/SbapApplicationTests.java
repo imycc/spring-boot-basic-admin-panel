@@ -1,4 +1,4 @@
-package com.juststarinfo.SBAP;
+package com.imyc.SBAP;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
