@@ -4,6 +4,7 @@ package com.imyc.SBAP;
 import java.util.Arrays;
 
 import org.flywaydb.core.Flyway;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,7 +25,6 @@ import com.imyc.SBAP.Http.user.repo.UsersRepository;
 @SpringBootApplication
 public class SbapApplication {
 
-
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(SbapApplication.class, args);
 
@@ -32,17 +32,20 @@ public class SbapApplication {
 //		flyway.migrate();
 	}
 	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
     @Bean
     public CommandLineRunner mappingDemo(UsersRepository usersRepository,
                                          RolesRepository rolesRepository) {
-    	
-    	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return args -> {
 
             // create a student
             Users user = new Users();
             user.setUsername("admin");
-            user.setPassword(bCryptPasswordEncoder.encode("admin") );
+            user.setPassword(passwordEncoder().encode("admin") );
             user.setDisabled(false);
             user.setAccountExpired(false);
             user.setAccountLocked(false);
@@ -52,7 +55,7 @@ public class SbapApplication {
             // create three courses
             Roles roles = new Roles();
             roles.setAdmin(true);
-            roles.setName("admin");
+            roles.setName("ADMIN");
             rolesRepository.save(roles);
 
             // add courses to the student

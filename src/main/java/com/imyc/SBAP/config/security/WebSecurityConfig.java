@@ -1,7 +1,6 @@
 package com.imyc.SBAP.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +15,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	UserDetailsService userDetailsService;
+	
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -27,23 +29,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.formLogin()
 				.loginPage("/login")
+				.failureUrl("/login?error=true")
 				.defaultSuccessUrl("/dashboard", true)
 				.permitAll()
 				.and()
 			.logout()
-				.permitAll()
-				.and()
-            .csrf();
+				.permitAll();
+//				.and()
+//            .csrf();
 	}
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
 	}
 	
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+
 
 }

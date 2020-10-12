@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.imyc.SBAP.Http.role.model.Roles;
@@ -41,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         	
             return User.builder()
             	.username(users.getUsername())
-            	.password(bCryptPasswordEncoder.encode(users.getPassword()) )
+            	.password(users.getPassword())
             	.disabled(users.isDisabled())
             	.accountExpired(users.isAccountExpired())
             	.accountLocked(users.isAccountLocked())
