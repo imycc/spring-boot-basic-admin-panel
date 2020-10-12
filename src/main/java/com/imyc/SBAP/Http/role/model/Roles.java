@@ -1,9 +1,16 @@
-package com.imyc.SBAP.Http.role;
+package com.imyc.SBAP.Http.role.model;
 
 import java.util.Date;
 
-public class Role {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="roles")
+public class Roles {
+
+	@Id
 	private Integer id;
 	private String name;
 	private Boolean admin;

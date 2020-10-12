@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.imyc.SBAP.Http.role.Role;
+import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.user.model.Users;
 import com.imyc.SBAP.Http.user.repo.UsersRepository;
 
@@ -32,18 +32,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         	Users users = optionalUser.get();
         	
         	List<String> roleList = new ArrayList<String>();
-        	for(Role role:users.getRoles()) {
+        	for(Roles role : users.getRoles()) {
         		roleList.add(role.getName());
         	}
         	
             return User.builder()
             	.username(users.getUsername())
-            	//change here to store encoded password in db
-            	.password( bCryptPasswordEncoder.encode(users.getPassword()) )
-//            	.disabled(users.isDisabled())
-//            	.accountExpired(users.isAccountExpired())
-//            	.accountLocked(users.isAccountLocked())
-//            	.credentialsExpired(users.isCredentialsExpired())
+            	.password(bCryptPasswordEncoder.encode(users.getPassword()) )
+            	.disabled(users.isDisabled())
+            	.accountExpired(users.isAccountExpired())
+            	.accountLocked(users.isAccountLocked())
+            	.credentialsExpired(users.isCredentialsExpired())
             	.roles(roleList.toArray(new String[0]))
             	.build();
         } else {
