@@ -22,12 +22,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UsersRepository usersRepository;
 	
-    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 	
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+		
         Optional<Users> optionalUser = usersRepository.findByUsername(userName);
+        
         if(optionalUser.isPresent()) {
         	Users users = optionalUser.get();
         	

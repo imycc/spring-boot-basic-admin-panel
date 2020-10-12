@@ -1,10 +1,12 @@
 package com.imyc.SBAP.Http.user.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,8 +21,8 @@ import com.imyc.SBAP.Http.role.model.Roles;
 @Table(name = "users")
 public class Users {
 
-//	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String username;
 	private String name;
@@ -34,12 +36,12 @@ public class Users {
 	private Date updatedAt;
 	private Date deletedAt;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "role_user", 
-		joinColumns = {@JoinColumn(name = "user_id")}, 
-		inverseJoinColumns = {@JoinColumn(name = "role_id")}
+		joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, 
+		inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
 	)
-	List<Roles> roles;
+	private Set<Roles> roles = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -138,11 +140,11 @@ public class Users {
 	}
 	
 	// relation
-	public List<Roles> getRoles() {
+	public Set<Roles> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Roles> roles) {
+	public void setRoles(Set<Roles> roles) {
 		this.roles = roles;
 	}
 

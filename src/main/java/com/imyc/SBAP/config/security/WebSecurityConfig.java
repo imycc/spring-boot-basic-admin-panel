@@ -31,17 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 				.loginPage("/login")
 				.defaultSuccessUrl("/dashboard", true)
-//				.successHandler(new AdminPanelAuthenticationSuccessHandler())
-//				.failureHandler(new AdminPanelAuthenticationFailureHandler())
 				.permitAll()
 				.and()
 			.logout()
-				.permitAll();
-//            .loginProcessingUrl("/login")
-//            .and()
-//            .exceptionHandling()
-//            .and()
-//            .csrf();
+				.permitAll()
+				.and()
+            .csrf();
 	}
 	
 	@Override
