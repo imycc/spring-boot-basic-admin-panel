@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.imyc.SBAP.Http.role.model.Roles;
@@ -21,9 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UsersRepository usersRepository;
-	
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
 	
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
