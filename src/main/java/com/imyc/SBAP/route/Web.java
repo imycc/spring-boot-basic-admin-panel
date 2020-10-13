@@ -16,11 +16,6 @@ public class Web {
 		return "admin-panel/auth/register";
 	}
 
-	@GetMapping("/role")
-	public String role() {
-		return "admin-panel/role/index";
-	}
-
 	@GetMapping("/error-403")
 	public String error403() {
 		return "admin-panel/error/error-403";

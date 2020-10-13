@@ -1,7 +1,5 @@
 package com.imyc.SBAP.Http.auth.action;
 
-import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
