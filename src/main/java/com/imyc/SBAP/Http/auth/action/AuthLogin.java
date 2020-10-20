@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.imyc.SBAP.Http.auth.model.Login;
+import com.imyc.SBAP.Http.auth.viewobject.LoginVO;
 
 @Controller
 public class AuthLogin {
@@ -15,13 +15,7 @@ public class AuthLogin {
 	@GetMapping("/login")
 	public String login(Model model, @RequestParam Optional<String> error) {
 		
-		if (error.isPresent()) {
-			
-		} else {
-			
-		}
-		
-		model.addAttribute("login", new Login());
+		model.addAttribute("login", new LoginVO());
 		return "admin-panel/auth/login";
 	}
 	

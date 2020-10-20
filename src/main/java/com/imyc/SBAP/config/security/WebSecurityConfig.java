@@ -23,6 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http
+			.csrf()
+        	.disable()
 			.authorizeRequests()
 				.antMatchers("/assets/**").permitAll()
 				.anyRequest().authenticated()
@@ -39,8 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)        // set invalidation state when logout
                 .deleteCookies("JSESSIONID")   
 				.and()
-            .csrf()
-            	.and()
             .exceptionHandling()
             	.accessDeniedPage("/error-403");;
 	}
