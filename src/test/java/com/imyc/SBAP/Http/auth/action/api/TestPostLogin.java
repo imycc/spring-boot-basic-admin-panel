@@ -7,7 +7,10 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import com.imyc.SBAP.Http.auth.response.AuthenticateResult;
 import com.imyc.SBAP.Http.auth.service.AuthenticationHandler;
@@ -15,18 +18,14 @@ import com.imyc.SBAP.Http.auth.viewobject.LoginVO;
 
 public class TestPostLogin {
 	
-	private PostLogin postLogin;
+	@Mock
 	private AuthenticationHandler authenticationHandler;
 	private AuthenticateResult authenticateResult;
-	private LoginVO loginVO;
 	private Map<String, Object> fakeResponse;
 	
 	@Before
 	public void setUp() throws Exception {
-		authenticationHandler = Mockito.mock(AuthenticationHandler.class);
-		authenticateResult = new AuthenticateResult();
-		loginVO = new LoginVO();
-		postLogin = new PostLogin();
+		MockitoAnnotations.initMocks(this);
 	}
 	
 	@Test
@@ -34,19 +33,18 @@ public class TestPostLogin {
 
 		String username = "admin";
 		String password = "admin";
-		loginVO.setUsername(username);
-		loginVO.setPassword(password);
 		
 		fakeResponse = new HashMap<>();
 		fakeResponse.put("status", "OK");
 		
+		authenticateResult = new AuthenticateResult();
 		authenticateResult.setStatus("OK");
 		
-		Mockito.when(authenticationHandler.handleAuthenticate(loginVO)).thenReturn(authenticateResult);
+		Mockito.when(authenticationHandler.handleAuthenticate(ArgumentMatchers.any(LoginVO.class))).thenReturn(authenticateResult);
 		
-		Map<String, Object> response = postLogin.login(username, password);
+		Map<String, Object> response = new PostLogin(authenticationHandler).login(username, password);
 		
-		assertEquals(response, response);
+		assertEquals("OK", response.get("status"));
 	}
 	
 	

@@ -7,13 +7,12 @@ import com.imyc.SBAP.Http.auth.viewobject.LoginVO;
 
 @Service
 public class AuthenticationHandler {
-	
-	private AuthenticateResult authenticateResult;
 
 	public AuthenticateResult handleAuthenticate(LoginVO loginVO) {
-		authenticateResult = new AuthenticateResult();
+		AuthenticateResult authenticateResult = authenticateResult();
 		
 		String username = loginVO.getUsername();
+		
 		if (checkUserExist(username)) {
 			authenticateResult.setStatus("OK");
 		}else {
@@ -26,6 +25,10 @@ public class AuthenticationHandler {
     private boolean checkUserExist(String username) {
     	
     	return "admin" == username;
+    }
+    
+    private AuthenticateResult authenticateResult() {
+    	return new AuthenticateResult();
     }
 	
 }

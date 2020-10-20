@@ -15,9 +15,14 @@ import com.imyc.SBAP.Http.auth.viewobject.LoginVO;
 @RestController
 public class PostLogin {
 
+	private AuthenticationHandler authenticationHandler;
+	private AuthenticateResult authenticateResult;
+	
 	@Autowired
-	AuthenticationHandler authenticationHandler;
-
+	public PostLogin(AuthenticationHandler authenticationHandler) {
+		this.authenticationHandler = authenticationHandler;
+	}
+	
 	@PostMapping("api/login")
 	public Map<String, Object> login(@RequestParam String username, @RequestParam String password) {
 
@@ -25,7 +30,7 @@ public class PostLogin {
 		loginVO.setUsername(username);
 		loginVO.setPassword(password);
 
-		AuthenticateResult authenticateResult = authenticationHandler.handleAuthenticate(loginVO);
+		authenticateResult = authenticationHandler.handleAuthenticate(loginVO);
 
 		Map<String, Object> json = new HashMap<>();
 		json.put("status", authenticateResult.getStatus());
