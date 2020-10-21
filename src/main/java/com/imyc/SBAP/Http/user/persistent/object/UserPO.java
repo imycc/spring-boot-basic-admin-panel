@@ -1,28 +1,9 @@
-package com.imyc.SBAP.Http.user.model;
+package com.imyc.SBAP.Http.user.persistent.object;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-
-import com.imyc.SBAP.Http.role.model.Roles;
-
-@Entity
-@Table(name = "users")
-public class Users {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class UserPO {
+	
 	private Integer id;
 	private String username;
 	private String name;
@@ -34,13 +15,6 @@ public class Users {
 	private boolean credentialsExpired;
 	private Date createdAt;
 	private Date updatedAt;
-	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinTable(name = "role_user", 
-		joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, 
-		inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
-	)
-	private Set<Roles> roles = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -81,7 +55,7 @@ public class Users {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public boolean isDisabled() {
 		return disabled;
 	}
@@ -129,15 +103,5 @@ public class Users {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	// relation
-	public Set<Roles> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Roles> roles) {
-		this.roles = roles;
-	}
-
 
 }
