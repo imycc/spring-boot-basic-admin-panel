@@ -17,18 +17,15 @@ import com.imyc.SBAP.Http.user.persistent.object.UserPO;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDAO userDAO;
-	private UserRepository userRepo;
 	
 	@Autowired
-	public UserDetailsServiceImpl(UserDAO userDAO, UserRepository userRepo) {
+	public UserDetailsServiceImpl(UserDAO userDAO) {
 		this.userDAO = userDAO;
-		this.userRepo = userRepo;
 	}
 	
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		
-    	userDAO = new UserDAO(userRepo);
         Optional<UserPO> optionalUser = userDAO.getByUsername(userName);
         
         if(optionalUser.isPresent()) {

@@ -1,5 +1,6 @@
 package com.imyc.SBAP.Http.user.service;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -7,45 +8,38 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.imyc.SBAP.Http.user.dao.UserDAO;
-import com.imyc.SBAP.Http.user.dao.UserRepository;
-
 import com.imyc.SBAP.Http.user.persistent.object.UserPO;
 
-class UserDetailsServiceImplTest {
+public class UserDetailsServiceImplTest {
 	
 	@Mock
-	private UserRepository userRepo;
-	@Mock
 	private UserDAO userDAO;
-	private UserDetailsService userDetailsService;
+	
 	private UserPO userPO;
 	private List<String> roleList;
 	
 	@Before
-	void setUp() {
+	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
+		roleList = new ArrayList<String>();
+		userPO = new UserPO();
 	}
 	
 	@Test
-	void TestloadUserByUsername() {
+	public void TestloadUserByUsername() {
 
 		String username = "admin";
-		userDAO = new UserDAO(userRepo);
-		userDetailsService = new UserDetailsServiceImpl(userDAO, userRepo);
-		roleList = new ArrayList<String>();
 		roleList.add("ADMIN");
 		
-		userPO = new UserPO();
 		userPO
 			.setUsername("admin")
 			.setPassword("admin")
@@ -53,9 +47,22 @@ class UserDetailsServiceImplTest {
 		Optional<UserPO> resultPO = Optional.ofNullable(userPO);
 		
 		Mockito.when(userDAO.getByUsername(ArgumentMatchers.any(String.class))).thenReturn(resultPO);
-		UserDetails userDetail = userDetailsService.loadUserByUsername(username);
+		UserDetails userDetail = new UserDetailsServiceImpl(userDAO).loadUserByUsername(username);
 		
-		assertEquals(userDetail, userDetail);
+		assertNotNull(userDetail);
+		assertTrue(userDetail.isAccountNonLocked());
 	}
+	
+	@Test
+    public void TestloadUserByUsername_UserNotFound() {
+		UserDetailsServiceImpl u= new UserDetailsServiceImpl(userDAO);
+		
+	 	Mockito.when(userDAO.getByUsername(ArgumentMatchers.any(String.class))).thenReturn(Optional.empty());
+	 	assertThrows(UsernameNotFoundException.class, () -> {
+	 			u.loadUserByUsername("not_exist");
+	 		}
+		);
+
+    }
 
 }

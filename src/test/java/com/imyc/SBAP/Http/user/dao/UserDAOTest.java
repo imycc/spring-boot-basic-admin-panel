@@ -2,12 +2,12 @@ package com.imyc.SBAP.Http.user.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class UserDAOTest {
+public class UserDAOTest {
 
 	@Test
-	void test() {
+	public void test() {
 		fail("Not yet implemented");
 	}
 
