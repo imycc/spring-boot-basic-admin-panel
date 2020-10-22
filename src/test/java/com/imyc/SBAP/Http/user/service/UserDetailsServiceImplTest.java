@@ -35,7 +35,7 @@ public class UserDetailsServiceImplTest {
 	}
 	
 	@Test
-	public void TestloadUserByUsername() {
+	public void expectUserFoundByLoadUserByUsername() {
 
 		String username = "admin";
 		roleList.add("ADMIN");
@@ -44,9 +44,9 @@ public class UserDetailsServiceImplTest {
 			.setUsername("admin")
 			.setPassword("admin")
 			.setRoles(roleList.toArray(new String[0]));
-		Optional<UserPO> resultPO = Optional.ofNullable(userPO);
+		Optional<UserPO> dummyUserPO = Optional.ofNullable(userPO);
 		
-		Mockito.when(userDAO.getByUsername(ArgumentMatchers.any(String.class))).thenReturn(resultPO);
+		Mockito.when(userDAO.getUserByUsername(ArgumentMatchers.any(String.class))).thenReturn(dummyUserPO);
 		UserDetails userDetail = new UserDetailsServiceImpl(userDAO).loadUserByUsername(username);
 		
 		assertNotNull(userDetail);
@@ -54,10 +54,10 @@ public class UserDetailsServiceImplTest {
 	}
 	
 	@Test
-    public void TestloadUserByUsername_UserNotFound() {
-		UserDetailsServiceImpl u= new UserDetailsServiceImpl(userDAO);
+    public void expectUserNotFoundByLoadUserByUsername() {
+		UserDetailsServiceImpl u = new UserDetailsServiceImpl(userDAO);
 		
-	 	Mockito.when(userDAO.getByUsername(ArgumentMatchers.any(String.class))).thenReturn(Optional.empty());
+	 	Mockito.when(userDAO.getUserByUsername(ArgumentMatchers.any(String.class))).thenReturn(Optional.empty());
 	 	assertThrows(UsernameNotFoundException.class, () -> {
 	 			u.loadUserByUsername("not_exist");
 	 		}

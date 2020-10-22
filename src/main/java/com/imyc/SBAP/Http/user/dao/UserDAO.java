@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.imyc.SBAP.Http.role.model.Roles;
@@ -22,7 +21,7 @@ public class UserDAO {
 		this.userRepo = userRepo;
 	}
 
-	public Optional<UserPO> getByUsername(String username) {
+	public Optional<UserPO> getUserByUsername(String username) {
 
 		Optional<Users> optionalUser = userRepo.findByUsername(username);
 
@@ -44,6 +43,7 @@ public class UserDAO {
 				.setAccountLocked(user.isAccountLocked())
 				.setCredentialsExpired(user.isCredentialsExpired())
 				.setRoles(roleList.toArray(new String[0]));
+			
 			return Optional.of(userPO);
 		}else{
 			return Optional.empty();

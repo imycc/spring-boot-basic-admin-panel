@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.imyc.SBAP.Http.user.dao.UserDAO;
-import com.imyc.SBAP.Http.user.dao.UserRepository;
 import com.imyc.SBAP.Http.user.persistent.object.UserPO;
 
 @Service
@@ -26,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		
-        Optional<UserPO> optionalUser = userDAO.getByUsername(userName);
+        Optional<UserPO> optionalUser = userDAO.getUserByUsername(userName);
         
         if(optionalUser.isPresent()) {
         	UserPO user = optionalUser.get();

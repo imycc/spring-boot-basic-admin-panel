@@ -13,6 +13,13 @@ import javax.persistence.Table;
 
 import com.imyc.SBAP.Http.user.model.Users;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+@Getter
+@Setter
+@Accessors(chain=true)
 @Entity
 @Table(name="roles")
 public class Roles {
@@ -27,52 +34,5 @@ public class Roles {
 
 	@ManyToMany(mappedBy = "roles")
 	private Set<Users> users = new HashSet<>();
-	
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Boolean getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
-
-	public Date getCreated_at() {
-		return created_at;
-	}
-
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
-
-	public Date getUpdated_at() {
-		return updated_at;
-	}
-
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
-	}
-	
-    public Set<Users> getStudents() {
-        return users;
-    }
-
-    public void setStudents(Set<Users> students) {
-        this.users = students;
-    }
 }
