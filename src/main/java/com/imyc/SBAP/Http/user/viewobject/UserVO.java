@@ -1,10 +1,6 @@
-package com.imyc.SBAP.Http.user.persistent.object;
+package com.imyc.SBAP.Http.user.viewobject;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.imyc.SBAP.Http.role.model.Roles;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +9,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain=true)
-public class UserPO {
+public class UserVO {
 	
 	private Integer id;
 	private String username;

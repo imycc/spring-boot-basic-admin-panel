@@ -34,6 +34,20 @@
 <script>
 $(document).ready( function () {
     $('#user_table').DataTable();
+    
+    var table = $('#user_table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: 'api/datatable/user',
+        columnDefs: [{ targets: -1, data: null, defaultContent: null}],
+        columns: [
+                {data: 'id', name: 'id',orderable: false, searchable: true},
+                {data: 'name', name: 'name', orderable: true, searchable: false},
+                {data: 'email', name: 'email', orderable: true, searchable: false},
+                {data: 'isDisable', name: 'disable', orderable: true, searchable: true},
+                {data: null, orderable: false, searchable: false}
+            ]
+      });
 } );
 </script>
 

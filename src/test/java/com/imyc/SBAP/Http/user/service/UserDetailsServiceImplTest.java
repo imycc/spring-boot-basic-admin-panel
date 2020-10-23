@@ -17,21 +17,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.imyc.SBAP.Http.user.dao.UserDAO;
-import com.imyc.SBAP.Http.user.persistent.object.UserPO;
+import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 public class UserDetailsServiceImplTest {
 	
 	@Mock
 	private UserDAO userDAO;
 	
-	private UserPO userPO;
+	private UserVO userVO;
 	private List<String> roleList;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		roleList = new ArrayList<String>();
-		userPO = new UserPO();
+		userVO = new UserVO();
 	}
 	
 	@Test
@@ -40,11 +40,11 @@ public class UserDetailsServiceImplTest {
 		String username = "admin";
 		roleList.add("ADMIN");
 		
-		userPO
+		userVO
 			.setUsername("admin")
 			.setPassword("admin")
 			.setRoles(roleList.toArray(new String[0]));
-		Optional<UserPO> dummyUserPO = Optional.ofNullable(userPO);
+		Optional<UserVO> dummyUserPO = Optional.ofNullable(userVO);
 		
 		Mockito.when(userDAO.getUserByUsername(ArgumentMatchers.any(String.class))).thenReturn(dummyUserPO);
 		UserDetails userDetail = new UserDetailsServiceImpl(userDAO).loadUserByUsername(username);

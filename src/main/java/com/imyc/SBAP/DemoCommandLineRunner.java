@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.role.repo.RolesRepository;
-import com.imyc.SBAP.Http.user.dao.UserRepository;
 import com.imyc.SBAP.Http.user.model.Users;
+import com.imyc.SBAP.Http.user.repository.UserRepository;
 
 @Component
 class DemoCommandLineRunner implements CommandLineRunner{

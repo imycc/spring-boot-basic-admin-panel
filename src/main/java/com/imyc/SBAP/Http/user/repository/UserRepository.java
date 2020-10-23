@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.dao;
+package com.imyc.SBAP.Http.user.repository;
 
 import java.util.Optional;
 

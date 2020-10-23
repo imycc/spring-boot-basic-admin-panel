@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.user.model.Users;
-import com.imyc.SBAP.Http.user.persistent.object.UserPO;
+import com.imyc.SBAP.Http.user.repository.UserRepository;
+import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 @Repository
 public class UserDAO {
@@ -21,7 +22,7 @@ public class UserDAO {
 		this.userRepo = userRepo;
 	}
 
-	public Optional<UserPO> getUserByUsername(String username) {
+	public Optional<UserVO> getUserByUsername(String username) {
 
 		Optional<Users> optionalUser = userRepo.findByUsername(username);
 
@@ -33,7 +34,7 @@ public class UserDAO {
 				roleList.add(role.getName());
 			}
 
-			UserPO userPO = new UserPO();
+			UserVO userPO = new UserVO();
 
 			userPO
 				.setUsername(user.getUsername())

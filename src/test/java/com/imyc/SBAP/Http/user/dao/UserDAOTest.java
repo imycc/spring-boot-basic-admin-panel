@@ -1,10 +1,7 @@
 package com.imyc.SBAP.Http.user.dao;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -16,13 +13,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.user.model.Users;
-import com.imyc.SBAP.Http.user.persistent.object.UserPO;
-import com.imyc.SBAP.Http.user.service.UserDetailsServiceImpl;
+import com.imyc.SBAP.Http.user.repository.UserRepository;
+import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 public class UserDAOTest {
 
@@ -55,7 +49,7 @@ public class UserDAOTest {
 		Optional<Users> dummyUser = Optional.ofNullable(user);
 		
 		Mockito.when(userRepo.findByUsername(ArgumentMatchers.any(String.class))).thenReturn(dummyUser);
-		Optional<UserPO> resultUser = new UserDAO(userRepo).getUserByUsername(username);
+		Optional<UserVO> resultUser = new UserDAO(userRepo).getUserByUsername(username);
 		
 		assertNotNull(resultUser);
 	}
@@ -64,7 +58,7 @@ public class UserDAOTest {
 	public void testGetByUsername__UserNotFound() {
 		
 		Mockito.when(userRepo.findByUsername(ArgumentMatchers.any(String.class))).thenReturn(Optional.empty());
-		Optional<UserPO> resultUser = new UserDAO(userRepo).getUserByUsername("NOT_EXIST");
+		Optional<UserVO> resultUser = new UserDAO(userRepo).getUserByUsername("NOT_EXIST");
 		
 		assertEquals(Optional.empty(), resultUser);
 	}

@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.imyc.SBAP.Http.user.dao.UserDAO;
-import com.imyc.SBAP.Http.user.persistent.object.UserPO;
+import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -25,10 +25,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		
-        Optional<UserPO> optionalUser = userDAO.getUserByUsername(userName);
+        Optional<UserVO> optionalUser = userDAO.getUserByUsername(userName);
         
         if(optionalUser.isPresent()) {
-        	UserPO user = optionalUser.get();
+        	UserVO user = optionalUser.get();
         	
             return User.builder()
             	.username(user.getUsername())
