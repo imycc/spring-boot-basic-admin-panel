@@ -1,14 +1,14 @@
 package com.imyc.SBAP.Http.user.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.imyc.SBAP.Http.user.dao.UserDatatableDAO;
+import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 
+@Service
 public class UserDatatableProviderImpl implements UserDatatableProvider{
 
 	private UserDatatableDAO userDatatableDAO;
@@ -19,13 +19,11 @@ public class UserDatatableProviderImpl implements UserDatatableProvider{
 	}
 	
 	@Override
-	public List<Map<String, Object>> loadAllUserForDatatable() {
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("key", "value");
-		list.add(map);
+	public UserDatatableVO loadAllUserForDatatable(HashMap<String, Object> serverSideConfig) {
 		
-		return list;
+		UserDatatableVO userDatatableVO = userDatatableDAO.getUserDatatableVO(serverSideConfig);
+		
+		return userDatatableVO;
 	}
 
 }

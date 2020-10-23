@@ -12,13 +12,16 @@
 	    <div class="col-12 mt-5">
 	        <div class="card">
 	            <div class="card-body">
-	                <h4 class="header-title">Data Table Default</h4>
+	                <h4 class="header-title">User</h4>
 	                <div class="data-tables">
 	                	<table id="user_table" class="display">
 						    <thead>
 						        <tr>
-						            <th>Column 1</th>
-						            <th>Column 2</th>
+						            <th>id</th>
+						            <th>name</th>
+						            <th>email</th>
+						            <th>IsDisable</th>
+						            <th>Action</th>
 						        </tr>
 						    </thead>
 						</table>
@@ -33,9 +36,8 @@
 
 <script>
 $(document).ready( function () {
-    $('#user_table').DataTable();
     
-    var table = $('#user_table').DataTable({
+	$('#user_table').DataTable({
         processing: true,
         serverSide: true,
         ajax: 'api/datatable/user',
@@ -44,7 +46,7 @@ $(document).ready( function () {
                 {data: 'id', name: 'id',orderable: false, searchable: true},
                 {data: 'name', name: 'name', orderable: true, searchable: false},
                 {data: 'email', name: 'email', orderable: true, searchable: false},
-                {data: 'isDisable', name: 'disable', orderable: true, searchable: true},
+                {data: 'disabled', name: 'disable', orderable: true, searchable: true},
                 {data: null, orderable: false, searchable: false}
             ]
       });

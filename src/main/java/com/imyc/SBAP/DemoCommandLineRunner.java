@@ -30,6 +30,8 @@ class DemoCommandLineRunner implements CommandLineRunner{
 		Users user = new Users();
         user.setUsername("admin");
         user.setPassword(passwordEncoder.encode("admin") );
+        user.setName("Admin");
+        user.setEmail("test@test.com");
         user.setDisabled(false);
         user.setAccountExpired(false);
         user.setAccountLocked(false);
