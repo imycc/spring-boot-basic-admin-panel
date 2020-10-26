@@ -36,12 +36,17 @@
 
 <script>
 $(document).ready( function () {
+    var readButton = '<a href="/user/read/1" class="text-secondary" title="Read"><i class="fa fa-eye"></i></a>'
+    var updateButton = '<a href="user/update/1" class="text-secondary" title="Update"><i class="fa fa-edit"></i></a'
+    
+    var defaultContentHtml = '<ul class="d-flex"><li class="mr-3">' + readButton + '</li>' +
+	                              '<li>'+ updateButton + '</li></ul>'
     
 	$('#user_table').DataTable({
         processing: true,
         serverSide: true,
         ajax: 'api/datatable/user',
-        columnDefs: [{ targets: -1, data: null, defaultContent: null}],
+        columnDefs: [{ targets: -1, data: null, defaultContent: defaultContentHtml}],
         columns: [
                 {data: 'id', name: 'id',orderable: false, searchable: true},
                 {data: 'name', name: 'name', orderable: true, searchable: false},
