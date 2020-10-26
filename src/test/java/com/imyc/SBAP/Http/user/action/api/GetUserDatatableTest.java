@@ -42,7 +42,7 @@ public class GetUserDatatableTest {
 	}
 
 	@Test
-	public void testGetUsersForDatatable() {
+	public void testGetUsersForDatatableWithOutKeyword() {
 		
 		userRowList.add(
 			new UserRow()
@@ -54,12 +54,13 @@ public class GetUserDatatableTest {
 		
 		dummyUserDatatableVO
 			.setDraw(1)
-			.setRecordsFiltered(10)
-			.setRecordsTotal(10)
+			.setRecordsFiltered((long) 1)
+			.setRecordsTotal((long) 1)
 			.setData(userRowList);
 		
+		serverSideConfig.put("keyword", "");
 		Mockito.when(userDatatableProvider.loadAllUserForDatatable(serverSideConfig)).thenReturn(dummyUserDatatableVO);
-		ResponseEntity<UserDatatableVO> actual = getUserDatatable.getUsersForDatatable(1, 0, 10);
+		ResponseEntity<UserDatatableVO> actual = getUserDatatable.getUsersForDatatable(1, 0, 10 ,"");
 
 		ResponseEntity<UserDatatableVO> expected = new ResponseEntity<UserDatatableVO>(dummyUserDatatableVO, HttpStatus.OK);
 		

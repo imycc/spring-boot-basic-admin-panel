@@ -14,8 +14,8 @@ import lombok.experimental.Accessors;
 public class UserDatatableVO {
 
 	private Integer draw;
-	private Integer recordsTotal;
-	private Integer recordsFiltered;
+	private Long recordsTotal;
+	private Long recordsFiltered;
 	private List<UserRow> data;
 	
 }

@@ -49,8 +49,8 @@ public class UserDatatableProviderImplTest {
 			
 		dummyUserDatatableVO
 			.setDraw(1)
-			.setRecordsFiltered(10)
-			.setRecordsTotal(10)
+			.setRecordsFiltered((long) 10)
+			.setRecordsTotal((long) 10)
 			.setData(userRowList);
 
 		
