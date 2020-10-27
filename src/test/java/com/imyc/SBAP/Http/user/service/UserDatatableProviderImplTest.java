@@ -2,18 +2,21 @@ package com.imyc.SBAP.Http.user.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.imyc.SBAP.Exception.WebPageNotFoundException;
 import com.imyc.SBAP.Http.user.dao.UserDatatableDAO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
-import com.imyc.SBAP.Http.user.viewobject.datatable.UserRow;
+import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
+import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
+import com.imyc.SBAP.factories.dummy.user.DummyUserReadVOFactory;
 
 public class UserDatatableProviderImplTest {
 
@@ -21,7 +24,7 @@ public class UserDatatableProviderImplTest {
 	private UserDatatableDAO userDatatableDAO;
 	private HashMap<String, Object> serverSideConfig;
 	private UserDatatableVO dummyUserDatatableVO;
-	private List<UserRow> userRowList;
+	private UserReadVO dummyUserReadVO;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -31,28 +34,12 @@ public class UserDatatableProviderImplTest {
 		serverSideConfig.put("draw", 1);
 		serverSideConfig.put("start", 0);
 		serverSideConfig.put("length", 10);
-		
-		dummyUserDatatableVO = new UserDatatableVO();
-		userRowList = new ArrayList<UserRow>();
 	}
 	
 	@Test
-	public void expectGetAllUserForDatatable() {
-		
-		userRowList.add(
-			new UserRow()
-				.setId(1)
-				.setName("test")
-				.setEmail("test@test.com")
-				.setDisabled(false)
-		);
-			
-		dummyUserDatatableVO
-			.setDraw(1)
-			.setRecordsFiltered((long) 10)
-			.setRecordsTotal((long) 10)
-			.setData(userRowList);
+	public void testGetAllUserForDatatable() {
 
+		dummyUserDatatableVO = new DummyUserDatatableVOFactory().make();
 		
 		Mockito.when(userDatatableDAO.getUserDatatableVO(serverSideConfig)).thenReturn(dummyUserDatatableVO);
 		UserDatatableVO actual = new UserDatatableProviderImpl(userDatatableDAO).loadAllUserForDatatable(serverSideConfig);
@@ -61,5 +48,18 @@ public class UserDatatableProviderImplTest {
 		assertEquals(dummyUserDatatableVO, actual);
 	}
 	
+	@Test
+	public void testLoadUserForUserReadWithOutException() throws WebPageNotFoundException {
+		int id = 1;
+		
+		dummyUserReadVO = new DummyUserReadVOFactory().make();
+		
+		Optional<UserReadVO> dummyOptionalUserReadVO = Optional.of(dummyUserReadVO);
+		
+		Mockito.when(userDatatableDAO.getUserDetailForRead(1)).thenReturn(dummyOptionalUserReadVO);
+		UserReadVO actual = new UserDatatableProviderImpl(userDatatableDAO).loadUserForUserRead(id);
 
+		assertNotNull(actual);
+		
+	}
 }

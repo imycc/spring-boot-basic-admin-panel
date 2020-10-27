@@ -1,5 +1,9 @@
 package com.imyc.SBAP;
 
+import java.util.TimeZone;
+
+import javax.annotation.PostConstruct;
+
 import org.flywaydb.core.Flyway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +26,12 @@ public class SbapApplication {
 //		Flyway flyway = Flyway.configure().dataSource("jdbc:mysql://localhost:8889/sbap", "root", "root").load();
 //		flyway.migrate();
 	}
+	
+    @PostConstruct
+    public void init(){
+      // Setting Spring Boot SetTimeZone
+      TimeZone.setDefault(TimeZone.getTimeZone("Asia/Taipei"));
+    }
     
 
 //	@Bean

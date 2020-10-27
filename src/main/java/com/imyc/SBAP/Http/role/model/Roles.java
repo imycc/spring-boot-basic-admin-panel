@@ -29,8 +29,8 @@ public class Roles {
 	private Integer id;
 	private String name;
 	private Boolean admin;
-	private Date created_at;
-	private Date updated_at;
+	private Date createdAt;
+	private Date updatedAt;
 
 	@ManyToMany(mappedBy = "roles")
 	private Set<Users> users = new HashSet<>();

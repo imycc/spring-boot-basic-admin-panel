@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserIndex {
 
 	@GetMapping("/user")
-	public String userIndex() {
+	public String handle() {
 		return "admin-panel/user/index";
 	}
 	

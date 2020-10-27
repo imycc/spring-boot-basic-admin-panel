@@ -2,9 +2,7 @@ package com.imyc.SBAP.Http.user.action.api;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.imyc.SBAP.Http.user.service.UserDatatableProvider;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
-import com.imyc.SBAP.Http.user.viewobject.datatable.UserRow;
+import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
 
 public class GetUserDatatableTest {
 
@@ -25,7 +23,6 @@ public class GetUserDatatableTest {
 	private GetUserDatatable getUserDatatable;
 	private HashMap<String, Object> serverSideConfig;
 	private UserDatatableVO dummyUserDatatableVO;
-	private List<UserRow> userRowList;
 	
 	@Before
 	public void setUp() {
@@ -36,31 +33,16 @@ public class GetUserDatatableTest {
 		serverSideConfig.put("draw", 1);
 		serverSideConfig.put("start", 0);
 		serverSideConfig.put("length", 10);
-		
-		dummyUserDatatableVO = new UserDatatableVO();
-		userRowList = new ArrayList<UserRow>();
 	}
 
 	@Test
-	public void testGetUsersForDatatableWithOutKeyword() {
+	public void testGetUserDatatableWithOutKeyword() {
 		
-		userRowList.add(
-			new UserRow()
-				.setId(1)
-				.setName("test")
-				.setEmail("test@test.com")
-				.setDisabled(false)
-		);
-		
-		dummyUserDatatableVO
-			.setDraw(1)
-			.setRecordsFiltered((long) 1)
-			.setRecordsTotal((long) 1)
-			.setData(userRowList);
+		dummyUserDatatableVO = new DummyUserDatatableVOFactory().make();
 		
 		serverSideConfig.put("keyword", "");
 		Mockito.when(userDatatableProvider.loadAllUserForDatatable(serverSideConfig)).thenReturn(dummyUserDatatableVO);
-		ResponseEntity<UserDatatableVO> actual = getUserDatatable.getUsersForDatatable(1, 0, 10 ,"");
+		ResponseEntity<UserDatatableVO> actual = getUserDatatable.handle(1, 0, 10 ,"");
 
 		ResponseEntity<UserDatatableVO> expected = new ResponseEntity<UserDatatableVO>(dummyUserDatatableVO, HttpStatus.OK);
 		

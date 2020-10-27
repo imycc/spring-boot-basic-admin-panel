@@ -3,6 +3,7 @@ package com.imyc.SBAP.Http.user.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,10 +12,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.user.model.Users;
 import com.imyc.SBAP.Http.user.repository.UserRepository;
 import com.imyc.SBAP.Http.user.repository.UserSpecification;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
+import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.Http.user.viewobject.datatable.UserRow;
 import com.imyc.SBAP.config.repositroy.SearchCriteria;
 
@@ -62,5 +65,35 @@ public class UserDatatableDAO {
 			.setData(userRowList);
 		
 		return userDatatableVO;
+	}
+
+	public Optional<UserReadVO> getUserDetailForRead(int id) {
+
+		Optional<Users> optionalUser = userRepo.findById(id);
+		
+		if (optionalUser.isPresent()) {
+			Users user = optionalUser.get();
+
+			List<String> roleList = new ArrayList<String>();
+			for (Roles role : user.getRoles()) {
+				roleList.add(role.getName());
+			}
+			
+			UserReadVO userReadVO = new UserReadVO();
+			
+			userReadVO
+				.setId(user.getId())
+				.setName(user.getName())
+				.setEmail(user.getEmail())
+				.setUsername(user.getUsername())
+				.setCreatedAt(user.getCreatedAt())
+				.setUpdatedAt(user.getUpdatedAt())
+				.setDisabled(user.isDisabled())
+				.setRoles(roleList.toArray(new String[0]));
+			
+			return Optional.of(userReadVO);
+		}else{
+			return Optional.empty();
+		}
 	}
 }

@@ -17,36 +17,33 @@ import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.user.model.Users;
 import com.imyc.SBAP.Http.user.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
+import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
 
 public class UserDAOTest {
 
 	@Mock
 	private UserRepository userRepo;
-	private Users user;
-	private Roles adminRole;
+	private Users users;
+	private Roles dummyAdminRole;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		user = new Users();
-		adminRole = new Roles();
-		adminRole
-			.setAdmin(true)
-			.setId(1)
-			.setName("ADMIN");
+		users = new Users();
+		dummyAdminRole = new DummyRoleFactory("ADMIN").make();
 	}
 	
 	@Test
 	public void testGetByUsername() {
 		String username = "admin";
-		Set<Roles> roleSet = new HashSet<>();
-		roleSet.add(adminRole);
+		Set<Roles> dummyRoleSet = new HashSet<>();
+		dummyRoleSet.add(dummyAdminRole);
 		
-		user
+		users
 			.setUsername("admin")
 			.setPassword("admin")
-			.setRoles(roleSet);
-		Optional<Users> dummyUser = Optional.ofNullable(user);
+			.setRoles(dummyRoleSet);
+		Optional<Users> dummyUser = Optional.ofNullable(users);
 		
 		Mockito.when(userRepo.findByUsername(ArgumentMatchers.any(String.class))).thenReturn(dummyUser);
 		Optional<UserVO> resultUser = new UserDAO(userRepo).getUserByUsername(username);
@@ -55,7 +52,7 @@ public class UserDAOTest {
 	}
 	
 	@Test
-	public void testGetByUsername__UserNotFound() {
+	public void testGetByUsernameIfUserNotFound() {
 		
 		Mockito.when(userRepo.findByUsername(ArgumentMatchers.any(String.class))).thenReturn(Optional.empty());
 		Optional<UserVO> resultUser = new UserDAO(userRepo).getUserByUsername("NOT_EXIST");
@@ -63,4 +60,6 @@ public class UserDAOTest {
 		assertEquals(Optional.empty(), resultUser);
 	}
 
+	
+	
 }

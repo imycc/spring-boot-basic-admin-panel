@@ -36,13 +36,11 @@
 
 <script>
 $(document).ready( function () {
-    var readButton = '<a href="/user/read/1" class="text-secondary" title="Read"><i class="fa fa-eye"></i></a>'
-    var updateButton = '<a href="user/update/1" class="text-secondary" title="Update"><i class="fa fa-edit"></i></a'
+    let readButton = '<a href="#" class="text-secondary read-button" title="Read"><i class="fa fa-eye"></i></a>'
+    let updateButton = '<a href="#" class="text-secondary update-button" title="Update"><i class="fa fa-edit"></i></a'
+    let defaultContentHtml = `<ul class="d-flex"><li class="mr-3">${readButton}</li><li>${updateButton}</li></ul>`
     
-    var defaultContentHtml = '<ul class="d-flex"><li class="mr-3">' + readButton + '</li>' +
-	                              '<li>'+ updateButton + '</li></ul>'
-    
-	$('#user_table').DataTable({
+	var table = $('#user_table').DataTable({
         processing: true,
         serverSide: true,
         ajax: 'api/datatable/user',
@@ -55,6 +53,16 @@ $(document).ready( function () {
                 {data: null, orderable: false, searchable: false}
             ]
       });
+	                              
+    table.on('click', '.read-button', function () {
+        let data = table.row($(this).parents('tr')).data();
+        window.location.href = `user/read/${data['id']}`
+    });
+    
+    table.on('click', '.update-button', function () {
+        let data = table.row($(this).parents('tr')).data();
+        window.location.href = `user/update/${data['id']}`
+    });
 } );
 </script>
 

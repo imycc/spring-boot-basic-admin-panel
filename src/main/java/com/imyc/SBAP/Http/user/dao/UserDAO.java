@@ -34,9 +34,9 @@ public class UserDAO {
 				roleList.add(role.getName());
 			}
 
-			UserVO userPO = new UserVO();
+			UserVO userVO = new UserVO();
 
-			userPO
+			userVO
 				.setUsername(user.getUsername())
 				.setPassword(user.getPassword())
 				.setDisabled(user.isDisabled())
@@ -45,7 +45,7 @@ public class UserDAO {
 				.setCredentialsExpired(user.isCredentialsExpired())
 				.setRoles(roleList.toArray(new String[0]));
 			
-			return Optional.of(userPO);
+			return Optional.of(userVO);
 		}else{
 			return Optional.empty();
 		}

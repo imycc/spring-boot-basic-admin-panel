@@ -21,7 +21,8 @@ import org.springframework.data.jpa.domain.Specification;
 import com.imyc.SBAP.Http.user.model.Users;
 import com.imyc.SBAP.Http.user.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
-import com.imyc.SBAP.Http.user.viewobject.datatable.UserRow;
+import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
+import com.imyc.SBAP.factories.dummy.user.DummyUserFactory;
 
 public class UserDatatableDAOTest {
 
@@ -41,37 +42,17 @@ public class UserDatatableDAOTest {
 		serverSideConfig.put("length", 10);
 		
 		userList = new ArrayList<Users>();
-		Users user = new Users();
-		user
-			.setId(1)
-			.setName("admin")
-			.setEmail("test@test.com")
-			.setDisabled(false);
+		Users user = new DummyUserFactory("ADMIN").make();
 		userList.add(user);
 	}
 
 	@Test
 	public void testGetUserDatatableVO() {
 		
-		int draw = (int) serverSideConfig.get("draw");
 		int start = (int) serverSideConfig.get("start");
 		int length = (int) serverSideConfig.get("length");
 		
-		List<UserRow> userRowList = new ArrayList<UserRow>();
-		UserRow userRow = new UserRow();
-		userRow
-			.setId(1)
-			.setName("admin")
-			.setEmail("test@test.com")
-			.setDisabled(false);
-		userRowList.add(userRow);
-		
-		userDatatableVO = new UserDatatableVO();
-		UserDatatableVO expected = userDatatableVO
-										.setDraw(draw)
-										.setRecordsTotal((long) 1)
-										.setRecordsFiltered((long) 1)
-										.setData(userRowList);
+		userDatatableVO = new DummyUserDatatableVOFactory().make();
 		
 		PageRequest pagable = PageRequest.of(start, length);
 		Page<Users> pageUserList = new PageImpl<>(userList, pagable, userList.size());
@@ -82,9 +63,9 @@ public class UserDatatableDAOTest {
 		
 		assertNotNull(actual);
 		assertNotNull(actual.getData());
-		assertEquals(expected.getDraw(), actual.getDraw());
-		assertEquals(expected.getRecordsFiltered(), actual.getRecordsFiltered());
-		assertEquals(expected.getRecordsTotal(), actual.getRecordsTotal());
+		assertEquals(userDatatableVO.getDraw(), actual.getDraw());
+		assertEquals(userDatatableVO.getRecordsFiltered(), actual.getRecordsFiltered());
+		assertEquals(userDatatableVO.getRecordsTotal(), actual.getRecordsTotal());
 	}
 
 }

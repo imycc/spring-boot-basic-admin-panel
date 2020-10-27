@@ -23,7 +23,7 @@ public class GetUserDatatable {
 	}
 
 	@GetMapping("api/datatable/user")
-	public ResponseEntity<UserDatatableVO> getUsersForDatatable(
+	public ResponseEntity<UserDatatableVO> handle(
 			@RequestParam int draw, @RequestParam int start, @RequestParam int length, 
 			@RequestParam(name="search[value]", required = false) String keyword) {
 		
