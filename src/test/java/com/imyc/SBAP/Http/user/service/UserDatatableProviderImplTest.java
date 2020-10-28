@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.imyc.SBAP.Exception.WebPageNotFoundException;
+import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.Http.user.dao.UserDatatableDAO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
@@ -49,7 +49,7 @@ public class UserDatatableProviderImplTest {
 	}
 	
 	@Test
-	public void testLoadUserForUserReadWithOutException() throws WebPageNotFoundException {
+	public void testLoadUserForUserRead() throws WebPageNotFoundException {
 		int id = 1;
 		
 		dummyUserReadVO = new DummyUserReadVOFactory().make();
@@ -60,6 +60,21 @@ public class UserDatatableProviderImplTest {
 		UserReadVO actual = new UserDatatableProviderImpl(userDatatableDAO).loadUserForUserRead(id);
 
 		assertNotNull(actual);
+	}
+	
+	@Test
+	public void testLoadUserForUserReadIsEmpty() throws WebPageNotFoundException {
+		int id = 1;
+
+		Mockito.when(userDatatableDAO.getUserDetailForRead(1)).thenReturn(Optional.empty());
 		
+		Exception exception = assertThrows(WebPageNotFoundException.class, () -> {
+			new UserDatatableProviderImpl(userDatatableDAO).loadUserForUserRead(id);
+	    });
+		
+	    String expectedMessage = "Not Found - 404";
+	    String actualMessage = exception.getMessage();
+
+	    assertTrue(actualMessage.contains(expectedMessage));
 	}
 }

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +22,7 @@ import org.springframework.data.jpa.domain.Specification;
 import com.imyc.SBAP.Http.user.model.Users;
 import com.imyc.SBAP.Http.user.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
+import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
 import com.imyc.SBAP.factories.dummy.user.DummyUserFactory;
 
@@ -66,6 +68,27 @@ public class UserDatatableDAOTest {
 		assertEquals(userDatatableVO.getDraw(), actual.getDraw());
 		assertEquals(userDatatableVO.getRecordsFiltered(), actual.getRecordsFiltered());
 		assertEquals(userDatatableVO.getRecordsTotal(), actual.getRecordsTotal());
+	}
+	
+	@Test
+	public void TestGetUserDetailForRead() {
+		int id = 1;
+		Optional<Users> optionalUser = Optional.of(new DummyUserFactory("ADMIN").make());
+		
+		Mockito.when(userRepo.findById(ArgumentMatchers.any(Integer.class))).thenReturn(optionalUser);
+		Optional<UserReadVO> actual = new UserDatatableDAO(userRepo).getUserDetailForRead(id);
+
+		assertNotNull(actual.get());
+	}
+	
+	@Test
+	public void TestGetUserDetailForReadIsEmpty() {
+		int id = 1;
+		
+		Mockito.when(userRepo.findById(ArgumentMatchers.any(Integer.class))).thenReturn(Optional.empty());
+		Optional<UserReadVO> actual = new UserDatatableDAO(userRepo).getUserDetailForRead(id);
+
+		assertTrue(actual.isEmpty());
 	}
 
 }

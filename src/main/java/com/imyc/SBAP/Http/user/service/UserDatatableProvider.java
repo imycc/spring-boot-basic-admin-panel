@@ -2,8 +2,8 @@ package com.imyc.SBAP.Http.user.service;
 
 import java.util.HashMap;
 
-import com.imyc.SBAP.Exception.UserNotFoundException;
-import com.imyc.SBAP.Exception.WebPageNotFoundException;
+import com.imyc.SBAP.Exception.web.UserNotFoundException;
+import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 

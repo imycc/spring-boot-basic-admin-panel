@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.imyc.SBAP.Exception.WebPageNotFoundException;
+import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.Http.user.dao.UserDatatableDAO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
@@ -37,7 +37,7 @@ public class UserDatatableProviderImpl implements UserDatatableProvider{
 		if (optionalUserReadVO.isPresent()) {
 			return optionalUserReadVO.get();
 		}else{
-			throw new WebPageNotFoundException("aaa");
+			throw new WebPageNotFoundException();
 		}
 	}
 

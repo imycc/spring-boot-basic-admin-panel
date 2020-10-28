@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.imyc.SBAP.Exception.WebPageNotFoundException;
+import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.Http.user.service.UserDatatableProvider;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 
@@ -25,6 +25,11 @@ public class UserRead {
 		
 		UserReadVO userReadVO = userDatatableProvider.loadUserForUserRead(id);
 		
+		if (userReadVO == null) {
+			throw new WebPageNotFoundException();
+		}
+		
 		return new ModelAndView("admin-panel/user/read", "userReadVO", userReadVO);
 	}
+	
 }
