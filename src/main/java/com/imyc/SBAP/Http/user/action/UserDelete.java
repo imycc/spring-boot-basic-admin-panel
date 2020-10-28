@@ -21,11 +21,7 @@ public class UserDelete {
 	@PostMapping("/user/delete/{id}")
 	public String handle(@PathVariable(value="id") int id) throws WebDeleteDataException {
 		
-//		boolean isDeleted = userDatatableProvider.deleteUser(id);
-//		
-//		if (!isDeleted) {
-//			throw new WebDeleteDataException("Unable to delete item: " + id);
-//		}
+		userDatatableProvider.deleteUser(id);
 		
 		return "redirect:/user?delete=success";
 	}

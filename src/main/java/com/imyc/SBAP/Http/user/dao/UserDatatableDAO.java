@@ -96,4 +96,16 @@ public class UserDatatableDAO {
 			return Optional.empty();
 		}
 	}
+	
+	public boolean deleteUserWithRelationById(int id) {
+		
+		boolean isExist = userRepo.existsById(id);
+		
+		if (isExist) {
+			userRepo.deleteById(id);
+		}else {
+			return false;
+		}
+		return true;
+	}
 }

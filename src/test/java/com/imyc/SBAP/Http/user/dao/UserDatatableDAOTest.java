@@ -89,5 +89,24 @@ public class UserDatatableDAOTest {
 
 		assertTrue(actual.isEmpty());
 	}
+	
+	@Test
+	public void TestDeleteUserWithRelationById() {
+		int id = 1;
+		
+		Mockito.when(userRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(true);
+		boolean actual = new UserDatatableDAO(userRepo).deleteUserWithRelationById(id);
 
+		assertTrue(actual);
+	}
+
+	@Test
+	public void TestDeleteUserWithRelationByIdIfUserIsNotExist() {
+		int id = 1;
+		
+		Mockito.when(userRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(false);
+		boolean actual = new UserDatatableDAO(userRepo).deleteUserWithRelationById(id);
+
+		assertFalse(actual);
+	}
 }

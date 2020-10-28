@@ -39,24 +39,8 @@ $(document).ready( function () {
 
 	initDatatable()
 	
-	if (getUrlVars()["delete"] == "success"){
-		showSnack("Delete Success!", "info")
-    }else if (getUrlVars()["create"] == "success"){
-    	
-    }else if (getUrlVars()["update"] == "success"){
-    	
-    }
-
+	checkActionStatus()
 });
-
-function getUrlVars() 
-{
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-        vars[key] = value;
-    });
-    return vars;
-}
 
 function initDatatable() {
     let readButton = '<a href="#" class="text-secondary read-button" title="Read"><i class="fa fa-eye"></i></a>'
@@ -112,6 +96,32 @@ function formDelete(id) {
 
     form.submit();
 }
+
+function checkActionStatus() {
+	if (getUrlVars()["delete"] == "success"){
+		showSnack("Delete User Success!", "info")
+    }else if (getUrlVars()["create"] == "success"){
+    	showSnack("Create User Success!", "info")
+    }else if (getUrlVars()["update"] == "success"){
+    	showSnack("Update User Success!", "info")
+    }else if (getUrlVars()["delete"] == "failure"){
+    	showSnack("Create User Failure!", "error")
+    }else if (getUrlVars()["create"] == "failure"){
+    	showSnack("Update User Failure!", "error")
+    }else if (getUrlVars()["update"] == "failure"){
+    	showSnack("update User Failure!", "error")
+    }
+}
+
+function getUrlVars() 
+{
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
 </script>
 
 </html>

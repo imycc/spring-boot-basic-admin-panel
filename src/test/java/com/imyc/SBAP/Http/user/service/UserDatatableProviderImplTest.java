@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import com.imyc.SBAP.Http.user.dao.UserDatatableDAO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
+import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
 import com.imyc.SBAP.factories.dummy.user.DummyUserReadVOFactory;
@@ -75,6 +76,34 @@ public class UserDatatableProviderImplTest {
 	    String expectedMessage = "Not Found - 404";
 	    String actualMessage = exception.getMessage();
 
+	    assertTrue(actualMessage.contains(expectedMessage));
+	}
+	
+	@Test
+	public void testDeleteUser() throws WebDeleteDataException {
+		int id = 1;
+		
+		Mockito.when(userDatatableDAO.deleteUserWithRelationById(id)).thenReturn(true);
+		
+		boolean actual = new UserDatatableProviderImpl(userDatatableDAO).deleteUser(id);
+		
+		assertTrue(actual);
+	}
+	
+	@Test
+	public void testDeleteUserWithDeleteFail() throws WebDeleteDataException {
+		int id = 1;
+
+		Mockito.when(userDatatableDAO.deleteUserWithRelationById(id)).thenReturn(false);
+		
+		Exception exception = assertThrows(WebDeleteDataException.class, () -> {
+			new UserDatatableProviderImpl(userDatatableDAO).deleteUser(id);
+	    });
+		
+	    String expectedMessage = "Unable to delete item: " + id;
+	    String actualMessage = exception.getMessage();
+
+		
 	    assertTrue(actualMessage.contains(expectedMessage));
 	}
 }

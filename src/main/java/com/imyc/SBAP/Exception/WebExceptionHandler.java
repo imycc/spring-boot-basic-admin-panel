@@ -16,7 +16,7 @@ public class WebExceptionHandler {
 	
 	@ExceptionHandler(WebDeleteDataException.class)
 	public String handleDeleteFailureException(final WebDeleteDataException e) {
-		return "redirct:/admin-panel/user/index";
+		return "redirct:/user?delete=failure";
 	}
 	
 }
