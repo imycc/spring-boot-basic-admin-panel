@@ -37,6 +37,9 @@ public class UserDatatableProviderImplTest {
 		serverSideConfig.put("length", 10);
 	}
 	
+	
+	//Index
+	
 	@Test
 	public void testGetAllUserForDatatable() {
 
@@ -48,6 +51,8 @@ public class UserDatatableProviderImplTest {
 		assertNotNull(actual);
 		assertEquals(dummyUserDatatableVO, actual);
 	}
+	
+	//Read
 	
 	@Test
 	public void testLoadUserForUserRead() throws WebPageNotFoundException {
@@ -78,6 +83,8 @@ public class UserDatatableProviderImplTest {
 
 	    assertTrue(actualMessage.contains(expectedMessage));
 	}
+	
+	//Delete
 	
 	@Test
 	public void testDeleteUser() throws WebDeleteDataException {

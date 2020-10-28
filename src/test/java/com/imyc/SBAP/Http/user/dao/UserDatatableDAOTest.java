@@ -47,6 +47,8 @@ public class UserDatatableDAOTest {
 		Users user = new DummyUserFactory("ADMIN").make();
 		userList.add(user);
 	}
+	
+	//Index
 
 	@Test
 	public void testGetUserDatatableVO() {
@@ -69,6 +71,8 @@ public class UserDatatableDAOTest {
 		assertEquals(userDatatableVO.getRecordsTotal(), actual.getRecordsTotal());
 	}
 	
+	//Read
+	
 	@Test
 	public void TestGetUserDetailForRead() {
 		int id = 1;
@@ -89,6 +93,8 @@ public class UserDatatableDAOTest {
 
 		assertTrue(actual.isEmpty());
 	}
+	
+	//Delete
 	
 	@Test
 	public void TestDeleteUserWithRelationById() {
