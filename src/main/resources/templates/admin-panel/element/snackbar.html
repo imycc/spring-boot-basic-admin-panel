@@ -1,0 +1,56 @@
+<div th:fragment="snackbar">
+
+	<div class="snacker_container"></div>
+	
+	<style>
+	    /* The snackbar - position it at the bottom and in the middle of the screen */
+	    .snacker_container {
+	        position: fixed; /* Sit on top of the screen */
+	        z-index: 1; /* Add a z-index if needed */
+	        right: 30px; /* Center the snackbar */
+	        bottom: 30px; /* 30px from the bottom */
+	    }
+	    .snackbar {
+	        min-width: 250px; /* Set a default minimum width */
+	        margin-left: -125px; /* Divide value of min-width by 2 */
+	        text-align: center; /* Centered text */
+	        border-radius: 2px; /* Rounded borders */
+	        padding: 16px; /* Padding */
+	        position: relative; /* Sit on top of the screen */
+	        margin: 5px;
+	        border-radius: 6px;
+	    }
+	    .snackbar.info {
+	        background-color: #17a2b8;
+	        color: #fff; /* White text color */
+	    }
+	    .snackbar.error {
+	        background-color: #dc3545;
+	        color: #fff; /* White text color */
+	    }
+	</style>
+	
+	<script>
+	    function showSnack(msg, type) {
+	    	var toastCounter = 0;
+	        var icon = "";
+	        if (type == "info") {
+	            icon = "<i class='fas fa-check-circle'></i>";
+	        } else if (type == "error") {
+	            icon = "<i class='fas fa-exclamation-circle'></i>";
+	        }
+	        var thisToast = toastCounter;
+	        var toastDiv =  `<div id="toast_${toastCounter}" class="snackbar ${type}">${icon} ${msg}</div>`
+	        $(".snacker_container").append(toastDiv);
+	        // Make it slide down
+	        $("#toast_" + thisToast).slideDown(800);
+	        setTimeout(function() {
+	            $("#toast_" + thisToast).slideUp(800, function() {
+	                // Slideup callback executes AFTER the slideup effect.
+	                $(this).remove();
+	            });
+	        }, 50*60); // 3sec.
+	        toastCounter++;
+	    }
+	</script>
+</div>

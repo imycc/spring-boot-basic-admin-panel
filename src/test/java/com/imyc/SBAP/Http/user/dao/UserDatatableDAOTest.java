@@ -50,7 +50,6 @@ public class UserDatatableDAOTest {
 
 	@Test
 	public void testGetUserDatatableVO() {
-		
 		int start = (int) serverSideConfig.get("start");
 		int length = (int) serverSideConfig.get("length");
 		

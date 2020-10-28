@@ -31,16 +31,44 @@
 	    </div>
 	    <!-- data table end -->
 	</div>
-
+	<div th:replace="admin-panel/element/snackbar :: snackbar"></div>
 </section>
 
 <script>
 $(document).ready( function () {
+
+	initDatatable()
+	
+	if (getUrlVars()["delete"] == "success"){
+		showSnack("Delete Success!", "info")
+    }else if (getUrlVars()["create"] == "success"){
+    	
+    }else if (getUrlVars()["update"] == "success"){
+    	
+    }
+
+});
+
+function getUrlVars() 
+{
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+function initDatatable() {
     let readButton = '<a href="#" class="text-secondary read-button" title="Read"><i class="fa fa-eye"></i></a>'
-    let updateButton = '<a href="#" class="text-secondary update-button" title="Update"><i class="fa fa-edit"></i></a'
-    let defaultContentHtml = `<ul class="d-flex"><li class="mr-3">${readButton}</li><li>${updateButton}</li></ul>`
+    let updateButton = '<a href="#" class="text-secondary update-button" title="Update"><i class="fa fa-edit"></i></a>'
+    let deleteButton = '<a href="#" class="text-secondary delete-button" title="Delete"><i class="fa fa-trash"></i></a>'
+    let defaultContentHtml = `<ul class="d-flex">
+    							<li class="mr-3">${readButton}</li>
+    							<li class="mr-3">${updateButton}</li>
+    							<li class="mr-3">${deleteButton}</li>
+    						</ul>`
     
-	var table = $('#user_table').DataTable({
+	let table = $('#user_table').DataTable({
         processing: true,
         serverSide: true,
         ajax: 'api/datatable/user',
@@ -53,17 +81,37 @@ $(document).ready( function () {
                 {data: null, orderable: false, searchable: false}
             ]
       });
-	                              
-    table.on('click', '.read-button', function () {
-        let data = table.row($(this).parents('tr')).data();
-        window.location.href = `user/read/${data['id']}`
-    });
-    
-    table.on('click', '.update-button', function () {
-        let data = table.row($(this).parents('tr')).data();
-        window.location.href = `user/update/${data['id']}`
-    });
-} );
+
+	table.on('click', '.read-button', function () {
+	    let data = table.row($(this).parents('tr')).data();
+	    window.location.href = `user/read/${data['id']}`
+	});
+	
+	table.on('click', '.update-button', function () {
+	    let data = table.row($(this).parents('tr')).data();
+	    window.location.href = `user/update/${data['id']}`
+	});
+	
+	table.on('click', '.delete-button', function () {
+	    let data = table.row($(this).parents('tr')).data();
+	    formDelete(data['id'])
+	    
+	});
+    						
+	return table
+}
+
+function formDelete(id) {
+    var form = document.createElement("form");
+    var element1 = document.createElement("input");
+
+    form.method = "POST"
+    form.action = `user/delete/${id}` 
+
+    document.body.appendChild(form);
+
+    form.submit();
+}
 </script>
 
 </html>

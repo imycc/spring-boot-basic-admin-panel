@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.Http.user.dao.UserDatatableDAO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
+import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 
 @Service
 public class UserDatatableProviderImpl implements UserDatatableProvider{
@@ -39,6 +39,12 @@ public class UserDatatableProviderImpl implements UserDatatableProvider{
 		}else{
 			throw new WebPageNotFoundException();
 		}
+	}
+
+	@Override
+	public boolean deleteUser(int id) {
+		
+		return true;
 	}
 
 }
