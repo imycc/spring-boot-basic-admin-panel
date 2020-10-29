@@ -13,10 +13,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
 import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.user.dao.model.Users;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
-import com.imyc.SBAP.Http.user.services.dpl.UserDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
 

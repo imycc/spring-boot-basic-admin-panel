@@ -1,7 +1,8 @@
 package com.imyc.SBAP.Http.user.services.requester;
 
 import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.imyc.SBAP.Http.user.services.Requester.UserDetailsServiceImpl;
 import com.imyc.SBAP.Http.user.services.dpl.UserDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 

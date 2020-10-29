@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.services.Requester;
+package com.imyc.SBAP.Http.user.services.requester;
 
 import java.util.Optional;
 

@@ -1,6 +1,7 @@
 package com.imyc.SBAP.Http.user.action;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,25 +10,25 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
-import com.imyc.SBAP.Http.user.services.Requester.UserDatatableProvider;
+import com.imyc.SBAP.Http.user.services.requester.contracts.UserDeleteRequester;
 
 public class UserDeleteTest {
 
 	@Mock
-	private UserDatatableProvider userDatatableProvider;
+	private UserDeleteRequester userDeleteContract;
 	private UserDelete userDelete;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		userDelete = new UserDelete(userDatatableProvider);
+		userDelete = new UserDelete(userDeleteContract);
 	}
 
 	@Test
 	public void testHandleWithUserExist() throws WebDeleteDataException {
 		int id = 1;
 		
-		Mockito.when(userDatatableProvider.deleteUser(id)).thenReturn(true);
+		Mockito.when(userDeleteContract.deleteUser(id)).thenReturn(true);
 		String actual = userDelete.handle(id);
 		
 		assertNotNull(actual);

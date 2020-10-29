@@ -1,6 +1,7 @@
 package com.imyc.SBAP.Http.user.action.api;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashMap;
 
@@ -12,14 +13,14 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.imyc.SBAP.Http.user.services.Requester.UserDatatableProvider;
+import com.imyc.SBAP.Http.user.services.requester.contracts.UserIndexRequester;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
 
 public class GetUserDatatableTest {
 
 	@Mock
-	private UserDatatableProvider userDatatableProvider;
+	private UserIndexRequester userIndexContract;
 	private GetUserDatatable getUserDatatable;
 	private HashMap<String, Object> serverSideConfig;
 	private UserDatatableVO dummyUserDatatableVO;
@@ -27,7 +28,7 @@ public class GetUserDatatableTest {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		getUserDatatable = new GetUserDatatable(userDatatableProvider);
+		getUserDatatable = new GetUserDatatable(userIndexContract);
 		serverSideConfig = new HashMap<>();
 		
 		serverSideConfig.put("draw", 1);
@@ -41,7 +42,7 @@ public class GetUserDatatableTest {
 		dummyUserDatatableVO = new DummyUserDatatableVOFactory().make();
 		
 		serverSideConfig.put("keyword", "");
-		Mockito.when(userDatatableProvider.loadAllUserForDatatable(serverSideConfig)).thenReturn(dummyUserDatatableVO);
+		Mockito.when(userIndexContract.loadAllUserForDatatable(serverSideConfig)).thenReturn(dummyUserDatatableVO);
 		ResponseEntity<UserDatatableVO> actual = getUserDatatable.handle(1, 0, 10 ,"");
 
 		ResponseEntity<UserDatatableVO> expected = new ResponseEntity<UserDatatableVO>(dummyUserDatatableVO, HttpStatus.OK);

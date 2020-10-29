@@ -1,6 +1,7 @@
 package com.imyc.SBAP.Http.user.action;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.imyc.SBAP.Http.user.services.Requester.UserDatatableProvider;
+import com.imyc.SBAP.Http.user.services.requester.contracts.UserCreateRequester;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.factories.dummy.user.DummyUserCreateVOFactory;
 
@@ -17,13 +18,13 @@ import com.imyc.SBAP.factories.dummy.user.DummyUserCreateVOFactory;
 public class UserCreateTest {
 	
 	@Mock
-	private UserDatatableProvider userDatatableProvider;
+	private UserCreateRequester userCreateContract;
 	private UserCreate userCreate;
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		userCreate = new UserCreate(userDatatableProvider);
+		userCreate = new UserCreate(userCreateContract);
 	}
 
 	@Test
@@ -32,7 +33,7 @@ public class UserCreateTest {
 
 		ModelAndView expected = new ModelAndView("admin-panel/user/create", "userCreateVO" , dummyUserCreateVO);
 		
-		Mockito.when(userDatatableProvider.loadRoleListForUserCreate()).thenReturn(dummyUserCreateVO);
+		Mockito.when(userCreateContract.loadRoleListForUserCreate()).thenReturn(dummyUserCreateVO);
 		ModelAndView actual = userCreate.handle();
 		
 		assertNotNull(actual);

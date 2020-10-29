@@ -17,7 +17,6 @@ import org.mockito.MockitoAnnotations;
 
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
-import com.imyc.SBAP.Http.user.services.Requester.UserDatatableProviderImpl;
 import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
