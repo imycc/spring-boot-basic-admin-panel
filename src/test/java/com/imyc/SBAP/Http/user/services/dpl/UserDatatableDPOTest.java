@@ -30,7 +30,7 @@ import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
 import com.imyc.SBAP.factories.dummy.user.DummyUserFactory;
 
-public class UserDatatableDPLTest {
+public class UserDatatableDPOTest {
 
 	@Mock
 	private UserRepository userRepo;
@@ -68,7 +68,7 @@ public class UserDatatableDPLTest {
 		
 		Mockito.when(userRepo.findAll(ArgumentMatchers.<Specification<Users>>any(), ArgumentMatchers.<Pageable>any()))
 				.thenReturn(pageUserList);
-		UserDatatableVO actual = new UserDatatableDPL(userRepo, roleRepo).getUserDatatableVO(serverSideConfig);
+		UserDatatableVO actual = new UserDatatableDPO(userRepo, roleRepo).getUserDatatableVO(serverSideConfig);
 		
 		assertNotNull(actual);
 		assertNotNull(actual.getData());
@@ -85,7 +85,7 @@ public class UserDatatableDPLTest {
 		Optional<Users> optionalUser = Optional.of(new DummyUserFactory("ADMIN").make());
 		
 		Mockito.when(userRepo.findById(ArgumentMatchers.any(Integer.class))).thenReturn(optionalUser);
-		Optional<UserReadVO> actual = new UserDatatableDPL(userRepo, roleRepo).getUserDetailForRead(id);
+		Optional<UserReadVO> actual = new UserDatatableDPO(userRepo, roleRepo).getUserDetailForRead(id);
 
 		assertNotNull(actual.get());
 	}
@@ -95,7 +95,7 @@ public class UserDatatableDPLTest {
 		int id = 1;
 		
 		Mockito.when(userRepo.findById(ArgumentMatchers.any(Integer.class))).thenReturn(Optional.empty());
-		Optional<UserReadVO> actual = new UserDatatableDPL(userRepo, roleRepo).getUserDetailForRead(id);
+		Optional<UserReadVO> actual = new UserDatatableDPO(userRepo, roleRepo).getUserDetailForRead(id);
 
 		assertTrue(actual.isEmpty());
 	}
@@ -107,7 +107,7 @@ public class UserDatatableDPLTest {
 		int id = 1;
 		
 		Mockito.when(userRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(true);
-		boolean actual = new UserDatatableDPL(userRepo, roleRepo).deleteUserWithRelationById(id);
+		boolean actual = new UserDatatableDPO(userRepo, roleRepo).deleteUserWithRelationById(id);
 
 		assertTrue(actual);
 	}
@@ -117,7 +117,7 @@ public class UserDatatableDPLTest {
 		int id = 1;
 		
 		Mockito.when(userRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(false);
-		boolean actual = new UserDatatableDPL(userRepo, roleRepo).deleteUserWithRelationById(id);
+		boolean actual = new UserDatatableDPO(userRepo, roleRepo).deleteUserWithRelationById(id);
 
 		assertFalse(actual);
 	}

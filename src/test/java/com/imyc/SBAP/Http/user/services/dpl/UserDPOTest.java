@@ -16,11 +16,11 @@ import org.mockito.MockitoAnnotations;
 import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.user.dao.model.Users;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
-import com.imyc.SBAP.Http.user.services.dpl.UserDPL;
+import com.imyc.SBAP.Http.user.services.dpl.UserDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
 
-public class UserDPLTest {
+public class UserDPOTest {
 
 	@Mock
 	private UserRepository userRepo;
@@ -47,7 +47,7 @@ public class UserDPLTest {
 		Optional<Users> dummyUser = Optional.ofNullable(users);
 		
 		Mockito.when(userRepo.findByUsername(ArgumentMatchers.any(String.class))).thenReturn(dummyUser);
-		Optional<UserVO> resultUser = new UserDPL(userRepo).getUserByUsername(username);
+		Optional<UserVO> resultUser = new UserDPO(userRepo).getUserByUsername(username);
 		
 		assertNotNull(resultUser);
 	}
@@ -56,7 +56,7 @@ public class UserDPLTest {
 	public void testGetByUsernameIfUserNotFound() {
 		
 		Mockito.when(userRepo.findByUsername(ArgumentMatchers.any(String.class))).thenReturn(Optional.empty());
-		Optional<UserVO> resultUser = new UserDPL(userRepo).getUserByUsername("NOT_EXIST");
+		Optional<UserVO> resultUser = new UserDPO(userRepo).getUserByUsername("NOT_EXIST");
 		
 		assertEquals(Optional.empty(), resultUser);
 	}

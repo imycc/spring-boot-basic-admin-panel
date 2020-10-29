@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.imyc.SBAP.Http.user.services.UserDatatableProvider;
+import com.imyc.SBAP.Http.user.services.Requester.UserDatatableProvider;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 
 

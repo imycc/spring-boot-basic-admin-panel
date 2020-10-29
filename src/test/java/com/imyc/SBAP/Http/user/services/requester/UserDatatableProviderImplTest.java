@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.services;
+package com.imyc.SBAP.Http.user.services.requester;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,8 +17,8 @@ import org.mockito.MockitoAnnotations;
 
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
-import com.imyc.SBAP.Http.user.services.UserDatatableProviderImpl;
-import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPL;
+import com.imyc.SBAP.Http.user.services.Requester.UserDatatableProviderImpl;
+import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
@@ -29,7 +29,7 @@ import com.imyc.SBAP.factories.dummy.user.DummyUserReadVOFactory;
 public class UserDatatableProviderImplTest {
 
 	@Mock
-	private UserDatatableDPL userDatatableDAO;
+	private UserDatatableDPO userDatatableDAO;
 	private HashMap<String, Object> serverSideConfig;
 	private UserDatatableVO dummyUserDatatableVO;
 	private UserReadVO dummyUserReadVO;

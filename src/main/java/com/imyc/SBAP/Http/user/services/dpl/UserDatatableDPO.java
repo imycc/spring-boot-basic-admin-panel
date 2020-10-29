@@ -25,13 +25,13 @@ import com.imyc.SBAP.Http.user.viewobject.datatable.UserRow;
 import com.imyc.SBAP.config.repositroy.SearchCriteria;
 
 @Repository
-public class UserDatatableDPL {
+public class UserDatatableDPO {
 
 	private UserRepository userRepo;
 	private RoleRepository roleRepo;
 
 	@Autowired
-	public UserDatatableDPL(UserRepository userRepo, RoleRepository roleRepo) {
+	public UserDatatableDPO(UserRepository userRepo, RoleRepository roleRepo) {
 		this.userRepo = userRepo;
 		this.roleRepo = roleRepo;
 	}

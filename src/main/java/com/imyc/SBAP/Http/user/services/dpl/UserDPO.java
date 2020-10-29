@@ -13,12 +13,12 @@ import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 @Repository
-public class UserDPL {
+public class UserDPO {
 
 	private UserRepository userRepo;
 
 	@Autowired
-	public UserDPL(UserRepository userRepo) {
+	public UserDPO(UserRepository userRepo) {
 		this.userRepo = userRepo;
 	}
 

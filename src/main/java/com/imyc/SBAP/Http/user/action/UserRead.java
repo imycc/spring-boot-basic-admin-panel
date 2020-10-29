@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.imyc.SBAP.Http.user.services.UserDatatableProvider;
+import com.imyc.SBAP.Http.user.services.Requester.UserDatatableProvider;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 

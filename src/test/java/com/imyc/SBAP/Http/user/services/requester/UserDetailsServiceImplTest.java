@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.services;
+package com.imyc.SBAP.Http.user.services.requester;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,14 +16,14 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.imyc.SBAP.Http.user.services.UserDetailsServiceImpl;
-import com.imyc.SBAP.Http.user.services.dpl.UserDPL;
+import com.imyc.SBAP.Http.user.services.Requester.UserDetailsServiceImpl;
+import com.imyc.SBAP.Http.user.services.dpl.UserDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 public class UserDetailsServiceImplTest {
 	
 	@Mock
-	private UserDPL userDAO;
+	private UserDPO userDAO;
 	
 	private UserVO userVO;
 	private List<String> roleList;

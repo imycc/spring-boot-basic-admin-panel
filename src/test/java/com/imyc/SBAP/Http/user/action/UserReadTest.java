@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.imyc.SBAP.Http.user.services.UserDatatableProvider;
+import com.imyc.SBAP.Http.user.services.Requester.UserDatatableProvider;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.factories.dummy.user.DummyUserReadVOFactory;

@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.services;
+package com.imyc.SBAP.Http.user.services.Requester;
 
 import java.util.Optional;
 
@@ -9,16 +9,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.imyc.SBAP.Http.user.services.dpl.UserDPL;
+import com.imyc.SBAP.Http.user.services.dpl.UserDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserDPL userDAO;
+    private UserDPO userDAO;
 	
 	@Autowired
-	public UserDetailsServiceImpl(UserDPL userDAO) {
+	public UserDetailsServiceImpl(UserDPO userDAO) {
 		this.userDAO = userDAO;
 	}
 	

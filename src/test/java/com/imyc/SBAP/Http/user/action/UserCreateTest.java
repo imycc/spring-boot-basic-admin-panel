@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.imyc.SBAP.Http.user.services.UserDatatableProvider;
+import com.imyc.SBAP.Http.user.services.Requester.UserDatatableProvider;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.factories.dummy.user.DummyUserCreateVOFactory;
 

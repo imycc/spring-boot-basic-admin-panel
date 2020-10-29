@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.services;
+package com.imyc.SBAP.Http.user.services.Requester;
 
 import java.util.HashMap;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
