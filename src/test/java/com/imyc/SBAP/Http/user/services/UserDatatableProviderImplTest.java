@@ -1,6 +1,10 @@
-package com.imyc.SBAP.Http.user.service;
+package com.imyc.SBAP.Http.user.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -11,18 +15,21 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.imyc.SBAP.Http.user.dao.UserDatatableDAO;
-import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
-import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
+import com.imyc.SBAP.Http.user.services.UserDatatableProviderImpl;
+import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPL;
+import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
+import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
+import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
+import com.imyc.SBAP.factories.dummy.user.DummyUserCreateVOFactory;
 import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
 import com.imyc.SBAP.factories.dummy.user.DummyUserReadVOFactory;
 
 public class UserDatatableProviderImplTest {
 
 	@Mock
-	private UserDatatableDAO userDatatableDAO;
+	private UserDatatableDPL userDatatableDAO;
 	private HashMap<String, Object> serverSideConfig;
 	private UserDatatableVO dummyUserDatatableVO;
 	private UserReadVO dummyUserReadVO;
@@ -37,8 +44,7 @@ public class UserDatatableProviderImplTest {
 		serverSideConfig.put("length", 10);
 	}
 	
-	
-	//Index
+	// Index
 	
 	@Test
 	public void testGetAllUserForDatatable() {
@@ -52,7 +58,7 @@ public class UserDatatableProviderImplTest {
 		assertEquals(dummyUserDatatableVO, actual);
 	}
 	
-	//Read
+	// Read
 	
 	@Test
 	public void testLoadUserForUserRead() throws WebPageNotFoundException {
@@ -66,6 +72,7 @@ public class UserDatatableProviderImplTest {
 		UserReadVO actual = new UserDatatableProviderImpl(userDatatableDAO).loadUserForUserRead(id);
 
 		assertNotNull(actual);
+	    assertThat(actual).isInstanceOf(UserReadVO.class);
 	}
 	
 	@Test
@@ -84,7 +91,7 @@ public class UserDatatableProviderImplTest {
 	    assertTrue(actualMessage.contains(expectedMessage));
 	}
 	
-	//Delete
+	// Delete
 	
 	@Test
 	public void testDeleteUser() throws WebDeleteDataException {
@@ -112,5 +119,20 @@ public class UserDatatableProviderImplTest {
 
 		
 	    assertTrue(actualMessage.contains(expectedMessage));
+	}
+	
+	// Create
+	
+	@Test
+	public void testLoadRoleListForUserCreate() {
+		
+		UserCreateVO dummyUserCreateVO = new DummyUserCreateVOFactory().make();
+		
+		Mockito.when(userDatatableDAO.getRoleListForUserCreate()).thenReturn(dummyUserCreateVO);
+		UserCreateVO actual = new UserDatatableProviderImpl(userDatatableDAO).loadRoleListForUserCreate();
+
+		assertNotNull(actual);
+		assertNotNull(actual.getRoleVOList());
+	    assertThat(actual).isInstanceOf(UserCreateVO.class);
 	}
 }

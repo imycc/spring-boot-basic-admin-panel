@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.dao;
+package com.imyc.SBAP.Http.user.services.dpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,12 +14,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import com.imyc.SBAP.Http.role.model.Roles;
-import com.imyc.SBAP.Http.user.model.Users;
-import com.imyc.SBAP.Http.user.repository.UserRepository;
+import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
+import com.imyc.SBAP.Http.user.services.dpl.UserDPL;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
 
-public class UserDAOTest {
+public class UserDPLTest {
 
 	@Mock
 	private UserRepository userRepo;
@@ -46,7 +47,7 @@ public class UserDAOTest {
 		Optional<Users> dummyUser = Optional.ofNullable(users);
 		
 		Mockito.when(userRepo.findByUsername(ArgumentMatchers.any(String.class))).thenReturn(dummyUser);
-		Optional<UserVO> resultUser = new UserDAO(userRepo).getUserByUsername(username);
+		Optional<UserVO> resultUser = new UserDPL(userRepo).getUserByUsername(username);
 		
 		assertNotNull(resultUser);
 	}
@@ -55,7 +56,7 @@ public class UserDAOTest {
 	public void testGetByUsernameIfUserNotFound() {
 		
 		Mockito.when(userRepo.findByUsername(ArgumentMatchers.any(String.class))).thenReturn(Optional.empty());
-		Optional<UserVO> resultUser = new UserDAO(userRepo).getUserByUsername("NOT_EXIST");
+		Optional<UserVO> resultUser = new UserDPL(userRepo).getUserByUsername("NOT_EXIST");
 		
 		assertEquals(Optional.empty(), resultUser);
 	}

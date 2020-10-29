@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.imyc.SBAP.Http.user.service.UserDatatableProvider;
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
+import com.imyc.SBAP.Http.user.services.UserDatatableProvider;
 
 @Controller
 public class UserDelete {

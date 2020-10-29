@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.dao;
+package com.imyc.SBAP.Http.user.services.dpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.imyc.SBAP.Http.role.model.Roles;
-import com.imyc.SBAP.Http.user.model.Users;
-import com.imyc.SBAP.Http.user.repository.UserRepository;
+import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 @Repository
-public class UserDAO {
+public class UserDPL {
 
 	private UserRepository userRepo;
 
 	@Autowired
-	public UserDAO(UserRepository userRepo) {
+	public UserDPL(UserRepository userRepo) {
 		this.userRepo = userRepo;
 	}
 

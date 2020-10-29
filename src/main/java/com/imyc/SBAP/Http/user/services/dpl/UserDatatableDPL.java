@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.dao;
+package com.imyc.SBAP.Http.user.services.dpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,22 +13,27 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import com.imyc.SBAP.Http.role.model.Roles;
-import com.imyc.SBAP.Http.user.model.Users;
-import com.imyc.SBAP.Http.user.repository.UserRepository;
-import com.imyc.SBAP.Http.user.repository.UserSpecification;
+import com.imyc.SBAP.Http.role.repo.RoleRepository;
+import com.imyc.SBAP.Http.role.viewobject.RoleVO;
+import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
+import com.imyc.SBAP.Http.user.dao.repository.UserSpecification;
+import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.Http.user.viewobject.datatable.UserRow;
 import com.imyc.SBAP.config.repositroy.SearchCriteria;
 
 @Repository
-public class UserDatatableDAO {
+public class UserDatatableDPL {
 
 	private UserRepository userRepo;
+	private RoleRepository roleRepo;
 
 	@Autowired
-	public UserDatatableDAO(UserRepository userRepo) {
+	public UserDatatableDPL(UserRepository userRepo, RoleRepository roleRepo) {
 		this.userRepo = userRepo;
+		this.roleRepo = roleRepo;
 	}
 	
 	public UserDatatableVO getUserDatatableVO(HashMap<String, Object> serverSideConfig) {
@@ -36,7 +41,7 @@ public class UserDatatableDAO {
 		int draw = (int) serverSideConfig.get("draw");
 		int start = (int) serverSideConfig.get("start");
 		int length = (int) serverSideConfig.get("length");
-		String keyword = (String)  serverSideConfig.get("keyword");
+		String keyword = (String) serverSideConfig.get("keyword");
 		
 		UserDatatableVO userDatatableVO = new UserDatatableVO();
 		List<UserRow> userRowList = new ArrayList<UserRow>();
@@ -106,6 +111,28 @@ public class UserDatatableDAO {
 		}else {
 			return false;
 		}
+		
 		return true;
 	}
+	
+	public UserCreateVO getRoleListForUserCreate() {
+		
+		List<Roles> roleList = roleRepo.findAll();
+		
+		List<RoleVO> roleVOList = new ArrayList<RoleVO>();
+		for (Roles role : roleList) {
+			RoleVO roleVO = new RoleVO();
+			roleVO
+				.setId(role.getId())
+				.setName(role.getName());
+			
+			roleVOList.add(roleVO);
+		}
+		
+		UserCreateVO userCreateVO = new UserCreateVO();
+		userCreateVO.setRoleVOList(roleVOList);
+			
+		return userCreateVO;
+	}
+	
 }

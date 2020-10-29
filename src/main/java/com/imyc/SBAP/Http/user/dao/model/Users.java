@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.model;
+package com.imyc.SBAP.Http.user.dao.model;
 
 import java.util.Date;
 import java.util.HashSet;

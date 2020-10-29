@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.imyc.SBAP.Http.user.service.UserDatatableProvider;
+import com.imyc.SBAP.Http.user.services.UserDatatableProvider;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.factories.dummy.user.DummyUserReadVOFactory;
@@ -44,23 +44,6 @@ public class UserReadTest {
 		assertNotNull(actual);
 		assertEquals(expected.getViewName(), actual.getViewName());
 		assertEquals(expected.getModel(), actual.getModel());
-	}
-	
-	@Test
-	public void testHandleWithUserIsEmpty() throws WebPageNotFoundException {
-		int id = 1;
-
-		Mockito.when(userDatatableProvider.loadUserForUserRead(id)).thenReturn(null);
-		
-		Exception exception = assertThrows(WebPageNotFoundException.class, () -> {
-			userRead.handle(id);
-	    });
-		
-	    String expectedMessage = "Not Found - 404";
-	    String actualMessage = exception.getMessage();
-
-		
-	    assertTrue(actualMessage.contains(expectedMessage));
 	}
 
 }

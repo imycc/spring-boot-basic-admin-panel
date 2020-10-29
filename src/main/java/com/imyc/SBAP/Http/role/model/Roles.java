@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.imyc.SBAP.Http.user.model.Users;
+import com.imyc.SBAP.Http.user.dao.model.Users;
 
 import lombok.Getter;
 import lombok.Setter;

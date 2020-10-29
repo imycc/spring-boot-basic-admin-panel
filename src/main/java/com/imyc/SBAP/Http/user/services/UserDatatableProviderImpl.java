@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.service;
+package com.imyc.SBAP.Http.user.services;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -6,19 +6,20 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.imyc.SBAP.Http.user.dao.UserDatatableDAO;
-import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
-import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
+import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPL;
+import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
+import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
+import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 
 @Service
 public class UserDatatableProviderImpl implements UserDatatableProvider {
 
-	private UserDatatableDAO userDatatableDAO;
+	private UserDatatableDPL userDatatableDAO;
 
 	@Autowired
-	public UserDatatableProviderImpl(UserDatatableDAO userDatatableDAO) {
+	public UserDatatableProviderImpl(UserDatatableDPL userDatatableDAO) {
 		this.userDatatableDAO = userDatatableDAO;
 	}
 
@@ -52,6 +53,14 @@ public class UserDatatableProviderImpl implements UserDatatableProvider {
 		} else {
 			throw new WebDeleteDataException("Unable to delete item: " + id);
 		}
+	}
+
+	@Override
+	public UserCreateVO loadRoleListForUserCreate() {
+
+		UserCreateVO userCreateVO = userDatatableDAO.getRoleListForUserCreate();
+		
+		return userCreateVO;
 	}
 
 }

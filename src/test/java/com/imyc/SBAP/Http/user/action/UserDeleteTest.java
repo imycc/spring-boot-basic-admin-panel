@@ -8,8 +8,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.imyc.SBAP.Http.user.service.UserDatatableProvider;
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
+import com.imyc.SBAP.Http.user.services.UserDatatableProvider;
 
 public class UserDeleteTest {
 

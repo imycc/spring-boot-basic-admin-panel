@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.imyc.SBAP.Http.user.service.UserDatatableProvider;
+import com.imyc.SBAP.Http.user.services.UserDatatableProvider;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
 

@@ -1,6 +1,9 @@
-package com.imyc.SBAP.Http.user.dao;
+package com.imyc.SBAP.Http.user.services.dpl;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,17 +22,20 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-import com.imyc.SBAP.Http.user.model.Users;
-import com.imyc.SBAP.Http.user.repository.UserRepository;
+import com.imyc.SBAP.Http.role.repo.RoleRepository;
+import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
 import com.imyc.SBAP.factories.dummy.user.DummyUserFactory;
 
-public class UserDatatableDAOTest {
+public class UserDatatableDPLTest {
 
 	@Mock
 	private UserRepository userRepo;
+	@Mock
+	private RoleRepository roleRepo;
 	private HashMap<String, Object> serverSideConfig;
 	private UserDatatableVO userDatatableVO;
 	private List<Users> userList;
@@ -62,7 +68,7 @@ public class UserDatatableDAOTest {
 		
 		Mockito.when(userRepo.findAll(ArgumentMatchers.<Specification<Users>>any(), ArgumentMatchers.<Pageable>any()))
 				.thenReturn(pageUserList);
-		UserDatatableVO actual = new UserDatatableDAO(userRepo).getUserDatatableVO(serverSideConfig);
+		UserDatatableVO actual = new UserDatatableDPL(userRepo, roleRepo).getUserDatatableVO(serverSideConfig);
 		
 		assertNotNull(actual);
 		assertNotNull(actual.getData());
@@ -79,7 +85,7 @@ public class UserDatatableDAOTest {
 		Optional<Users> optionalUser = Optional.of(new DummyUserFactory("ADMIN").make());
 		
 		Mockito.when(userRepo.findById(ArgumentMatchers.any(Integer.class))).thenReturn(optionalUser);
-		Optional<UserReadVO> actual = new UserDatatableDAO(userRepo).getUserDetailForRead(id);
+		Optional<UserReadVO> actual = new UserDatatableDPL(userRepo, roleRepo).getUserDetailForRead(id);
 
 		assertNotNull(actual.get());
 	}
@@ -89,7 +95,7 @@ public class UserDatatableDAOTest {
 		int id = 1;
 		
 		Mockito.when(userRepo.findById(ArgumentMatchers.any(Integer.class))).thenReturn(Optional.empty());
-		Optional<UserReadVO> actual = new UserDatatableDAO(userRepo).getUserDetailForRead(id);
+		Optional<UserReadVO> actual = new UserDatatableDPL(userRepo, roleRepo).getUserDetailForRead(id);
 
 		assertTrue(actual.isEmpty());
 	}
@@ -101,7 +107,7 @@ public class UserDatatableDAOTest {
 		int id = 1;
 		
 		Mockito.when(userRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(true);
-		boolean actual = new UserDatatableDAO(userRepo).deleteUserWithRelationById(id);
+		boolean actual = new UserDatatableDPL(userRepo, roleRepo).deleteUserWithRelationById(id);
 
 		assertTrue(actual);
 	}
@@ -111,7 +117,7 @@ public class UserDatatableDAOTest {
 		int id = 1;
 		
 		Mockito.when(userRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(false);
-		boolean actual = new UserDatatableDAO(userRepo).deleteUserWithRelationById(id);
+		boolean actual = new UserDatatableDPL(userRepo, roleRepo).deleteUserWithRelationById(id);
 
 		assertFalse(actual);
 	}

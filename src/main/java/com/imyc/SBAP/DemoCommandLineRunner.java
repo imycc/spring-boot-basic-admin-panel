@@ -9,15 +9,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.imyc.SBAP.Http.role.model.Roles;
-import com.imyc.SBAP.Http.role.repo.RolesRepository;
-import com.imyc.SBAP.Http.user.model.Users;
-import com.imyc.SBAP.Http.user.repository.UserRepository;
+import com.imyc.SBAP.Http.role.repo.RoleRepository;
+import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 
 @Component
 class DemoCommandLineRunner implements CommandLineRunner{
 
 	@Autowired
-	private RolesRepository rolesRepository;
+	private RoleRepository rolesRepository;
 
 	@Autowired
 	private UserRepository usersRepository;
