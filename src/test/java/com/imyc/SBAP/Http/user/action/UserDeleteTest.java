@@ -15,20 +15,20 @@ import com.imyc.SBAP.Http.user.services.requester.contracts.UserDeleteRequester;
 public class UserDeleteTest {
 
 	@Mock
-	private UserDeleteRequester userDeleteContract;
+	private UserDeleteRequester userDeleteRequester;
 	private UserDelete userDelete;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		userDelete = new UserDelete(userDeleteContract);
+		userDelete = new UserDelete(userDeleteRequester);
 	}
 
 	@Test
 	public void testHandleWithUserExist() throws WebDeleteDataException {
 		int id = 1;
 		
-		Mockito.when(userDeleteContract.deleteUser(id)).thenReturn(true);
+		Mockito.when(userDeleteRequester.deleteUser(id)).thenReturn(true);
 		String actual = userDelete.handle(id);
 		
 		assertNotNull(actual);

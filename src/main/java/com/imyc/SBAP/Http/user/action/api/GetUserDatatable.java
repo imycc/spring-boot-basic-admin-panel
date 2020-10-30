@@ -35,7 +35,7 @@ public class GetUserDatatable {
 		serverSideConfig.put("length", length);
 		serverSideConfig.put("keyword", keyword.trim());
 		
-		UserDatatableVO result = userIndexContract.loadAllUserForDatatable(serverSideConfig);
+		UserDatatableVO result = userIndexContract.indexResponse(serverSideConfig);
 		
 		return new ResponseEntity<UserDatatableVO>(result, HttpStatus.OK);
 	}

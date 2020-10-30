@@ -1,6 +1,7 @@
 package com.imyc.SBAP.Http.user.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,7 @@ public class UserDelete {
 	private UserDeleteRequester userDeleteContract;
 	
 	@Autowired
-	public UserDelete(UserDeleteRequester userDatatableProvider) {
+	public UserDelete(@Qualifier("UserDatatableProvider") UserDeleteRequester userDatatableProvider) {
 		this.userDeleteContract = userDatatableProvider;
 	}
 	

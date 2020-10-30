@@ -42,7 +42,7 @@ public class GetUserDatatableTest {
 		dummyUserDatatableVO = new DummyUserDatatableVOFactory().make();
 		
 		serverSideConfig.put("keyword", "");
-		Mockito.when(userIndexContract.loadAllUserForDatatable(serverSideConfig)).thenReturn(dummyUserDatatableVO);
+		Mockito.when(userIndexContract.indexResponse(serverSideConfig)).thenReturn(dummyUserDatatableVO);
 		ResponseEntity<UserDatatableVO> actual = getUserDatatable.handle(1, 0, 10 ,"");
 
 		ResponseEntity<UserDatatableVO> expected = new ResponseEntity<UserDatatableVO>(dummyUserDatatableVO, HttpStatus.OK);

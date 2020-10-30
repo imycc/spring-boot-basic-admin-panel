@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserCreateRequester;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.factories.dummy.user.DummyUserCreateVOFactory;
@@ -18,13 +19,13 @@ import com.imyc.SBAP.factories.dummy.user.DummyUserCreateVOFactory;
 public class UserCreateTest {
 	
 	@Mock
-	private UserCreateRequester userCreateContract;
+	private UserCreateRequester userCreateRequester;
 	private UserCreate userCreate;
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		userCreate = new UserCreate(userCreateContract);
+		userCreate = new UserCreate(userCreateRequester);
 	}
 
 	@Test
@@ -33,12 +34,22 @@ public class UserCreateTest {
 
 		ModelAndView expected = new ModelAndView("admin-panel/user/create", "userCreateVO" , dummyUserCreateVO);
 		
-		Mockito.when(userCreateContract.loadRoleListForUserCreate()).thenReturn(dummyUserCreateVO);
-		ModelAndView actual = userCreate.handle();
+		Mockito.when(userCreateRequester.createResponse()).thenReturn(dummyUserCreateVO);
+		ModelAndView actual = userCreate.render();
 		
 		assertNotNull(actual);
 		assertEquals(expected.getViewName(), actual.getViewName());
 		assertEquals(expected.getModel(), actual.getModel());
+	}
+	
+	@Test
+	public void testCreateFormHandle() {
+		UserCreateDTO dummyUserCreateDTO = new UserCreateDTO();
+//		Mockito.when(userCreateRequester.createRequest(dummyUserCreateDTO)).thenReturn(true);
+//		String actual = userCreate.handle();
+//		
+//		assertNotNull(actual);
+//		assertEquals("redirect:/user?create=success", actual);
 	}
 
 }

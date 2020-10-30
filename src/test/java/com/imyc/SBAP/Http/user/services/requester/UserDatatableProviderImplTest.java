@@ -51,7 +51,7 @@ public class UserDatatableProviderImplTest {
 		dummyUserDatatableVO = new DummyUserDatatableVOFactory().make();
 		
 		Mockito.when(userDatatableDAO.getUserDatatableVO(serverSideConfig)).thenReturn(dummyUserDatatableVO);
-		UserDatatableVO actual = new UserDatatableProviderImpl(userDatatableDAO).loadAllUserForDatatable(serverSideConfig);
+		UserDatatableVO actual = new UserDatatableProviderImpl(userDatatableDAO).indexResponse(serverSideConfig);
 		
 		assertNotNull(actual);
 		assertEquals(dummyUserDatatableVO, actual);
@@ -68,7 +68,7 @@ public class UserDatatableProviderImplTest {
 		Optional<UserReadVO> dummyOptionalUserReadVO = Optional.of(dummyUserReadVO);
 		
 		Mockito.when(userDatatableDAO.getUserDetailForRead(1)).thenReturn(dummyOptionalUserReadVO);
-		UserReadVO actual = new UserDatatableProviderImpl(userDatatableDAO).loadUserForUserRead(id);
+		UserReadVO actual = new UserDatatableProviderImpl(userDatatableDAO).readResponse(id);
 
 		assertNotNull(actual);
 	    assertThat(actual).isInstanceOf(UserReadVO.class);
@@ -81,7 +81,7 @@ public class UserDatatableProviderImplTest {
 		Mockito.when(userDatatableDAO.getUserDetailForRead(1)).thenReturn(Optional.empty());
 		
 		Exception exception = assertThrows(WebPageNotFoundException.class, () -> {
-			new UserDatatableProviderImpl(userDatatableDAO).loadUserForUserRead(id);
+			new UserDatatableProviderImpl(userDatatableDAO).readResponse(id);
 	    });
 		
 	    String expectedMessage = "Not Found - 404";
@@ -128,7 +128,7 @@ public class UserDatatableProviderImplTest {
 		UserCreateVO dummyUserCreateVO = new DummyUserCreateVOFactory().make();
 		
 		Mockito.when(userDatatableDAO.getRoleListForUserCreate()).thenReturn(dummyUserCreateVO);
-		UserCreateVO actual = new UserDatatableProviderImpl(userDatatableDAO).loadRoleListForUserCreate();
+		UserCreateVO actual = new UserDatatableProviderImpl(userDatatableDAO).createResponse();
 
 		assertNotNull(actual);
 		assertNotNull(actual.getRoleVOList());

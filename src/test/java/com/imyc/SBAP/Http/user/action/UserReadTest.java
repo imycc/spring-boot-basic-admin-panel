@@ -37,9 +37,9 @@ public class UserReadTest {
 
 		ModelAndView expected = new ModelAndView("admin-panel/user/read", "userReadVO", dummyUserReadVO);
 		
-		Mockito.when(userReadContract.loadUserForUserRead(id)).thenReturn(dummyUserReadVO);
+		Mockito.when(userReadContract.readResponse(id)).thenReturn(dummyUserReadVO);
 
-		ModelAndView actual = userRead.handle(id);
+		ModelAndView actual = userRead.render(id);
 		
 		assertNotNull(actual);
 		assertEquals(expected.getViewName(), actual.getViewName());

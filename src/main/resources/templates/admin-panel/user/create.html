@@ -7,7 +7,7 @@
 <h4 class="page-title pull-left">User Create</h4>
 
 <section>
-	<form method="POST" th:action="@{/user/create}" novalidate data-ajax-form>
+	<form method="POST" th:action="@{/user/create}" >
 		<div class="list-group" style="padding: 15px;">
 	        <div class="list-group-item">
 	            <div class="form-group row mb-0">
@@ -51,7 +51,7 @@
 	                <div class="col-md-8">
 	                    <div class="form-control-plaintext">
 	                		 <div class="custom-control custom-checkbox" th:each="role:*{userCreateVO.roleVOList}">
-	                             <input type="checkbox" th:id="'role_' + *{role.id}" name="roles[]" class="custom-control-input" th:value="*{role.id}" required>
+	                             <input type="checkbox" th:id="'role_' + *{role.id}" name="roles[]" class="custom-control-input" th:value="*{role.id}">
 	                             <label th:attr="for='role_' + *{role.id}" class="custom-control-label" th:text="${role.name}"></label>
 	                         </div>
 	                    </div>
@@ -67,9 +67,6 @@
 </section>
 
 <script>
-$(document).ready( function () {
-
-} );
 </script>
 
 </html>
