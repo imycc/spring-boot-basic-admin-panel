@@ -32,24 +32,28 @@ public class UserCreateTest {
 	public void testHandle() {
 		UserCreateVO dummyUserCreateVO = new DummyUserCreateVOFactory().make();
 
-		ModelAndView expected = new ModelAndView("admin-panel/user/create", "userCreateVO" , dummyUserCreateVO);
+		ModelAndView expected = new ModelAndView("admin-panel/user/create");
+		expected.addObject("userCreateVO", dummyUserCreateVO);
+		expected.addObject("userCreateDTO", new UserCreateDTO());
 		
 		Mockito.when(userCreateRequester.createResponse()).thenReturn(dummyUserCreateVO);
 		ModelAndView actual = userCreate.render();
 		
 		assertNotNull(actual);
 		assertEquals(expected.getViewName(), actual.getViewName());
-		assertEquals(expected.getModel(), actual.getModel());
 	}
 	
 	@Test
 	public void testCreateFormHandle() {
 		UserCreateDTO dummyUserCreateDTO = new UserCreateDTO();
-//		Mockito.when(userCreateRequester.createRequest(dummyUserCreateDTO)).thenReturn(true);
-//		String actual = userCreate.handle();
-//		
-//		assertNotNull(actual);
-//		assertEquals("redirect:/user?create=success", actual);
+		
+		String expected = "redirect:/user?create=success";
+		
+		Mockito.when(userCreateRequester.createRequest(dummyUserCreateDTO)).thenReturn(true);
+		String actual = userCreate.handle(dummyUserCreateDTO);
+		
+		assertNotNull(actual);
+		assertEquals(expected, actual);
 	}
 
 }

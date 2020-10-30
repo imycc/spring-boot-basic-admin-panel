@@ -1,5 +1,7 @@
 package com.imyc.SBAP.Http.user.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -19,6 +21,6 @@ public class UserCreateDTO {
 	@NotEmpty
 	private String password;
 	@NotEmpty
-	private int[] roles[];
+	private List<Integer> roles;
 	
 }
