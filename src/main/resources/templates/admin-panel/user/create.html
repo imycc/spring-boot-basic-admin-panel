@@ -7,13 +7,13 @@
 <h4 class="page-title pull-left">User Create</h4>
 
 <section>
-	<form method="POST" th:action="@{/user/create}" >
+	<form method="POST" th:action="@{/user/create}" th:object="${userCreateDTO}">
 		<div class="list-group" style="padding: 15px;">
 	        <div class="list-group-item">
 	            <div class="form-group row mb-0">
 	                <label for="name" class="col-md-2 col-form-label">Name</label>
 	                <div class="col-md-8">
-	                    <input type="text" name="name" id="name" class="form-control" required>
+	                    <input type="text" name="name" id="name" class="form-control" th:value="${name}" required>
 	                </div>
 	            </div>
 	        </div>
@@ -22,7 +22,7 @@
 	            <div class="form-group row mb-0">
 	                <label for="email" class="col-md-2 col-form-label">Email</label>
 	                <div class="col-md-8">
-	                    <input type="email" name="email" id="email" class="form-control" >
+	                    <input type="email" name="email" id="email" class="form-control" th:value="${email}" required>
 	                </div>
 	            </div>
 	        </div>
@@ -31,7 +31,7 @@
 	            <div class="form-group row mb-0">
 	                <label for="password" class="col-md-2 col-form-label">Password</label>
 	                <div class="col-md-8">
-	                    <input type="password" name="password" id="password" class="form-control" required>
+	                    <input type="password" name="password" id="password" class="form-control" th:value="${password}" required>
 	                </div>
 	            </div>
 	        </div>
@@ -50,9 +50,9 @@
 	                <label class="col-md-2 col-form-label">Roles</label>
 	                <div class="col-md-8">
 	                    <div class="form-control-plaintext">
-	                		 <div class="custom-control custom-checkbox" th:each="role:*{userCreateVO.roleVOList}">
-	                             <input type="checkbox" th:id="'role_' + *{role.id}" name="roles[]" class="custom-control-input" th:value="*{role.id}">
-	                             <label th:attr="for='role_' + *{role.id}" class="custom-control-label" th:text="${role.name}"></label>
+	                		 <div class="custom-control custom-checkbox" th:each="role: ${userCreateVO.roleVOList}">
+	                             <input type="checkbox" th:id="'role_' + ${role.id}" name="roles[]" class="custom-control-input" th:value="${role.id}" th:field="*{roles}">
+	                             <label th:attr="for='role_' + ${role.id}" class="custom-control-label" th:text="${role.name}"></label>
 	                         </div>
 	                    </div>
 	                </div>

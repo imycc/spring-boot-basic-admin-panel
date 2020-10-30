@@ -18,8 +18,7 @@ public class UserCreateDTO {
 	private String email;
 	@NotEmpty
 	private String password;
-	private String password_confirmation;
 	@NotEmpty
-	private String[] roles[];
+	private int[] roles[];
 	
 }

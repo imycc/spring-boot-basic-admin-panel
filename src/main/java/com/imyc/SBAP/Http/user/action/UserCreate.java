@@ -5,9 +5,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
@@ -30,11 +31,17 @@ public class UserCreate {
 		UserCreateVO userCreateVO = new UserCreateVO();
 		userCreateVO = userCreateRequester.createResponse();
 		
-		return new ModelAndView("admin-panel/user/create", "userCreateVO" , userCreateVO);
+		UserCreateDTO userCreateDTO = new UserCreateDTO();
+		
+		ModelAndView modelAndView = new ModelAndView("admin-panel/user/create");
+		modelAndView.addObject("userCreateVO", userCreateVO);
+		modelAndView.addObject("userCreateDTO", userCreateDTO);
+		
+		return modelAndView;
 	}
 	
 	@PostMapping("/user/create")
-	public String handle(@Valid @RequestBody UserCreateDTO userCreateDTO) {
+	public String handle(@Valid @ModelAttribute UserCreateDTO userCreateDTO) {
 		
 		userCreateRequester.createRequest(userCreateDTO);
 		
