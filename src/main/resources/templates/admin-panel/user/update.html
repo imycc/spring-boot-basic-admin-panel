@@ -1,0 +1,124 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	th:replace="admin-panel/layout/layout :: layout(~{::title}, ~{::section}, ~{::script}, ~{::h4.page-title})">
+
+<title>User Create</title>
+
+<h4 class="page-title pull-left">User Create</h4>
+
+<section>
+	<form id="user-create-form" method="POST" th:action="@{/user/update}" th:object="${userCreateDTO}">
+		<div class="list-group" style="padding: 15px;">
+	        <div class="list-group-item">
+	            <div class="form-group row mb-0">
+	                <label for="name" class="col-md-2 col-form-label">Name</label>
+	                <div class="col-md-8">
+	                    <input type="text" name="name" id="name" class="form-control" th:value="${name}" required>
+	                </div>
+	            </div>
+	        </div>
+	        
+	       	<div class="list-group-item">
+	            <div class="form-group row mb-0">
+	                <label for="email" class="col-md-2 col-form-label">Username</label>
+	                <div class="col-md-8">
+	                    <input type="text" name="username" id=username class="form-control" th:value="${username}" required>
+	                </div>
+	            </div>
+	        </div>
+	
+	        <div class="list-group-item">
+	            <div class="form-group row mb-0">
+	                <label for="email" class="col-md-2 col-form-label">Email</label>
+	                <div class="col-md-8">
+	                    <input type="email" name="email" id="email" class="form-control" th:value="${email}" required>
+	                </div>
+	            </div>
+	        </div>
+	        
+	        <div class="list-group-item">
+	            <div class="form-group row mb-0">
+	                <label for="password" class="col-md-2 col-form-label">Password</label>
+	                <div class="col-md-8">
+	                    <input type="password" name="password" id="password" class="form-control" th:value="${password}" required>
+	                </div>
+	            </div>
+	        </div>
+	
+	        <div class="list-group-item">
+	            <div class="form-group row mb-0">
+	                <label for="password_confirmation" class="col-md-2 col-form-label">Confirm Password</label>
+	                <div class="col-md-8">
+	                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
+	                    <span id='message'></span>
+	                </div>
+	            </div>
+	        </div>
+	        
+	        <div class="list-group-item">
+	            <div class="form-group row mb-0">
+	                <label class="col-md-2 col-form-label">Roles</label>
+	                <div class="col-md-8">
+	                    <div class="form-control-plaintext">
+	                		 <div class="custom-control custom-checkbox" th:each="role: ${userCreateVO.roleVOList}">
+	                             <input type="checkbox" th:id="'role_' + ${role.id}" name="roles[]" class="custom-control-input" th:value="${role.id}" th:field="*{roles}">
+	                             <label th:attr="for='role_' + ${role.id}" class="custom-control-label" th:text="${role.name}"></label>
+	                         </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        
+	        <div class="list-group-item bg-light text-left text-md-right pb-1">
+	            <button type="submit" name="_submit" class="btn btn-primary mb-2" value="redirect">Save & Back</button>
+	        </div>
+	    </div>
+	</form>
+</section>
+
+<script>
+$(document).ready( function () {
+	checkPasswordValid()
+	checkSubmitForm()
+});
+
+function checkPasswordValid() {
+	$('#password, #password_confirmation').on('keyup', function () {
+	  if ($('#password').val() == $('#password_confirmation').val()) {
+	  	$('#message').html('Matching').css('color', 'green');
+	  } else {
+	    $('#message').html('Not Matching').css('color', 'red');
+	  }
+	})
+}
+
+function checkSubmitForm() {
+    
+	$("#user-create-form").submit(function(event) {
+	    let roles = $('input[name="roles"]:checked').map(function() {
+	        return $(this).val()
+	    }).get().join()
+	    
+		if ($('#password').val() != $('#password_confirmation').val()) {
+			alert("Password Not Matching.");
+			event.preventDefault();
+		}else if (checkEmpty(roles)) {
+			alert('Roles must select at least one.')
+			event.preventDefault();
+		}else{
+			
+		}
+	})
+}
+
+function checkEmpty(value) {
+	if(value === '' || value === null || typeof value === "undefined") {
+    	return true;
+  	}else{
+    	return false;
+  	}
+}
+
+</script>
+
+</html>

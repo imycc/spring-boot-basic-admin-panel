@@ -54,7 +54,7 @@ public class UserDatatableProviderImplTest {
 		dummyUserDatatableVO = new DummyUserDatatableVOFactory().make();
 		
 		Mockito.when(userDatatableDPO.getUserDatatableVO(serverSideConfig)).thenReturn(dummyUserDatatableVO);
-		UserDatatableVO actual = new UserDatatableProviderImpl(userDatatableDPO).indexResponse(serverSideConfig);
+		UserDatatableVO actual = new UserDatatableProvider(userDatatableDPO).indexResponse(serverSideConfig);
 		
 		assertNotNull(actual);
 		assertEquals(dummyUserDatatableVO, actual);
@@ -71,7 +71,7 @@ public class UserDatatableProviderImplTest {
 		Optional<UserReadVO> dummyOptionalUserReadVO = Optional.of(dummyUserReadVO);
 		
 		Mockito.when(userDatatableDPO.getUserDetailForRead(1)).thenReturn(dummyOptionalUserReadVO);
-		UserReadVO actual = new UserDatatableProviderImpl(userDatatableDPO).readResponse(id);
+		UserReadVO actual = new UserDatatableProvider(userDatatableDPO).readResponse(id);
 
 		assertNotNull(actual);
 	    assertThat(actual).isInstanceOf(UserReadVO.class);
@@ -84,7 +84,7 @@ public class UserDatatableProviderImplTest {
 		Mockito.when(userDatatableDPO.getUserDetailForRead(1)).thenReturn(Optional.empty());
 		
 		Exception exception = assertThrows(WebPageNotFoundException.class, () -> {
-			new UserDatatableProviderImpl(userDatatableDPO).readResponse(id);
+			new UserDatatableProvider(userDatatableDPO).readResponse(id);
 	    });
 		
 	    String expectedMessage = "Not Found - 404";
@@ -101,7 +101,7 @@ public class UserDatatableProviderImplTest {
 		
 		Mockito.when(userDatatableDPO.deleteUserWithRelationById(id)).thenReturn(true);
 		
-		boolean actual = new UserDatatableProviderImpl(userDatatableDPO).deleteUser(id);
+		boolean actual = new UserDatatableProvider(userDatatableDPO).deleteUser(id);
 		
 		assertTrue(actual);
 	}
@@ -113,7 +113,7 @@ public class UserDatatableProviderImplTest {
 		Mockito.when(userDatatableDPO.deleteUserWithRelationById(id)).thenReturn(false);
 		
 		Exception exception = assertThrows(WebDeleteDataException.class, () -> {
-			new UserDatatableProviderImpl(userDatatableDPO).deleteUser(id);
+			new UserDatatableProvider(userDatatableDPO).deleteUser(id);
 	    });
 		
 	    String expectedMessage = "Unable to delete: " + id;
@@ -130,7 +130,7 @@ public class UserDatatableProviderImplTest {
 		UserCreateVO dummyUserCreateVO = new DummyUserCreateVOFactory().make();
 		
 		Mockito.when(userDatatableDPO.getRoleListForUserCreate()).thenReturn(dummyUserCreateVO);
-		UserCreateVO actual = new UserDatatableProviderImpl(userDatatableDPO).createResponse();
+		UserCreateVO actual = new UserDatatableProvider(userDatatableDPO).createResponse();
 
 		assertNotNull(actual);
 		assertNotNull(actual.getRoleVOList());
@@ -143,7 +143,7 @@ public class UserDatatableProviderImplTest {
 		UserCreateDTO dummyUserCreateDTO = new DummyUserCreateDTOFactory().make();
 		
 		Mockito.when(userDatatableDPO.userCreate(dummyUserCreateDTO)).thenReturn(true);
-		boolean actual = new UserDatatableProviderImpl(userDatatableDPO).createRequest(dummyUserCreateDTO);
+		boolean actual = new UserDatatableProvider(userDatatableDPO).createRequest(dummyUserCreateDTO);
 
 		assertNotNull(actual);
 		assertTrue(actual);
@@ -157,7 +157,7 @@ public class UserDatatableProviderImplTest {
 		Mockito.when(userDatatableDPO.userCreate(dummyUserCreateDTO)).thenReturn(false);
 		
 		Exception exception = assertThrows(WebCreateDataException.class, () -> {
-			new UserDatatableProviderImpl(userDatatableDPO).createRequest(dummyUserCreateDTO);
+			new UserDatatableProvider(userDatatableDPO).createRequest(dummyUserCreateDTO);
 	    });
 		
 	    String expectedMessage = "Unable to create: " + dummyUserCreateDTO.getName();

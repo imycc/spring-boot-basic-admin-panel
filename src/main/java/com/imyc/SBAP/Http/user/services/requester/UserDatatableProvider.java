@@ -10,27 +10,34 @@ import org.springframework.stereotype.Service;
 import com.imyc.SBAP.Exception.web.WebCreateDataException;
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
+import com.imyc.SBAP.Exception.web.WebUpdateException;
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
+import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
 import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPO;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserCreateRequester;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserDeleteRequester;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserIndexRequester;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserReadRequester;
+import com.imyc.SBAP.Http.user.services.requester.contracts.UserUpdateRequester;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
+import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
 
 @Service
 @Qualifier(value="UserDatatableProvider")
-public class UserDatatableProviderImpl implements UserCreateRequester, UserDeleteRequester, UserIndexRequester, UserReadRequester  {
+public class UserDatatableProvider implements UserCreateRequester, UserDeleteRequester, 
+												UserIndexRequester, UserReadRequester, UserUpdateRequester {
 
 	private UserDatatableDPO userDatatableDPO;
 
 	@Autowired
-	public UserDatatableProviderImpl(UserDatatableDPO userDatatableDPO) {
+	public UserDatatableProvider(UserDatatableDPO userDatatableDPO) {
 		this.userDatatableDPO = userDatatableDPO;
 	}
 
+	// Index
+	
 	@Override
 	public UserDatatableVO indexResponse(HashMap<String, Object> serverSideConfig) {
 
@@ -39,6 +46,8 @@ public class UserDatatableProviderImpl implements UserCreateRequester, UserDelet
 		return userDatatableVO;
 	}
 
+	// Read
+	
 	@Override
 	public UserReadVO readResponse(int id) throws WebPageNotFoundException {
 
@@ -51,6 +60,8 @@ public class UserDatatableProviderImpl implements UserCreateRequester, UserDelet
 		}
 	}
 
+	// Delete
+	
 	@Override
 	public boolean deleteUser(int id) throws WebDeleteDataException {
 
@@ -63,6 +74,8 @@ public class UserDatatableProviderImpl implements UserCreateRequester, UserDelet
 		}
 	}
 
+	// Create
+	
 	@Override
 	public UserCreateVO createResponse() {
 
@@ -83,5 +96,22 @@ public class UserDatatableProviderImpl implements UserCreateRequester, UserDelet
 		}
 		
 	}
+
+	// Update
+	
+	@Override
+	public UserUpdateVO updateResponse(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updateRequest(UserUpdateDTO dto) throws WebUpdateException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+
+	
 
 }

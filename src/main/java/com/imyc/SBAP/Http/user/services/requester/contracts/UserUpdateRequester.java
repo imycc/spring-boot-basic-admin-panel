@@ -1,5 +1,9 @@
 package com.imyc.SBAP.Http.user.services.requester.contracts;
 
-public interface UserUpdateRequester {
+import com.imyc.SBAP.Base.CRUDContracts.UpdateContract;
+import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
+import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
+
+public interface UserUpdateRequester extends UpdateContract<UserUpdateVO, UserUpdateDTO> {
 
 }
