@@ -17,8 +17,8 @@ public class DummyUserCreateVOFactory implements DummyFactory<UserCreateVO>{
 	@Override
 	public UserCreateVO make() {
 		
-		RoleVO adminRoleVO = new DummyRoleVOFactory(1, "Admin").make();
-		RoleVO userRoleVO = new DummyRoleVOFactory(2, "User").make();
+		RoleVO adminRoleVO = new DummyRoleVOFactory(1, "ADMIN").make();
+		RoleVO userRoleVO = new DummyRoleVOFactory(2, "USER").make();
 		
 		List<RoleVO> roleVOList = new ArrayList<RoleVO>();
 		roleVOList.add(adminRoleVO);

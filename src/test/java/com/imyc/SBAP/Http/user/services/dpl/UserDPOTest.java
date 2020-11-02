@@ -15,7 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.imyc.SBAP.Http.role.model.Roles;
-import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.Users;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
@@ -31,7 +31,7 @@ public class UserDPOTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		users = new Users();
-		dummyAdminRole = new DummyRoleFactory("ADMIN").make();
+		dummyAdminRole = new DummyRoleFactory(1, "ADMIN").make();
 	}
 	
 	@Test

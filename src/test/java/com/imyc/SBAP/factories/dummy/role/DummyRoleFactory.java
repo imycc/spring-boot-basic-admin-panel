@@ -11,10 +11,12 @@ public class DummyRoleFactory implements DummyFactory<Roles>{
 
 	private Roles dummyRole;
 	private Boolean isAdmin;
+	private int id;
 	private String roleName;
 	private Date date;
 	
-	public DummyRoleFactory(String roleName) {
+	public DummyRoleFactory(int id, String roleName) {
+		this.id = id;
 		this.roleName = roleName;  
 		if (roleName.equals("ADMIN")) {
 			this.isAdmin = true;
@@ -35,8 +37,8 @@ public class DummyRoleFactory implements DummyFactory<Roles>{
 	public Roles make() {
 		dummyRole = new Roles();
 		dummyRole
+			.setId(id)
 			.setAdmin(isAdmin)
-			.setId(1)
 			.setName(roleName)
 			.setCreatedAt(date)
 			.setUpdatedAt(date);

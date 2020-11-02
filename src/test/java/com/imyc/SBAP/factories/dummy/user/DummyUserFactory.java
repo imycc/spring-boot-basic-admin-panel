@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.imyc.SBAP.Http.role.model.Roles;
-import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.Users;
 import com.imyc.SBAP.factories.dummy.DummyFactory;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
 
@@ -29,9 +29,9 @@ public class DummyUserFactory implements DummyFactory<Users>{
 		}
 		
 		if (role.equals("ADMIN")) {
-			dummyRole = new DummyRoleFactory("ADMIN").make();
+			dummyRole = new DummyRoleFactory(1, "ADMIN").make();
 		}else{
-			dummyRole = new DummyRoleFactory("USER").make();
+			dummyRole = new DummyRoleFactory(2, "USER").make();
 		}
 
 		dummyRoleSet = new HashSet<>();

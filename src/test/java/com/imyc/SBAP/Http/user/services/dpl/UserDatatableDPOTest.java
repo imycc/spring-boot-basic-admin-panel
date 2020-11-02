@@ -1,5 +1,6 @@
 package com.imyc.SBAP.Http.user.services.dpl;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -22,11 +23,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.role.repo.RoleRepository;
-import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.Users;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
+import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
+import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
+import com.imyc.SBAP.factories.dummy.user.DummyUserCreateVOFactory;
 import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
 import com.imyc.SBAP.factories.dummy.user.DummyUserFactory;
 
@@ -120,5 +125,23 @@ public class UserDatatableDPOTest {
 		boolean actual = new UserDatatableDPO(userRepo, roleRepo).deleteUserWithRelationById(id);
 
 		assertFalse(actual);
+	}
+	
+	// Create
+	
+	@Test
+	public void TestgetRoleListForUserCreate() {
+		
+		UserCreateVO dummyUserCreateVO = new DummyUserCreateVOFactory().make();
+		
+		List<Roles> dummyUserRoleList = new ArrayList<Roles>();
+		dummyUserRoleList.add(new DummyRoleFactory(1, "ADMIN").make());
+		dummyUserRoleList.add(new DummyRoleFactory(2, "USER").make());
+		
+		Mockito.when(roleRepo.findAll()).thenReturn(dummyUserRoleList);
+		UserCreateVO actual = new UserDatatableDPO(userRepo, roleRepo).getRoleListForUserCreate();
+
+		assertNotNull(actual.getRoleVOList());
+        assertThat(actual).usingRecursiveComparison().isEqualTo(dummyUserCreateVO);
 	}
 }

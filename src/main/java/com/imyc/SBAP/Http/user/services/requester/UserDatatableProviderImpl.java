@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.imyc.SBAP.Exception.web.WebCreateDataException;
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
@@ -58,7 +59,7 @@ public class UserDatatableProviderImpl implements UserCreateRequester, UserDelet
 		if (isDeleted) {
 			return true;
 		} else {
-			throw new WebDeleteDataException("Unable to delete item: " + id);
+			throw new WebDeleteDataException("Unable to delete: " + id);
 		}
 	}
 
@@ -71,26 +72,16 @@ public class UserDatatableProviderImpl implements UserCreateRequester, UserDelet
 	}
 
 	@Override
-	public boolean createRequest(UserCreateDTO userCreateDTO) {
+	public boolean createRequest(UserCreateDTO userCreateDTO) throws WebCreateDataException{
 		
-//		String name = parameter.get("name")[0];
-//		String email = parameter.get("email")[0];
-//		String password = parameter.get("password")[0];
-//		String passwordConfirmation = parameter.get("password_confirmation")[0];
-//		String[] roles = parameter.get("roles[]");
-//		
-//		List<Integer> roleIdList = new ArrayList<Integer>();
-//		for(String id: roles) {
-//			roleIdList.add(Integer.parseInt(id));
-//		}
-//
-//		UserCreateDTO userCreateDTO = new UserCreateDTO();
-//		userCreateDTO.setName(name)
-//		.setEmail(email)
-//		.setPassword(password)
-//		.setPassword_confirmation(passwordConfirmation)
-//		.setRoleIdList(roleIdList);
-		return false;
+		boolean isCreated = userDatatableDPO.userCreate(userCreateDTO);
+		
+		if (isCreated) {
+			return true;
+		} else {
+			throw new WebCreateDataException("Unable to create: " + userCreateDTO.getName());
+		}
+		
 	}
 
 }

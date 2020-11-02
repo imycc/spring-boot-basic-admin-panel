@@ -1,10 +1,11 @@
-package com.imyc.SBAP.Http.user.dao.model;
+package com.imyc.SBAP.Http.user.dao;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,9 @@ public class Users {
 	private boolean accountExpired;
 	private boolean accountLocked;
 	private boolean credentialsExpired;
+	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private Date createdAt;
+	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private Date updatedAt;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

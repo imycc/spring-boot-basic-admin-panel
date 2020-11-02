@@ -5,12 +5,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.imyc.SBAP.Exception.web.WebCreateDataException;
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserCreateRequester;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
@@ -41,7 +41,7 @@ public class UserCreate {
 	}
 	
 	@PostMapping("/user/create")
-	public String handle(@Valid @ModelAttribute UserCreateDTO userCreateDTO) {
+	public String handle(@Valid @ModelAttribute UserCreateDTO userCreateDTO) throws WebCreateDataException {
 		
 		userCreateRequester.createRequest(userCreateDTO);
 		

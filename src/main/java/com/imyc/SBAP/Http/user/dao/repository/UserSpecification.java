@@ -7,7 +7,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.Users;
 import com.imyc.SBAP.config.repositroy.SearchCriteria;
 
 public class UserSpecification implements Specification<Users>{

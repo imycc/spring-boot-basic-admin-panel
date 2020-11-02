@@ -2,22 +2,26 @@ package com.imyc.SBAP.Http.user.services.dpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.imyc.SBAP.Http.role.model.Roles;
 import com.imyc.SBAP.Http.role.repo.RoleRepository;
 import com.imyc.SBAP.Http.role.viewobject.RoleVO;
-import com.imyc.SBAP.Http.user.dao.model.Users;
+import com.imyc.SBAP.Http.user.dao.Users;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.dao.repository.UserSpecification;
+import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
@@ -27,6 +31,9 @@ import com.imyc.SBAP.config.repositroy.SearchCriteria;
 @Repository
 public class UserDatatableDPO {
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	private UserRepository userRepo;
 	private RoleRepository roleRepo;
 
@@ -133,6 +140,28 @@ public class UserDatatableDPO {
 		userCreateVO.setRoleVOList(roleVOList);
 			
 		return userCreateVO;
+	}
+	
+	public boolean userCreate(UserCreateDTO userCreateDTO) {
+		
+		List<Integer> rawRoleList = userCreateDTO.getRoles();
+		Set<Roles> roleSet = new HashSet<>(roleRepo.findAllById(rawRoleList));
+		
+		Users user = new Users();
+		user
+			.setName(userCreateDTO.getName())
+			.setUsername(userCreateDTO.getUsername())
+			.setEmail(userCreateDTO.getEmail())
+			.setPassword(passwordEncoder.encode(userCreateDTO.getPassword()))
+			.setAccountExpired(false)
+			.setAccountLocked(false)
+			.setCredentialsExpired(false)
+			.setDisabled(false)
+			.setRoles(roleSet);
+			
+		userRepo.save(user);
+			
+		return true;
 	}
 	
 }

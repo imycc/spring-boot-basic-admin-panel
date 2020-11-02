@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.imyc.SBAP.Exception.web.WebCreateDataException;
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserCreateRequester;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
@@ -29,7 +30,7 @@ public class UserCreateTest {
 	}
 
 	@Test
-	public void testHandle() {
+	public void testRender() {
 		UserCreateVO dummyUserCreateVO = new DummyUserCreateVOFactory().make();
 
 		ModelAndView expected = new ModelAndView("admin-panel/user/create");
@@ -44,7 +45,7 @@ public class UserCreateTest {
 	}
 	
 	@Test
-	public void testCreateFormHandle() {
+	public void testHandle() throws WebCreateDataException {
 		UserCreateDTO dummyUserCreateDTO = new UserCreateDTO();
 		
 		String expected = "redirect:/user?create=success";
