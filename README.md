@@ -2,11 +2,14 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 # Overview
-Provide a basic admin panel build with Spring boot and Mysql.
-SBAP provide basic CRUD function of User, Role and Permission managemen.
+Provide a basic admin panel base on Spring boot and MySQL.
+SBAP provide basic CRUD function of User, Role and Permission management.
 
 ## TODO
-1. permission relation
+1. sql schema for migration
+2. permission
+3. Role View
+4. Unit Test
 
 ### Authors
 IMYCC
