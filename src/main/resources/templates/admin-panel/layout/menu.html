@@ -9,13 +9,13 @@
             <nav>
                 <ul class="metismenu" id="menu">
                     <li th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}">
-                    	<a href="/dashboard"><i class="ti-dashboard"></i><span>Dashboard</span></a>
+                    	<a th:href="@{/dashboard}"><i class="ti-dashboard"></i><span>Dashboard</span></a>
                     </li>
                     <li th:classappend="${#httpServletRequest.getRequestURI() == '/role' ? 'active':''}">
-                    	<a href="role"><i class="ti-shield"></i><span>Role</span></a>
+                    	<a th:href="@{/role}"><i class="ti-shield"></i><span>Role</span></a>
                     </li>
                     <li th:classappend="${#httpServletRequest.getRequestURI() == '/user' ? 'active':''}">
-                    	<a href="user"><i class="ti-user"></i><span>User</span></a>
+                    	<a th:href="@{/user}"><i class="ti-user"></i><span>User</span></a>
                     </li>
                 </ul>
             </nav>

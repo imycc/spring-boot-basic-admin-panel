@@ -7,7 +7,7 @@
 <h4 class="page-title pull-left">User Create</h4>
 
 <section>
-	<form method="POST" th:action="@{/user/create}" th:object="${userCreateDTO}">
+	<form id="user-create-form" method="POST" th:action="@{/user/create}" th:object="${userCreateDTO}">
 		<div class="list-group" style="padding: 15px;">
 	        <div class="list-group-item">
 	            <div class="form-group row mb-0">
@@ -41,6 +41,7 @@
 	                <label for="password_confirmation" class="col-md-2 col-form-label">Confirm Password</label>
 	                <div class="col-md-8">
 	                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
+	                    <span id='message'></span>
 	                </div>
 	            </div>
 	        </div>
@@ -67,6 +68,48 @@
 </section>
 
 <script>
+$(document).ready( function () {
+	checkPasswordValid()
+	checkSubmitForm()
+});
+
+function checkPasswordValid() {
+	$('#password, #password_confirmation').on('keyup', function () {
+	  if ($('#password').val() == $('#password_confirmation').val()) {
+	  	$('#message').html('Matching').css('color', 'green');
+	  } else {
+	    $('#message').html('Not Matching').css('color', 'red');
+	  }
+	})
+}
+
+function checkSubmitForm() {
+    
+	$("#user-create-form").submit(function(event) {
+	    let roles = $('input[name="roles"]:checked').map(function() {
+	        return $(this).val()
+	    }).get().join()
+	    
+		if ($('#password').val() != $('#password_confirmation').val()) {
+			alert("Password Not Matching.");
+			event.preventDefault();
+		}else if (checkEmpty(roles)) {
+			alert('Roles must select at least one.')
+			event.preventDefault();
+		}else{
+			
+		}
+	})
+}
+
+function checkEmpty(value) {
+	if(value === '' || value === null || typeof value === "undefined") {
+    	return true;
+  	}else{
+    	return false;
+  	}
+}
+
 </script>
 
 </html>
