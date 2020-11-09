@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
 import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,7 +44,9 @@ public class UserDatatableDPO {
 		this.userRepo = userRepo;
 		this.roleRepo = roleRepo;
 	}
-	
+
+	// Index
+
 	public UserDatatableVO getUserDatatableVO(HashMap<String, Object> serverSideConfig) {
 		
 		int draw = (int) serverSideConfig.get("draw");
@@ -80,6 +83,8 @@ public class UserDatatableDPO {
 		return userDatatableVO;
 	}
 
+	// Read
+
 	public Optional<UserReadVO> getUserDetailForRead(int id) {
 
 		Optional<Users> optionalUser = userRepo.findById(id);
@@ -109,7 +114,9 @@ public class UserDatatableDPO {
 			return Optional.empty();
 		}
 	}
-	
+
+	// Delete
+
 	public boolean deleteUserWithRelationById(int id) {
 		
 		boolean isExist = userRepo.existsById(id);
@@ -121,6 +128,8 @@ public class UserDatatableDPO {
 		}
 		return true;
 	}
+
+	// Create
 	
 	public UserCreateVO getRoleListForUserCreate() {
 
@@ -153,6 +162,8 @@ public class UserDatatableDPO {
 			
 		return true;
 	}
+
+	// Update
 
 	public Optional<UserUpdateVO> getUserForUserUpdate(int id) {
 
@@ -191,6 +202,26 @@ public class UserDatatableDPO {
 		}
 	}
 
+	public boolean userUpdate(UserUpdateDTO userUpdateDTO, int id) {
+		List<Integer> rawRoleList = userUpdateDTO.getRoles();
+		Set<Roles> roleSet = new HashSet<>(roleRepo.findAllById(rawRoleList));
+
+		Users user = new Users();
+		user
+				.setId(id)
+				.setName(userUpdateDTO.getName())
+				.setUsername(userUpdateDTO.getUsername())
+				.setEmail(userUpdateDTO.getEmail())
+				.setRoles(roleSet);
+		if (!userUpdateDTO.getPassword().equals("")) {
+			user.setPassword(passwordEncoder.encode(userUpdateDTO.getPassword()));
+		}
+
+		userRepo.save(user);
+		return true;
+	}
+
+	// Other
 	private List<RoleVO> getAllRoleList() {
 		List<Roles> roleList = roleRepo.findAll();
 

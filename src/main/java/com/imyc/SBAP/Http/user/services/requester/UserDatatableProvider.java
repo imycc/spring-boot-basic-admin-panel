@@ -110,14 +110,13 @@ public class UserDatatableProvider implements UserCreateRequester, UserDeleteReq
 
 	@Override
 	public boolean updateRequest(UserUpdateDTO userUpdateDTO, int id) throws WebUpdateDataException {
-//		boolean isUpdated = userDatatableDPO.userUpdate(userUpdateDTO, id);
-//
-//		if (isUpdated) {
-//			return true;
-//		} else {
-//			throw new WebUpdateDataException("Unable to update: " + userUpdateDTO.getName());
-//		}
-		return false;
+		boolean isUpdated = userDatatableDPO.userUpdate(userUpdateDTO, id);
+
+		if (isUpdated) {
+			return true;
+		} else {
+			throw new WebUpdateDataException("Unable to update: " + userUpdateDTO.getName());
+		}
 	}
 
 }

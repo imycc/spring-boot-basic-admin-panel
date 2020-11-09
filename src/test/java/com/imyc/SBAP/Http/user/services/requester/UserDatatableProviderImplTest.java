@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashMap;
 import java.util.Optional;
 
+import com.imyc.SBAP.Exception.web.WebUpdateDataException;
+import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
 import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
 import com.imyc.SBAP.factories.dummy.user.*;
 import org.junit.Before;
@@ -159,7 +161,6 @@ public class UserDatatableProviderImplTest {
 	    String actualMessage = exception.getMessage();
 
 	    assertTrue(actualMessage.contains(expectedMessage));
-	    
 	}
 
 	// Update
@@ -173,5 +174,32 @@ public class UserDatatableProviderImplTest {
 
 		assertNotNull(actual);
 		assertThat(actual).usingRecursiveComparison().isEqualTo(dummyUserUpdateVO);
+	}
+
+	@Test
+	public void testUpdateRequest() throws WebUpdateDataException {
+		UserUpdateDTO dummyUserUpdateDTO = new DummyUserUpdateDTOFactory().make();
+
+		Mockito.when(userDatatableDPO.userUpdate(dummyUserUpdateDTO, id)).thenReturn(true);
+		boolean actual = new UserDatatableProvider(userDatatableDPO).updateRequest(dummyUserUpdateDTO, id);
+
+		assertTrue(actual);
+	}
+
+	@Test
+	public void testUpdateRequestWithException() throws WebUpdateDataException {
+
+		UserUpdateDTO dummyUserUpdateDTO = new DummyUserUpdateDTOFactory().make();
+
+		Mockito.when(userDatatableDPO.userUpdate(dummyUserUpdateDTO, id)).thenReturn(false);
+
+		Exception exception = assertThrows(WebUpdateDataException.class, () -> {
+			new UserDatatableProvider(userDatatableDPO).updateRequest(dummyUserUpdateDTO, id);
+		});
+
+		String expectedMessage = "Unable to update: " + dummyUserUpdateDTO.getName();
+		String actualMessage = exception.getMessage();
+
+		assertTrue(actualMessage.contains(expectedMessage));
 	}
 }

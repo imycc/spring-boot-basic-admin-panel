@@ -25,7 +25,6 @@ public class DummyUserUpdateDTOFactory implements DummyFactory<UserUpdateDTO> {
                 .setName("Test Name")
                 .setUsername("TestUsername")
                 .setEmail("test@test.com")
-                .setPassword("testpassword")
                 .setRoles(roles);
 
         return userUpdateDTO;
