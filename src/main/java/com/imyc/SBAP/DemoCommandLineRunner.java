@@ -8,8 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.imyc.SBAP.Http.role.model.Roles;
-import com.imyc.SBAP.Http.role.repo.RoleRepository;
+import com.imyc.SBAP.Http.role.dao.Roles;
+import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
 import com.imyc.SBAP.Http.user.dao.Users;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 

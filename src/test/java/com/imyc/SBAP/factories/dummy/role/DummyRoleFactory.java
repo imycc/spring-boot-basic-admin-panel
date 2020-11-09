@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.imyc.SBAP.Http.role.model.Roles;
+import com.imyc.SBAP.Http.role.dao.Roles;
 import com.imyc.SBAP.factories.dummy.DummyFactory;
 
 public class DummyRoleFactory implements DummyFactory<Roles>{

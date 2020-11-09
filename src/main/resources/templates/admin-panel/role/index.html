@@ -4,21 +4,33 @@
 
 <title>Role</title>
 
-<h4 class="page-title pull-left">Role</h4>
+<h4 class="page-title pull-left">User</h4>
 
 <section>
+	<div class="row mb-3">
+        <div class="col-md">
+            <h2 class="mb-0"></h2>
+        </div>
+		<div class="col-md-auto mt-2">
+			<a th:href="@{/user/create}" class="btn btn-primary">Create User</a>
+	    </div>
+    </div>
+
 	<div class="row">
 	    <!-- data table start -->
-	    <div class="col-12 mt-5">
+	    <div class="col-12">
 	        <div class="card">
 	            <div class="card-body">
-	                <h4 class="header-title">Data Table Default</h4>
+	                <h4 class="header-title">User</h4>
 	                <div class="data-tables">
-	                	<table id="role_table" class="display">
+	                	<table id="user_table" class="display">
 						    <thead>
 						        <tr>
-						            <th>Column 1</th>
-						            <th>Column 2</th>
+						            <th>id</th>
+						            <th>name</th>
+						            <th>email</th>
+						            <th>IsDisable</th>
+						            <th>Action</th>
 						        </tr>
 						    </thead>
 						</table>
@@ -28,12 +40,90 @@
 	    </div>
 	    <!-- data table end -->
 	</div>
+	<div th:replace="admin-panel/element/snackbar :: snackbar"></div>
 </section>
 
 <script>
 $(document).ready( function () {
-    $('#role_table').DataTable();
-} );
+
+	initDatatable()
+	
+	checkActionStatus()
+});
+
+function initDatatable() {
+    let updateButton = '<a href="#" class="text-secondary update-button" title="Update"><i class="fa fa-edit"></i></a>'
+    let deleteButton = '<a href="#" class="text-secondary delete-button" title="Delete"><i class="fa fa-trash"></i></a>'
+    let defaultContentHtml = `<ul class="d-flex">
+    							<li class="mr-3">${updateButton}</li>
+    							<li class="mr-3">${deleteButton}</li>
+    						</ul>`
+    
+	let table = $('#user_table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: 'api/datatable/user',
+        columnDefs: [{ targets: -1, data: null, defaultContent: defaultContentHtml}],
+        columns: [
+                {data: 'id', name: 'id',orderable: false, searchable: true},
+                {data: 'name', name: 'name', orderable: true, searchable: false},
+                {data: 'email', name: 'email', orderable: true, searchable: false},
+                {data: 'disabled', name: 'disable', orderable: true, searchable: true},
+                {data: null, orderable: false, searchable: false}
+            ]
+      });
+	
+	table.on('click', '.update-button', function () {
+	    let data = table.row($(this).parents('tr')).data();
+	    window.location.href = `user/update/${data['id']}`
+	});
+	
+	table.on('click', '.delete-button', function () {
+	    let data = table.row($(this).parents('tr')).data();
+	    formDelete(data['id'])
+	    
+	});
+    						
+	return table
+}
+
+function formDelete(id) {
+    var form = document.createElement("form");
+    var element1 = document.createElement("input");
+
+    form.method = "POST"
+    form.action = `user/delete/${id}` 
+
+    document.body.appendChild(form);
+
+    form.submit();
+}
+
+function checkActionStatus() {
+	if (getUrlVars()["delete"] == "success"){
+		showSnack("Delete User Success!", "info")
+    }else if (getUrlVars()["create"] == "success"){
+    	showSnack("Create User Success!", "info")
+    }else if (getUrlVars()["update"] == "success"){
+    	showSnack("Update User Success!", "info")
+    }else if (getUrlVars()["delete"] == "failure"){
+    	showSnack("Create User Failure!", "error")
+    }else if (getUrlVars()["create"] == "failure"){
+    	showSnack("Update User Failure!", "error")
+    }else if (getUrlVars()["update"] == "failure"){
+    	showSnack("update User Failure!", "error")
+    }
+}
+
+function getUrlVars() 
+{
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
 </script>
 
 </html>

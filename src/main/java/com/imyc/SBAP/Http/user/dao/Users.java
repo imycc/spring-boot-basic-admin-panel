@@ -16,7 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
-import com.imyc.SBAP.Http.role.model.Roles;
+import com.imyc.SBAP.Http.role.dao.Roles;
 
 import lombok.Getter;
 import lombok.Setter;

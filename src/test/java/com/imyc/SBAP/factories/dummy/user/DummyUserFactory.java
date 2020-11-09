@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.imyc.SBAP.Http.role.model.Roles;
+import com.imyc.SBAP.Http.role.dao.Roles;
 import com.imyc.SBAP.Http.user.dao.Users;
 import com.imyc.SBAP.factories.dummy.DummyFactory;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;

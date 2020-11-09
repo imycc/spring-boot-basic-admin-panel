@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.role.model;
+package com.imyc.SBAP.Http.role.dao;
 
 import java.util.Date;
 import java.util.HashSet;

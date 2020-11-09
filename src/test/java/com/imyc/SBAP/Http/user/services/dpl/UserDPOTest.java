@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.imyc.SBAP.Http.role.model.Roles;
+import com.imyc.SBAP.Http.role.dao.Roles;
 import com.imyc.SBAP.Http.user.dao.Users;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
