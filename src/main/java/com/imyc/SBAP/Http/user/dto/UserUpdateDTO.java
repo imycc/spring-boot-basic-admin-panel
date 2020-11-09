@@ -20,7 +20,6 @@ public class UserUpdateDTO {
 	private String username;
 	@Email
 	private String email;
-	@NotEmpty
 	private String password;
 	@NotEmpty
 	private List<Integer> roles;

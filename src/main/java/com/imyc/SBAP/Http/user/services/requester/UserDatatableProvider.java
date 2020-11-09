@@ -3,14 +3,11 @@ package com.imyc.SBAP.Http.user.services.requester;
 import java.util.HashMap;
 import java.util.Optional;
 
+import com.imyc.SBAP.Exception.web.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.imyc.SBAP.Exception.web.WebCreateDataException;
-import com.imyc.SBAP.Exception.web.WebDeleteDataException;
-import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
-import com.imyc.SBAP.Exception.web.WebUpdateException;
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
 import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
 import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPO;
@@ -112,8 +109,14 @@ public class UserDatatableProvider implements UserCreateRequester, UserDeleteReq
 	}
 
 	@Override
-	public boolean updateRequest(UserUpdateDTO dto) throws WebUpdateException {
-		// TODO Auto-generated method stub
+	public boolean updateRequest(UserUpdateDTO userUpdateDTO, int id) throws WebUpdateDataException {
+//		boolean isUpdated = userDatatableDPO.userUpdate(userUpdateDTO, id);
+//
+//		if (isUpdated) {
+//			return true;
+//		} else {
+//			throw new WebUpdateDataException("Unable to update: " + userUpdateDTO.getName());
+//		}
 		return false;
 	}
 

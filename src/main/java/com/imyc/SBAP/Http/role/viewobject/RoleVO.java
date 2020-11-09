@@ -10,4 +10,5 @@ import lombok.experimental.Accessors;
 public class RoleVO {
 	private Integer id;
 	private String name;
+	private boolean checked = false;
 }

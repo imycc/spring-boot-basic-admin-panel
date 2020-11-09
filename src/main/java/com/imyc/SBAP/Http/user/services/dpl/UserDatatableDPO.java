@@ -163,20 +163,27 @@ public class UserDatatableDPO {
 
 			UserUpdateVO userUpdateVO = new UserUpdateVO();
 
-			List<RoleVO> roleVOList = getAllRoleList();
+			List<Roles> roleList = roleRepo.findAll();
 
-			List<Integer> userRoles = new ArrayList<Integer>();
-
-			for(Roles role : user.getRoles()) {
-				userRoles.add(role.getId());
+			List<RoleVO> roleVOList = new ArrayList<>();
+			for (Roles role : roleList) {
+				RoleVO roleVO = new RoleVO();
+				roleVO
+						.setId(role.getId())
+						.setName(role.getName());
+				for(Roles userRole : user.getRoles()) {
+					if (role.getId() == userRole.getId()) {
+						roleVO.setChecked(true);
+					}
+				}
+				roleVOList.add(roleVO);
 			}
 
 			userUpdateVO
 					.setName(user.getName())
 					.setEmail(user.getEmail())
 					.setUsername(user.getUsername())
-					.setRoleVOList(roleVOList)
-					.setUserRoles(userRoles);
+					.setRoleVOList(roleVOList);
 
 			return Optional.of(userUpdateVO);
 		}else{
@@ -187,7 +194,7 @@ public class UserDatatableDPO {
 	private List<RoleVO> getAllRoleList() {
 		List<Roles> roleList = roleRepo.findAll();
 
-		List<RoleVO> roleVOList = new ArrayList<RoleVO>();
+		List<RoleVO> roleVOList = new ArrayList<>();
 		for (Roles role : roleList) {
 			RoleVO roleVO = new RoleVO();
 			roleVO

@@ -33,8 +33,7 @@ public class DummyUserUpdateVOFactory implements DummyFactory<UserUpdateVO> {
                 .setName("Test Name")
                 .setUsername("TestUsername")
                 .setEmail("test@test.com")
-                .setRoleVOList(roleVOList)
-                .setUserRoles(userRoles);
+                .setRoleVOList(roleVOList);
 
         return userUpdateVO;
     }

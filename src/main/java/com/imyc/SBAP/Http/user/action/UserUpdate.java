@@ -1,16 +1,22 @@
 package com.imyc.SBAP.Http.user.action;
 
+import com.imyc.SBAP.Exception.web.WebCreateDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
+import com.imyc.SBAP.Exception.web.WebUpdateDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserUpdateRequester;
 import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserUpdate {
@@ -37,12 +43,12 @@ public class UserUpdate {
 		return modelAndView;
 	}
 	
-//	@PostMapping("/user/update")
-//	public String handle(@Valid @ModelAttribute UserUpdateDTO userUpdateDTO) throws WebCreateDataException {
-//		
-//		userUpdateContract.updateRequest(userCreateDTO);
-//		
-//		return "redirect:/user?update=success";
-//	}
+	@PostMapping("/user/update/{id}")
+	public String handle(@Valid @ModelAttribute UserUpdateDTO userUpdateDTO, @PathVariable(value="id") int id) throws WebUpdateDataException {
+
+		userUpdateContract.updateRequest(userUpdateDTO, id);
+
+		return "redirect:/user?update=success";
+	}
 	
 }

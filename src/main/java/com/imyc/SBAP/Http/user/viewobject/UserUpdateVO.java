@@ -17,6 +17,5 @@ public class UserUpdateVO {
 	private String username;
 	private String email;
 	private List<RoleVO> roleVOList;
-	private List<Integer> userRoles;
 	
 }
