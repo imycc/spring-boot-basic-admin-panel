@@ -1,5 +1,6 @@
 package com.imyc.SBAP.Http.user.action;
 
+import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -22,22 +23,22 @@ public class UserUpdate {
 	}
 
 	@GetMapping("/user/update/{id}")
-	public ModelAndView render(@PathVariable(value="id") int id) {
+	public ModelAndView render(@PathVariable(value="id") int id) throws WebPageNotFoundException {
 		
-		UserUpdateVO userUpdateVO = new UserUpdateVO();
-		userUpdateVO = userUpdateContract.updateResponse(id);
+		UserUpdateVO userUpdateVO = userUpdateContract.updateResponse(id);
 		
 		UserUpdateDTO userUpdateDTO = new UserUpdateDTO();
 		
 		ModelAndView modelAndView = new ModelAndView("admin-panel/user/update");
+		modelAndView.addObject("id", id);
 		modelAndView.addObject("userUpdateVO", userUpdateVO);
 		modelAndView.addObject("userUpdateDTO", userUpdateDTO);
 		
 		return modelAndView;
 	}
 	
-//	@PostMapping("/user/create")
-//	public String handle(@Valid @ModelAttribute UserUpdateDTO userCreateDTO) throws WebCreateDataException {
+//	@PostMapping("/user/update")
+//	public String handle(@Valid @ModelAttribute UserUpdateDTO userUpdateDTO) throws WebCreateDataException {
 //		
 //		userUpdateContract.updateRequest(userCreateDTO);
 //		

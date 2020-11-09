@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashMap;
 import java.util.Optional;
 
+import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
+import com.imyc.SBAP.factories.dummy.user.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -23,10 +25,6 @@ import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
-import com.imyc.SBAP.factories.dummy.user.DummyUserCreateDTOFactory;
-import com.imyc.SBAP.factories.dummy.user.DummyUserCreateVOFactory;
-import com.imyc.SBAP.factories.dummy.user.DummyUserDatatableVOFactory;
-import com.imyc.SBAP.factories.dummy.user.DummyUserReadVOFactory;
 
 public class UserDatatableProviderImplTest {
 
@@ -35,6 +33,7 @@ public class UserDatatableProviderImplTest {
 	private HashMap<String, Object> serverSideConfig;
 	private UserDatatableVO dummyUserDatatableVO;
 	private UserReadVO dummyUserReadVO;
+	private int id = 1;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -64,13 +63,12 @@ public class UserDatatableProviderImplTest {
 	
 	@Test
 	public void testLoadUserForUserRead() throws WebPageNotFoundException {
-		int id = 1;
-		
+
 		dummyUserReadVO = new DummyUserReadVOFactory().make();
 		
 		Optional<UserReadVO> dummyOptionalUserReadVO = Optional.of(dummyUserReadVO);
 		
-		Mockito.when(userDatatableDPO.getUserDetailForRead(1)).thenReturn(dummyOptionalUserReadVO);
+		Mockito.when(userDatatableDPO.getUserDetailForRead(id)).thenReturn(dummyOptionalUserReadVO);
 		UserReadVO actual = new UserDatatableProvider(userDatatableDPO).readResponse(id);
 
 		assertNotNull(actual);
@@ -79,9 +77,8 @@ public class UserDatatableProviderImplTest {
 	
 	@Test
 	public void testLoadUserForUserReadIsEmpty() throws WebPageNotFoundException {
-		int id = 1;
 
-		Mockito.when(userDatatableDPO.getUserDetailForRead(1)).thenReturn(Optional.empty());
+		Mockito.when(userDatatableDPO.getUserDetailForRead(id)).thenReturn(Optional.empty());
 		
 		Exception exception = assertThrows(WebPageNotFoundException.class, () -> {
 			new UserDatatableProvider(userDatatableDPO).readResponse(id);
@@ -97,8 +94,7 @@ public class UserDatatableProviderImplTest {
 	
 	@Test
 	public void testDeleteUser() throws WebDeleteDataException {
-		int id = 1;
-		
+
 		Mockito.when(userDatatableDPO.deleteUserWithRelationById(id)).thenReturn(true);
 		
 		boolean actual = new UserDatatableProvider(userDatatableDPO).deleteUser(id);
@@ -108,7 +104,6 @@ public class UserDatatableProviderImplTest {
 	
 	@Test
 	public void testDeleteUserWithException() throws WebDeleteDataException {
-		int id = 1;
 
 		Mockito.when(userDatatableDPO.deleteUserWithRelationById(id)).thenReturn(false);
 		
@@ -165,5 +160,18 @@ public class UserDatatableProviderImplTest {
 
 	    assertTrue(actualMessage.contains(expectedMessage));
 	    
+	}
+
+	// Update
+
+	@Test
+	public void testUpdateResponse() throws WebPageNotFoundException {
+		UserUpdateVO dummyUserUpdateVO = new DummyUserUpdateVOFactory().make();
+
+		Mockito.when(userDatatableDPO.getUserForUserUpdate(id)).thenReturn(Optional.of(dummyUserUpdateVO));
+		UserUpdateVO actual = new UserDatatableProvider(userDatatableDPO).updateResponse(id);
+
+		assertNotNull(actual);
+		assertThat(actual).usingRecursiveComparison().isEqualTo(dummyUserUpdateVO);
 	}
 }

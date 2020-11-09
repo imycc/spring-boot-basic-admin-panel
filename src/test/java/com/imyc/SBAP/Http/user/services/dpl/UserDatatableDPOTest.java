@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
+import com.imyc.SBAP.factories.dummy.user.DummyUserUpdateVOFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -44,6 +46,7 @@ public class UserDatatableDPOTest {
 	private HashMap<String, Object> serverSideConfig;
 	private UserDatatableVO userDatatableVO;
 	private List<Users> userList;
+	private int id = 1;
 	
 	@Before
 	public void setUp() {
@@ -85,7 +88,7 @@ public class UserDatatableDPOTest {
 	//Read
 	
 	@Test
-	public void TestGetUserDetailForRead() {
+	public void testGetUserDetailForRead() {
 		int id = 1;
 		Optional<Users> optionalUser = Optional.of(new DummyUserFactory("ADMIN").make());
 		
@@ -96,7 +99,7 @@ public class UserDatatableDPOTest {
 	}
 	
 	@Test
-	public void TestGetUserDetailForReadIsEmpty() {
+	public void testGetUserDetailForReadIsEmpty() {
 		int id = 1;
 		
 		Mockito.when(userRepo.findById(ArgumentMatchers.any(Integer.class))).thenReturn(Optional.empty());
@@ -108,7 +111,7 @@ public class UserDatatableDPOTest {
 	//Delete
 	
 	@Test
-	public void TestDeleteUserWithRelationById() {
+	public void testDeleteUserWithRelationById() {
 		int id = 1;
 		
 		Mockito.when(userRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(true);
@@ -118,7 +121,7 @@ public class UserDatatableDPOTest {
 	}
 
 	@Test
-	public void TestDeleteUserWithRelationByIdIfUserIsNotExist() {
+	public void testDeleteUserWithRelationByIdIfUserIsNotExist() {
 		int id = 1;
 		
 		Mockito.when(userRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(false);
@@ -130,7 +133,7 @@ public class UserDatatableDPOTest {
 	// Create
 	
 	@Test
-	public void TestgetRoleListForUserCreate() {
+	public void testGetRoleListForUserCreate() {
 		
 		UserCreateVO dummyUserCreateVO = new DummyUserCreateVOFactory().make();
 		
@@ -143,5 +146,21 @@ public class UserDatatableDPOTest {
 
 		assertNotNull(actual.getRoleVOList());
         assertThat(actual).usingRecursiveComparison().isEqualTo(dummyUserCreateVO);
+	}
+
+	// Update
+
+	@Test
+	public void testGetUserForUserUpdate() {
+		UserUpdateVO dummyUserUpdateVO = new DummyUserUpdateVOFactory().make();
+
+		List<Roles> dummyUserRoleList = new ArrayList<Roles>();
+		dummyUserRoleList.add(new DummyRoleFactory(2, "USER").make());
+
+		Mockito.when(roleRepo.findAll()).thenReturn(dummyUserRoleList);
+		Optional<UserUpdateVO> actual = new UserDatatableDPO(userRepo, roleRepo).getUserForUserUpdate(id);
+
+		assertNotNull(actual.get());
+		assertThat(actual).usingRecursiveComparison().isEqualTo(dummyUserUpdateVO);
 	}
 }

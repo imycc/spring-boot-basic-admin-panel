@@ -10,7 +10,9 @@ public class DummyUserCreateDTOFactory implements DummyFactory<UserCreateDTO>{
 
 	private UserCreateDTO userCreateDTO;
 	
-	public DummyUserCreateDTOFactory() {}
+	public DummyUserCreateDTOFactory() {
+
+	}
 
 	@Override
 	public UserCreateDTO make() {
@@ -24,8 +26,7 @@ public class DummyUserCreateDTOFactory implements DummyFactory<UserCreateDTO>{
 			.setEmail("test@test.com")
 			.setPassword("testpassword")
 			.setRoles(roles);
-		
-		
+
 		return userCreateDTO;
 	}
 	

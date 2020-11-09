@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -82,7 +83,7 @@ public class UserDatatableDPO {
 	public Optional<UserReadVO> getUserDetailForRead(int id) {
 
 		Optional<Users> optionalUser = userRepo.findById(id);
-		
+
 		if (optionalUser.isPresent()) {
 			Users user = optionalUser.get();
 
@@ -90,9 +91,9 @@ public class UserDatatableDPO {
 			for (Roles role : user.getRoles()) {
 				roleList.add(role.getName());
 			}
-			
+
 			UserReadVO userReadVO = new UserReadVO();
-			
+
 			userReadVO
 				.setId(user.getId())
 				.setName(user.getName())
@@ -102,7 +103,7 @@ public class UserDatatableDPO {
 				.setUpdatedAt(user.getUpdatedAt())
 				.setDisabled(user.isDisabled())
 				.setRoles(roleList.toArray(new String[0]));
-			
+
 			return Optional.of(userReadVO);
 		}else{
 			return Optional.empty();
@@ -118,23 +119,12 @@ public class UserDatatableDPO {
 		}else {
 			return false;
 		}
-		
 		return true;
 	}
 	
 	public UserCreateVO getRoleListForUserCreate() {
-		
-		List<Roles> roleList = roleRepo.findAll();
-		
-		List<RoleVO> roleVOList = new ArrayList<RoleVO>();
-		for (Roles role : roleList) {
-			RoleVO roleVO = new RoleVO();
-			roleVO
-				.setId(role.getId())
-				.setName(role.getName());
-			
-			roleVOList.add(roleVO);
-		}
+
+		List<RoleVO> roleVOList = getAllRoleList();
 		
 		UserCreateVO userCreateVO = new UserCreateVO();
 		userCreateVO.setRoleVOList(roleVOList);
@@ -163,5 +153,51 @@ public class UserDatatableDPO {
 			
 		return true;
 	}
-	
+
+	public Optional<UserUpdateVO> getUserForUserUpdate(int id) {
+
+		Optional<Users> optionalUser = userRepo.findById(id);
+
+		if (optionalUser.isPresent()) {
+			Users user = optionalUser.get();
+
+			UserUpdateVO userUpdateVO = new UserUpdateVO();
+
+			List<RoleVO> roleVOList = getAllRoleList();
+
+			List<Integer> userRoles = new ArrayList<Integer>();
+
+			for(Roles role : user.getRoles()) {
+				userRoles.add(role.getId());
+			}
+
+			userUpdateVO
+					.setName(user.getName())
+					.setEmail(user.getEmail())
+					.setUsername(user.getUsername())
+					.setRoleVOList(roleVOList)
+					.setUserRoles(userRoles);
+
+			return Optional.of(userUpdateVO);
+		}else{
+			return Optional.empty();
+		}
+	}
+
+	private List<RoleVO> getAllRoleList() {
+		List<Roles> roleList = roleRepo.findAll();
+
+		List<RoleVO> roleVOList = new ArrayList<RoleVO>();
+		for (Roles role : roleList) {
+			RoleVO roleVO = new RoleVO();
+			roleVO
+					.setId(role.getId())
+					.setName(role.getName());
+
+			roleVOList.add(roleVO);
+		}
+
+		return roleVOList;
+	}
+
 }

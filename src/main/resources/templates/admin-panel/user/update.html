@@ -7,7 +7,7 @@
 <h4 class="page-title pull-left">User Create</h4>
 
 <section>
-	<form id="user-create-form" method="POST" th:action="@{/user/update}" th:object="${userCreateDTO}">
+	<form id="user-create-form" method="POST" th:action="@{|/user/update/${id}|}" th:object="${userUpdateDTO}">
 		<div class="list-group" style="padding: 15px;">
 	        <div class="list-group-item">
 	            <div class="form-group row mb-0">
@@ -54,20 +54,20 @@
 	                </div>
 	            </div>
 	        </div>
-	        
-	        <div class="list-group-item">
-	            <div class="form-group row mb-0">
-	                <label class="col-md-2 col-form-label">Roles</label>
-	                <div class="col-md-8">
-	                    <div class="form-control-plaintext">
-	                		 <div class="custom-control custom-checkbox" th:each="role: ${userCreateVO.roleVOList}">
-	                             <input type="checkbox" th:id="'role_' + ${role.id}" name="roles[]" class="custom-control-input" th:value="${role.id}" th:field="*{roles}">
-	                             <label th:attr="for='role_' + ${role.id}" class="custom-control-label" th:text="${role.name}"></label>
-	                         </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
+<!--	        -->
+<!--	        <div class="list-group-item">-->
+<!--	            <div class="form-group row mb-0">-->
+<!--	                <label class="col-md-2 col-form-label">Roles</label>-->
+<!--	                <div class="col-md-8">-->
+<!--	                    <div class="form-control-plaintext">-->
+<!--	                		 <div class="custom-control custom-checkbox" th:each="role: ${userUpdateVO.roleVOList}">-->
+<!--	                             <input type="checkbox" th:id="'role_' + ${role.id}" name="roles[]" class="custom-control-input" th:value="${role.id}" th:field="*{roles}">-->
+<!--	                             <label th:attr="for='role_' + ${role.id}" class="custom-control-label" th:text="${role.name}"></label>-->
+<!--	                         </div>-->
+<!--	                    </div>-->
+<!--	                </div>-->
+<!--	            </div>-->
+<!--	        </div>-->
 	        
 	        <div class="list-group-item bg-light text-left text-md-right pb-1">
 	            <button type="submit" name="_submit" class="btn btn-primary mb-2" value="redirect">Save & Back</button>

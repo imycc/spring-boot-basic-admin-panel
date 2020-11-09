@@ -11,18 +11,19 @@ import com.imyc.SBAP.factories.dummy.role.DummyRoleVOFactory;
 public class DummyUserCreateVOFactory implements DummyFactory<UserCreateVO>{
 
 	private UserCreateVO userCreateVO;
+	private List<RoleVO> roleVOList;
 	
-	public DummyUserCreateVOFactory() {}
+	public DummyUserCreateVOFactory() {
+		RoleVO adminRoleVO = new DummyRoleVOFactory(1, "ADMIN").make();
+		RoleVO userRoleVO = new DummyRoleVOFactory(2, "USER").make();
+
+		roleVOList = new ArrayList<RoleVO>();
+		roleVOList.add(adminRoleVO);
+		roleVOList.add(userRoleVO);
+	}
 
 	@Override
 	public UserCreateVO make() {
-		
-		RoleVO adminRoleVO = new DummyRoleVOFactory(1, "ADMIN").make();
-		RoleVO userRoleVO = new DummyRoleVOFactory(2, "USER").make();
-		
-		List<RoleVO> roleVOList = new ArrayList<RoleVO>();
-		roleVOList.add(adminRoleVO);
-		roleVOList.add(userRoleVO);
 		
 		userCreateVO = new UserCreateVO();
 		userCreateVO.setRoleVOList(roleVOList);

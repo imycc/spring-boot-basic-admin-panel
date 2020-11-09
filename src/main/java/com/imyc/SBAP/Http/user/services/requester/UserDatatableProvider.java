@@ -100,9 +100,15 @@ public class UserDatatableProvider implements UserCreateRequester, UserDeleteReq
 	// Update
 	
 	@Override
-	public UserUpdateVO updateResponse(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserUpdateVO updateResponse(int id) throws WebPageNotFoundException {
+
+		Optional<UserUpdateVO> optionalUserUpdateVO = userDatatableDPO.getUserForUserUpdate(id);
+
+		if (optionalUserUpdateVO.isPresent()) {
+			return optionalUserUpdateVO.get();
+		} else {
+			throw new WebPageNotFoundException();
+		}
 	}
 
 	@Override
@@ -110,8 +116,5 @@ public class UserDatatableProvider implements UserCreateRequester, UserDeleteReq
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-
-	
 
 }
