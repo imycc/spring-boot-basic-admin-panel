@@ -38,7 +38,7 @@ public class GetRoleDatatable {
 		
 		RoleDatatableVO result = roleIndexContract.indexResponse(serverSideConfig);
 		
-		return new ResponseEntity<RoleDatatableVO>(result, HttpStatus.OK);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 }

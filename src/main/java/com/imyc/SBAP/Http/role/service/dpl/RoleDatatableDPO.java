@@ -38,11 +38,10 @@ public class RoleDatatableDPO {
         RoleDatatableVO roleDatatableVO = new RoleDatatableVO();
         List<RoleRow> roleRowList = new ArrayList<>();
 
-        RoleSpecification spec1 = new RoleSpecification(new SearchCriteria("id", ":", keyword));
-        RoleSpecification spec2 = new RoleSpecification(new SearchCriteria("name", ":", keyword));
+        RoleSpecification spec1 = new RoleSpecification(new SearchCriteria("name", ":", keyword));
 
         Pageable pageRequest = PageRequest.of(start, length);
-        Page<Roles> allRole = roleRepo.findAll(Specification.where(spec1).or(spec2), pageRequest);
+        Page<Roles> allRole = roleRepo.findAll(Specification.where(spec1), pageRequest);
 
         for(Roles role : allRole) {
             RoleRow roleRow = new RoleRow();

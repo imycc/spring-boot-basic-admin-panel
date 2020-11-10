@@ -4,7 +4,7 @@
 
 <title>Role</title>
 
-<h4 class="page-title pull-left">User</h4>
+<h4 class="page-title pull-left">Role</h4>
 
 <section>
 	<div class="row mb-3">
@@ -12,7 +12,7 @@
             <h2 class="mb-0"></h2>
         </div>
 		<div class="col-md-auto mt-2">
-			<a th:href="@{/user/create}" class="btn btn-primary">Create User</a>
+			<a th:href="@{/user/create}" class="btn btn-primary">Create Role</a>
 	    </div>
     </div>
 
@@ -21,15 +21,13 @@
 	    <div class="col-12">
 	        <div class="card">
 	            <div class="card-body">
-	                <h4 class="header-title">User</h4>
+	                <h4 class="header-title">Role</h4>
 	                <div class="data-tables">
-	                	<table id="user_table" class="display">
+	                	<table id="role_table" class="display">
 						    <thead>
 						        <tr>
 						            <th>id</th>
 						            <th>name</th>
-						            <th>email</th>
-						            <th>IsDisable</th>
 						            <th>Action</th>
 						        </tr>
 						    </thead>
@@ -59,23 +57,21 @@ function initDatatable() {
     							<li class="mr-3">${deleteButton}</li>
     						</ul>`
     
-	let table = $('#user_table').DataTable({
+	let table = $('#role_table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: 'api/datatable/user',
+        ajax: 'api/datatable/role',
         columnDefs: [{ targets: -1, data: null, defaultContent: defaultContentHtml}],
         columns: [
                 {data: 'id', name: 'id',orderable: false, searchable: true},
-                {data: 'name', name: 'name', orderable: true, searchable: false},
-                {data: 'email', name: 'email', orderable: true, searchable: false},
-                {data: 'disabled', name: 'disable', orderable: true, searchable: true},
+                {data: 'name', name: 'name', orderable: true, searchable: true},
                 {data: null, orderable: false, searchable: false}
             ]
-      });
+	});
 	
 	table.on('click', '.update-button', function () {
 	    let data = table.row($(this).parents('tr')).data();
-	    window.location.href = `user/update/${data['id']}`
+	    window.location.href = `role/update/${data['id']}`
 	});
 	
 	table.on('click', '.delete-button', function () {
@@ -89,10 +85,9 @@ function initDatatable() {
 
 function formDelete(id) {
     var form = document.createElement("form");
-    var element1 = document.createElement("input");
 
     form.method = "POST"
-    form.action = `user/delete/${id}` 
+    form.action = `role/delete/${id}`
 
     document.body.appendChild(form);
 
