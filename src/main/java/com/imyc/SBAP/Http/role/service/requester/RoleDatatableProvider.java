@@ -5,9 +5,11 @@ import com.imyc.SBAP.Http.role.service.dataprocess.RoleDatatableDPO;
 import com.imyc.SBAP.Http.role.service.requester.contracts.RoleIndexRequester;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
+@Qualifier(value="RoleDatatableProvider")
 public class RoleDatatableProvider implements RoleIndexRequester {
 
     private RoleDatatableDPO roleDatatableDPO;

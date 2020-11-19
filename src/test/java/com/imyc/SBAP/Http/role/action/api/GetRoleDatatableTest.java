@@ -14,34 +14,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 
 public class GetRoleDatatableTest {
 
 	@Mock
-	private RoleIndexRequester roleIndexRequester;
+	private RoleIndexRequester roleIndexContract;
 	private GetRoleDatatable getRoleDatatable;
-	private DatatableServerSideConfig dummyDatatableServerSideConfig;
 	private RoleDatatableVO dummyRoleDatatableVO;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		getRoleDatatable = new GetRoleDatatable(roleIndexRequester);
+		getRoleDatatable = new GetRoleDatatable(roleIndexContract);
 	}
 
 	@Test
 	public void testGetUserDatatableWithOutKeyword() {
 
 		dummyRoleDatatableVO = new DummyRoleDatatableVOFactory().make();
-		dummyDatatableServerSideConfig = new DummyDatatableServerSideConfigFactory(1, 0, 10, "").make();
 
-		Mockito.when(roleIndexRequester.indexResponse(dummyDatatableServerSideConfig)).thenReturn(dummyRoleDatatableVO);
+		Mockito.when(roleIndexContract.indexResponse(any(DatatableServerSideConfig.class))).thenReturn(dummyRoleDatatableVO);
 		ResponseEntity<RoleDatatableVO> actual = getRoleDatatable.handle(1, 0, 10 ,"");
 
 		ResponseEntity<RoleDatatableVO> expected = new ResponseEntity<>(dummyRoleDatatableVO, HttpStatus.OK);
-		
+
 		assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
 	}
 

@@ -2,6 +2,7 @@ package com.imyc.SBAP.Http.user.action.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.util.HashMap;
 
@@ -24,7 +25,6 @@ public class GetUserDatatableTest {
 	@Mock
 	private UserIndexRequester userIndexContract;
 	private GetUserDatatable getUserDatatable;
-	private DatatableServerSideConfig dummyDatatableServerSideConfig;
 	private UserDatatableVO dummyUserDatatableVO;
 	
 	@Before
@@ -37,9 +37,8 @@ public class GetUserDatatableTest {
 	public void testGetUserDatatableWithOutKeyword() {
 		
 		dummyUserDatatableVO = new DummyUserDatatableVOFactory().make();
-		dummyDatatableServerSideConfig = new DummyDatatableServerSideConfigFactory(1, 0, 10, "").make();
 		
-		Mockito.when(userIndexContract.indexResponse(dummyDatatableServerSideConfig)).thenReturn(dummyUserDatatableVO);
+		Mockito.when(userIndexContract.indexResponse(any(DatatableServerSideConfig.class))).thenReturn(dummyUserDatatableVO);
 		ResponseEntity<UserDatatableVO> actual = getUserDatatable.handle(1, 0, 10 ,"");
 
 		ResponseEntity<UserDatatableVO> expected = new ResponseEntity<UserDatatableVO>(dummyUserDatatableVO, HttpStatus.OK);

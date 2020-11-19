@@ -6,6 +6,7 @@ import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserIndexRequester;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ public class GetRoleDatatable {
 	private DatatableServerSideConfig datatableServerSideConfig;
 
 	@Autowired
-	public GetRoleDatatable(RoleIndexRequester roleIndexContract) {
+	public GetRoleDatatable(@Qualifier("RoleDatatableProvider") RoleIndexRequester roleIndexContract) {
 		this.roleIndexContract = roleIndexContract;
 	}
 

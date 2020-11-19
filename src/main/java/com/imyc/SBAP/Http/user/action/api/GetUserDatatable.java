@@ -1,9 +1,8 @@
 package com.imyc.SBAP.Http.user.action.api;
 
-import java.util.HashMap;
-
 import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +16,10 @@ import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 public class GetUserDatatable {
 	
 	private UserIndexRequester userIndexContract;
+	private DatatableServerSideConfig datatableServerSideConfig;
 	
 	@Autowired
-	public GetUserDatatable (UserIndexRequester userIndexContract) {
+	public GetUserDatatable (@Qualifier("UserDatatableProvider") UserIndexRequester userIndexContract) {
 		this.userIndexContract = userIndexContract;
 	}
 
@@ -28,7 +28,7 @@ public class GetUserDatatable {
 			@RequestParam int draw, @RequestParam int start, @RequestParam int length, 
 			@RequestParam(name="search[value]", required = false) String keyword) {
 
-		DatatableServerSideConfig datatableServerSideConfig = new DatatableServerSideConfig();
+		datatableServerSideConfig = new DatatableServerSideConfig();
 		datatableServerSideConfig
 				.setDraw(draw)
 				.setStart(start)
@@ -37,7 +37,7 @@ public class GetUserDatatable {
 		
 		UserDatatableVO result = userIndexContract.indexResponse(datatableServerSideConfig);
 		
-		return new ResponseEntity<UserDatatableVO>(result, HttpStatus.OK);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 }
