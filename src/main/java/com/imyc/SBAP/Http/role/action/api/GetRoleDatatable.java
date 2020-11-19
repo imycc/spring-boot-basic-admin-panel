@@ -1,5 +1,6 @@
 package com.imyc.SBAP.Http.role.action.api;
 
+import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import com.imyc.SBAP.Http.role.service.requester.contracts.RoleIndexRequester;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserIndexRequester;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 public class GetRoleDatatable {
 
 	private RoleIndexRequester roleIndexContract;
+	private DatatableServerSideConfig datatableServerSideConfig;
 
 	@Autowired
 	public GetRoleDatatable(RoleIndexRequester roleIndexContract) {
@@ -28,17 +30,17 @@ public class GetRoleDatatable {
 	public ResponseEntity<RoleDatatableVO> handle(
 			@RequestParam int draw, @RequestParam int start, @RequestParam int length, 
 			@RequestParam(name="search[value]", required = false) String keyword) {
+
+		datatableServerSideConfig = new DatatableServerSideConfig();
+		datatableServerSideConfig
+				.setDraw(draw)
+				.setStart(start)
+				.setLength(length)
+				.setKeyword(keyword.trim());
+
+		RoleDatatableVO roleDatatableVO = roleIndexContract.indexResponse(datatableServerSideConfig);
 		
-		HashMap<String, Object> serverSideConfig = new HashMap<>();
-		
-		serverSideConfig.put("draw", draw);
-		serverSideConfig.put("start", start);
-		serverSideConfig.put("length", length);
-		serverSideConfig.put("keyword", keyword.trim());
-		
-		RoleDatatableVO result = roleIndexContract.indexResponse(serverSideConfig);
-		
-		return new ResponseEntity<>(result, HttpStatus.OK);
+		return new ResponseEntity<>(roleDatatableVO, HttpStatus.OK);
 	}
 	
 }

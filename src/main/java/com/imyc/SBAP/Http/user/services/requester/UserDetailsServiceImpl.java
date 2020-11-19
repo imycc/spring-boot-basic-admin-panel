@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.imyc.SBAP.Http.user.services.dpl.UserDPO;
+import com.imyc.SBAP.Http.user.services.dataprocess.UserDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 @Service

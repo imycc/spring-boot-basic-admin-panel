@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.user.services.dpl;
+package com.imyc.SBAP.Http.user.services.dataprocess;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,11 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
+import com.imyc.SBAP.factories.dummy.base.DummyDatatableServerSideConfigFactory;
 import com.imyc.SBAP.factories.dummy.user.DummyUserUpdateVOFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class UserDatatableDPOTest {
 	private UserRepository userRepo;
 	@Mock
 	private RoleRepository roleRepo;
-	private HashMap<String, Object> serverSideConfig;
+	private DatatableServerSideConfig dummyDatatableServerSideConfig;
 	private UserDatatableVO userDatatableVO;
 	private List<Users> userList;
 	private int id = 1;
@@ -51,11 +52,6 @@ public class UserDatatableDPOTest {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		serverSideConfig = new HashMap<>();
-		
-		serverSideConfig.put("draw", 1);
-		serverSideConfig.put("start", 0);
-		serverSideConfig.put("length", 10);
 		
 		userList = new ArrayList<Users>();
 		Users user = new DummyUserFactory("ADMIN").make();
@@ -66,17 +62,17 @@ public class UserDatatableDPOTest {
 
 	@Test
 	public void testGetUserDatatableVO() {
-		int start = (int) serverSideConfig.get("start");
-		int length = (int) serverSideConfig.get("length");
 		
 		userDatatableVO = new DummyUserDatatableVOFactory().make();
+		dummyDatatableServerSideConfig = new DummyDatatableServerSideConfigFactory(1, 0, 10, null).make();
+
 		
-		PageRequest pagable = PageRequest.of(start, length);
+		PageRequest pagable = PageRequest.of(dummyDatatableServerSideConfig.getStart(), dummyDatatableServerSideConfig.getLength());
 		Page<Users> pageUserList = new PageImpl<>(userList, pagable, userList.size());
 		
 		Mockito.when(userRepo.findAll(ArgumentMatchers.<Specification<Users>>any(), ArgumentMatchers.<Pageable>any()))
 				.thenReturn(pageUserList);
-		UserDatatableVO actual = new UserDatatableDPO(userRepo, roleRepo).getUserDatatableVO(serverSideConfig);
+		UserDatatableVO actual = new UserDatatableDPO(userRepo, roleRepo).getUserDatatableVO(dummyDatatableServerSideConfig);
 		
 		assertNotNull(actual);
 		assertNotNull(actual.getData());

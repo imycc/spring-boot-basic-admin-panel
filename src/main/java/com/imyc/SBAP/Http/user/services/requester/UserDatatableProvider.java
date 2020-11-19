@@ -1,8 +1,8 @@
 package com.imyc.SBAP.Http.user.services.requester;
 
-import java.util.HashMap;
 import java.util.Optional;
 
+import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import com.imyc.SBAP.Exception.web.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
 import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
-import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPO;
+import com.imyc.SBAP.Http.user.services.dataprocess.UserDatatableDPO;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserCreateRequester;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserDeleteRequester;
 import com.imyc.SBAP.Http.user.services.requester.contracts.UserIndexRequester;
@@ -36,9 +36,9 @@ public class UserDatatableProvider implements UserCreateRequester, UserDeleteReq
 	// Index
 	
 	@Override
-	public UserDatatableVO indexResponse(HashMap<String, Object> serverSideConfig) {
+	public UserDatatableVO indexResponse(DatatableServerSideConfig datatableServerSideConfig) {
 
-		UserDatatableVO userDatatableVO = userDatatableDPO.getUserDatatableVO(serverSideConfig);
+		UserDatatableVO userDatatableVO = userDatatableDPO.getUserDatatableVO(datatableServerSideConfig);
 
 		return userDatatableVO;
 	}

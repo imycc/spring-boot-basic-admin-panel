@@ -6,12 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.HashMap;
 import java.util.Optional;
 
+import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import com.imyc.SBAP.Exception.web.WebUpdateDataException;
 import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
 import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
+import com.imyc.SBAP.factories.dummy.base.DummyDatatableServerSideConfigFactory;
 import com.imyc.SBAP.factories.dummy.user.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ import com.imyc.SBAP.Exception.web.WebCreateDataException;
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
-import com.imyc.SBAP.Http.user.services.dpl.UserDatatableDPO;
+import com.imyc.SBAP.Http.user.services.dataprocess.UserDatatableDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
 import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
@@ -32,7 +33,7 @@ public class UserDatatableProviderImplTest {
 
 	@Mock
 	private UserDatatableDPO userDatatableDPO;
-	private HashMap<String, Object> serverSideConfig;
+	private DatatableServerSideConfig dummyDatatableServerSideConfig;
 	private UserDatatableVO dummyUserDatatableVO;
 	private UserReadVO dummyUserReadVO;
 	private int id = 1;
@@ -40,11 +41,6 @@ public class UserDatatableProviderImplTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		
-		serverSideConfig = new HashMap<>();
-		serverSideConfig.put("draw", 1);
-		serverSideConfig.put("start", 0);
-		serverSideConfig.put("length", 10);
 	}
 	
 	// Index
@@ -53,9 +49,10 @@ public class UserDatatableProviderImplTest {
 	public void testGetAllUserForDatatable() {
 
 		dummyUserDatatableVO = new DummyUserDatatableVOFactory().make();
+		dummyDatatableServerSideConfig = new DummyDatatableServerSideConfigFactory(1, 0, 10, null).make();
 		
-		Mockito.when(userDatatableDPO.getUserDatatableVO(serverSideConfig)).thenReturn(dummyUserDatatableVO);
-		UserDatatableVO actual = new UserDatatableProvider(userDatatableDPO).indexResponse(serverSideConfig);
+		Mockito.when(userDatatableDPO.getUserDatatableVO(dummyDatatableServerSideConfig)).thenReturn(dummyUserDatatableVO);
+		UserDatatableVO actual = new UserDatatableProvider(userDatatableDPO).indexResponse(dummyDatatableServerSideConfig);
 		
 		assertNotNull(actual);
 		assertEquals(dummyUserDatatableVO, actual);

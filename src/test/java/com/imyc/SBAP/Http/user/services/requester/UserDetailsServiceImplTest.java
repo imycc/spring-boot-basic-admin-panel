@@ -17,7 +17,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.imyc.SBAP.Http.user.services.dpl.UserDPO;
+import com.imyc.SBAP.Http.user.services.dataprocess.UserDPO;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
 public class UserDetailsServiceImplTest {

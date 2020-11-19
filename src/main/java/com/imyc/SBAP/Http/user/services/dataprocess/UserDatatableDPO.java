@@ -1,12 +1,12 @@
-package com.imyc.SBAP.Http.user.services.dpl;
+package com.imyc.SBAP.Http.user.services.dataprocess;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
 import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +47,12 @@ public class UserDatatableDPO {
 
 	// Index
 
-	public UserDatatableVO getUserDatatableVO(HashMap<String, Object> serverSideConfig) {
-		
-		int draw = (int) serverSideConfig.get("draw");
-		int start = (int) serverSideConfig.get("start");
-		int length = (int) serverSideConfig.get("length");
-		String keyword = (String) serverSideConfig.get("keyword");
+	public UserDatatableVO getUserDatatableVO(DatatableServerSideConfig datatableServerSideConfig) {
+
+		int draw = (int) datatableServerSideConfig.getDraw();
+		int start = (int) datatableServerSideConfig.getStart();
+		int length = (int) datatableServerSideConfig.getLength();
+		String keyword = (String) datatableServerSideConfig.getKeyword();
 		
 		UserDatatableVO userDatatableVO = new UserDatatableVO();
 		List<UserRow> userRowList = new ArrayList<UserRow>();

@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Base.CRUDContracts;
+package com.imyc.SBAP.Base.dao.CRUDContracts;
 
 import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 

@@ -1,5 +1,6 @@
-package com.imyc.SBAP.Http.role.service.dpl;
+package com.imyc.SBAP.Http.role.service.dataprocess;
 
+import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import com.imyc.SBAP.Http.role.dao.Roles;
 import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
 import com.imyc.SBAP.Http.role.dao.repository.RoleSpecification;
@@ -14,7 +15,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -28,12 +28,12 @@ public class RoleDatatableDPO {
 
     // Index
 
-    public RoleDatatableVO getRoleDatatableVO(HashMap<String, Object> serverSideConfig) {
+    public RoleDatatableVO getRoleDatatableVO(DatatableServerSideConfig datatableServerSideConfig) {
 
-        int draw = (int) serverSideConfig.get("draw");
-        int start = (int) serverSideConfig.get("start");
-        int length = (int) serverSideConfig.get("length");
-        String keyword = (String) serverSideConfig.get("keyword");
+        int draw = datatableServerSideConfig.getDraw();
+        int start = datatableServerSideConfig.getStart();
+        int length = datatableServerSideConfig.getLength();
+        String keyword = datatableServerSideConfig.getKeyword();
 
         RoleDatatableVO roleDatatableVO = new RoleDatatableVO();
         List<RoleRow> roleRowList = new ArrayList<>();

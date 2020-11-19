@@ -1,6 +1,6 @@
 package com.imyc.SBAP.Http.user.services.requester.contracts;
 
-import com.imyc.SBAP.Base.CRUDContracts.CreateContract;
+import com.imyc.SBAP.Base.dao.CRUDContracts.CreateContract;
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 

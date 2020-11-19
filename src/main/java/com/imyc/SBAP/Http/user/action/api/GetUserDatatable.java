@@ -2,6 +2,7 @@ package com.imyc.SBAP.Http.user.action.api;
 
 import java.util.HashMap;
 
+import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +27,15 @@ public class GetUserDatatable {
 	public ResponseEntity<UserDatatableVO> handle(
 			@RequestParam int draw, @RequestParam int start, @RequestParam int length, 
 			@RequestParam(name="search[value]", required = false) String keyword) {
+
+		DatatableServerSideConfig datatableServerSideConfig = new DatatableServerSideConfig();
+		datatableServerSideConfig
+				.setDraw(draw)
+				.setStart(start)
+				.setLength(length)
+				.setKeyword(keyword.trim());
 		
-		HashMap<String, Object> serverSideConfig = new HashMap<>();
-		
-		serverSideConfig.put("draw", draw);
-		serverSideConfig.put("start", start);
-		serverSideConfig.put("length", length);
-		serverSideConfig.put("keyword", keyword.trim());
-		
-		UserDatatableVO result = userIndexContract.indexResponse(serverSideConfig);
+		UserDatatableVO result = userIndexContract.indexResponse(datatableServerSideConfig);
 		
 		return new ResponseEntity<UserDatatableVO>(result, HttpStatus.OK);
 	}

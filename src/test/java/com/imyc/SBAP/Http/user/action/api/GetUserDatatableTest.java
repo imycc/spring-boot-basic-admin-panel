@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashMap;
 
+import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
+import com.imyc.SBAP.factories.dummy.base.DummyDatatableServerSideConfigFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -22,27 +24,22 @@ public class GetUserDatatableTest {
 	@Mock
 	private UserIndexRequester userIndexContract;
 	private GetUserDatatable getUserDatatable;
-	private HashMap<String, Object> serverSideConfig;
+	private DatatableServerSideConfig dummyDatatableServerSideConfig;
 	private UserDatatableVO dummyUserDatatableVO;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		getUserDatatable = new GetUserDatatable(userIndexContract);
-		serverSideConfig = new HashMap<>();
-		
-		serverSideConfig.put("draw", 1);
-		serverSideConfig.put("start", 0);
-		serverSideConfig.put("length", 10);
 	}
 
 	@Test
 	public void testGetUserDatatableWithOutKeyword() {
 		
 		dummyUserDatatableVO = new DummyUserDatatableVOFactory().make();
+		dummyDatatableServerSideConfig = new DummyDatatableServerSideConfigFactory(1, 0, 10, "").make();
 		
-		serverSideConfig.put("keyword", "");
-		Mockito.when(userIndexContract.indexResponse(serverSideConfig)).thenReturn(dummyUserDatatableVO);
+		Mockito.when(userIndexContract.indexResponse(dummyDatatableServerSideConfig)).thenReturn(dummyUserDatatableVO);
 		ResponseEntity<UserDatatableVO> actual = getUserDatatable.handle(1, 0, 10 ,"");
 
 		ResponseEntity<UserDatatableVO> expected = new ResponseEntity<UserDatatableVO>(dummyUserDatatableVO, HttpStatus.OK);

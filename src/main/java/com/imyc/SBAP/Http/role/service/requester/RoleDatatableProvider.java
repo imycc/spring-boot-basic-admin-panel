@@ -1,12 +1,11 @@
 package com.imyc.SBAP.Http.role.service.requester;
 
-import com.imyc.SBAP.Http.role.service.dpl.RoleDatatableDPO;
+import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
+import com.imyc.SBAP.Http.role.service.dataprocess.RoleDatatableDPO;
 import com.imyc.SBAP.Http.role.service.requester.contracts.RoleIndexRequester;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 
 @Service
 public class RoleDatatableProvider implements RoleIndexRequester {
@@ -21,8 +20,8 @@ public class RoleDatatableProvider implements RoleIndexRequester {
     // Index
 
     @Override
-    public RoleDatatableVO indexResponse(HashMap<String, Object> serverSideConfig) {
-        RoleDatatableVO roleDatatableVO = roleDatatableDPO.getRoleDatatableVO(serverSideConfig);
+    public RoleDatatableVO indexResponse(DatatableServerSideConfig datatableServerSideConfig) {
+        RoleDatatableVO roleDatatableVO = roleDatatableDPO.getRoleDatatableVO(datatableServerSideConfig);
 
         return roleDatatableVO;
     }
