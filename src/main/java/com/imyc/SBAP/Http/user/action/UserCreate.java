@@ -28,9 +28,8 @@ public class UserCreate {
 	@GetMapping("/user/create")
 	public ModelAndView render() {
 		
-		UserCreateVO userCreateVO = new UserCreateVO();
-		userCreateVO = userCreateRequester.createResponse();
-		
+		UserCreateVO userCreateVO = userCreateRequester.createResponse();
+
 		UserCreateDTO userCreateDTO = new UserCreateDTO();
 		
 		ModelAndView modelAndView = new ModelAndView("admin-panel/user/create");
