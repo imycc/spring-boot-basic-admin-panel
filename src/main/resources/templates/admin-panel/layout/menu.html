@@ -11,10 +11,10 @@
                     <li th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}">
                     	<a th:href="@{/dashboard}"><i class="ti-dashboard"></i><span>Dashboard</span></a>
                     </li>
-                    <li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${#httpServletRequest.getRequestURI() == '/role' ? 'active':''}">
+                    <li sec:authorize="hasAuthority('ROLE_ADMIN')" th:classappend="${#httpServletRequest.getRequestURI() == '/role' ? 'active':''}">
                     	<a th:href="@{/role}"><i class="ti-shield"></i><span>Role</span></a>
                     </li>
-                    <li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${#httpServletRequest.getRequestURI() == '/user' ? 'active':''}">
+                    <li sec:authorize="hasAuthority('ROLE_ADMIN')" th:classappend="${#httpServletRequest.getRequestURI() == '/user' ? 'active':''}">
                     	<a th:href="@{/user}"><i class="ti-user"></i><span>User</span></a>
                     </li>
                 </ul>

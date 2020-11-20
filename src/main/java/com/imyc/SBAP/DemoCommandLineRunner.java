@@ -65,8 +65,13 @@ class DemoCommandLineRunner implements CommandLineRunner{
         rolesRepository.save(role2);
 
         Privilege privilege = new Privilege();
-        privilege.setGroup("Dashboard");
-        privilege.setName("READ");
+        privilege.setName("Dashboard_INDEX");
+        privilege.setName("Role_INDEX");
+        privilege.setName("User_INDEX");
+        privilege.setName("User_READ");
+        privilege.setName("User_UPDATE");
+        privilege.setName("User_CREATE");
+        privilege.setName("User_DELETE");
         privilegeRepository.save(privilege);
 
         user.setRoles(Set.copyOf(Arrays.asList(role)));

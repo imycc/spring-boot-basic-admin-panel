@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.imyc.SBAP.Http.privilege.Privilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,8 +31,14 @@ public class UserDPO {
 			User user = optionalUser.get();
 
 			List<String> roleList = new ArrayList<String>();
+			List<Privilege> collection = new ArrayList<>();
 			for (Role role : user.getRoles()) {
 				roleList.add(role.getName());
+				collection.addAll(role.getPrivileges());
+			}
+			List<String> privileges = new ArrayList<>();
+			for (Privilege item : collection) {
+				privileges.add(item.getName());
 			}
 
 			UserVO userVO = new UserVO();
@@ -43,7 +50,8 @@ public class UserDPO {
 				.setAccountExpired(user.isAccountExpired())
 				.setAccountLocked(user.isAccountLocked())
 				.setCredentialsExpired(user.isCredentialsExpired())
-				.setRoles(roleList.toArray(new String[0]));
+				.setRoles(roleList.toArray(new String[0]))
+				.setPrivilege(privileges);
 			
 			return Optional.of(userVO);
 		}else{

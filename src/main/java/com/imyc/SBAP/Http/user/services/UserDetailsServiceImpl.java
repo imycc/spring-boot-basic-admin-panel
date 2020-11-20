@@ -1,8 +1,12 @@
-package com.imyc.SBAP.Http.user.services.requester;
+package com.imyc.SBAP.Http.user.services;
 
-import java.util.Optional;
+import java.util.*;
 
+import com.imyc.SBAP.Http.privilege.Privilege;
+import com.imyc.SBAP.Http.role.dao.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         
         if(optionalUser.isPresent()) {
         	UserVO user = optionalUser.get();
-        	
+
             return User.builder()
             	.username(user.getUsername())
             	.password(user.getPassword())
@@ -38,9 +42,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             	.accountLocked(user.isAccountLocked())
             	.credentialsExpired(user.isCredentialsExpired())
             	.roles(user.getRoles())
+				.authorities(getGrantedAuthorities(user.getPrivilege()))
             	.build();
         } else {
         	throw new UsernameNotFoundException("User Name is not Found");
         }   
     }
+
+	private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		for (String privilege : privileges) {
+			authorities.add(new SimpleGrantedAuthority(privilege));
+		}
+		return authorities;
+	}
+
 }
