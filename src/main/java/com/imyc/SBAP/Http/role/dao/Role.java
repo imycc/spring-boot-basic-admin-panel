@@ -4,12 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.imyc.SBAP.Http.user.dao.Users;
 
@@ -29,7 +24,9 @@ public class Roles {
 	private Integer id;
 	private String name;
 	private Boolean admin;
+	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private Date createdAt;
+	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private Date updatedAt;
 
 	@ManyToMany(mappedBy = "roles")
