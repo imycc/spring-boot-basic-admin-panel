@@ -1,6 +1,7 @@
 package com.imyc.SBAP.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,7 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity(debug=false)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
+	@Qualifier("userDetailsServiceImpl")
 	@Autowired
 	UserDetailsService userDetailsService;
 	

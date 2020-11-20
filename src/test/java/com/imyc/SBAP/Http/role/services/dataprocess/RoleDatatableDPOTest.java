@@ -1,7 +1,7 @@
 package com.imyc.SBAP.Http.role.services.dataprocess;
 
 import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
-import com.imyc.SBAP.Http.role.dao.Roles;
+import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
 import com.imyc.SBAP.Http.role.service.dataprocess.RoleDatatableDPO;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
@@ -32,7 +32,7 @@ public class RoleDatatableDPOTest {
 	private RoleRepository roleRepo;
 	private DatatableServerSideConfig dummyDatatableServerSideConfig;
 	private RoleDatatableVO roleDatatableVO;
-	private List<Roles> roleList;
+	private List<Role> roleList;
 	private int id = 1;
 	
 	@Before
@@ -40,7 +40,7 @@ public class RoleDatatableDPOTest {
 		MockitoAnnotations.initMocks(this);
 
 		roleList = new ArrayList<>();
-		Roles role = new DummyRoleFactory(2, "ADMIN").make();
+		Role role = new DummyRoleFactory(2, "ADMIN").make();
 		roleList.add(role);
 	}
 	
@@ -53,9 +53,9 @@ public class RoleDatatableDPOTest {
 		roleDatatableVO = new DummyRoleDatatableVOFactory().make();
 		
 		PageRequest pagable = PageRequest.of(dummyDatatableServerSideConfig.getStart(), dummyDatatableServerSideConfig.getLength());
-		Page<Roles> pageRoleList = new PageImpl<>(roleList, pagable, roleList.size());
+		Page<Role> pageRoleList = new PageImpl<>(roleList, pagable, roleList.size());
 		
-		Mockito.when(roleRepo.findAll(ArgumentMatchers.<Specification<Roles>>any(), ArgumentMatchers.<Pageable>any()))
+		Mockito.when(roleRepo.findAll(ArgumentMatchers.<Specification<Role>>any(), ArgumentMatchers.<Pageable>any()))
 				.thenReturn(pageRoleList);
 		RoleDatatableVO actual = new RoleDatatableDPO(roleRepo).getRoleDatatableVO(dummyDatatableServerSideConfig);
 		

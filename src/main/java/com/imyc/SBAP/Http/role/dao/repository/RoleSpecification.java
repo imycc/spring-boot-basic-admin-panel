@@ -1,7 +1,6 @@
 package com.imyc.SBAP.Http.role.dao.repository;
 
-import com.imyc.SBAP.Http.role.dao.Roles;
-import com.imyc.SBAP.Http.user.dao.Users;
+import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.config.repositroy.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -10,7 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-public class RoleSpecification implements Specification<Roles>{
+public class RoleSpecification implements Specification<Role>{
 
 	/**
 	 *
@@ -23,7 +22,7 @@ public class RoleSpecification implements Specification<Roles>{
 	}
 	
 	@Override
-	public Predicate toPredicate(Root<Roles> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+	public Predicate toPredicate(Root<Role> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		if (criteria.getOperation().equalsIgnoreCase(">")) {
             return criteriaBuilder.greaterThanOrEqualTo(
               root.<String> get(criteria.getKey()), criteria.getValue().toString());

@@ -7,10 +7,10 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.imyc.SBAP.Http.user.dao.Users;
+import com.imyc.SBAP.Http.user.dao.User;
 import com.imyc.SBAP.config.repositroy.SearchCriteria;
 
-public class UserSpecification implements Specification<Users>{
+public class UserSpecification implements Specification<User>{
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class UserSpecification implements Specification<Users>{
 	}
 	
 	@Override
-	public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+	public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		if (criteria.getOperation().equalsIgnoreCase(">")) {
             return criteriaBuilder.greaterThanOrEqualTo(
               root.<String> get(criteria.getKey()), criteria.getValue().toString());

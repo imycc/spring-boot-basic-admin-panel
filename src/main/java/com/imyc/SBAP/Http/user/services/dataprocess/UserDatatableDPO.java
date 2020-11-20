@@ -17,10 +17,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import com.imyc.SBAP.Http.role.dao.Roles;
+import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
 import com.imyc.SBAP.Http.role.viewobject.RoleVO;
-import com.imyc.SBAP.Http.user.dao.Users;
+import com.imyc.SBAP.Http.user.dao.User;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.dao.repository.UserSpecification;
 import com.imyc.SBAP.Http.user.dto.UserCreateDTO;
@@ -61,9 +61,9 @@ public class UserDatatableDPO {
 		UserSpecification spec2 = new UserSpecification(new SearchCriteria("email", ":", keyword));
 		
 		Pageable pageRequest = PageRequest.of(start, length);
-		Page<Users> allUser = userRepo.findAll(Specification.where(spec1).or(spec2), pageRequest);
+		Page<User> allUser = userRepo.findAll(Specification.where(spec1).or(spec2), pageRequest);
 		
-		for(Users user : allUser) {
+		for(User user : allUser) {
 			UserRow userRow = new UserRow();
 			userRow
 				.setId(user.getId())
@@ -87,13 +87,13 @@ public class UserDatatableDPO {
 
 	public Optional<UserReadVO> getUserDetailForRead(int id) {
 
-		Optional<Users> optionalUser = userRepo.findById(id);
+		Optional<User> optionalUser = userRepo.findById(id);
 
 		if (optionalUser.isPresent()) {
-			Users user = optionalUser.get();
+			User user = optionalUser.get();
 
 			List<String> roleList = new ArrayList<String>();
-			for (Roles role : user.getRoles()) {
+			for (Role role : user.getRoles()) {
 				roleList.add(role.getName());
 			}
 
@@ -144,9 +144,9 @@ public class UserDatatableDPO {
 	public boolean userCreate(UserCreateDTO userCreateDTO) {
 		
 		List<Integer> rawRoleList = userCreateDTO.getRoles();
-		Set<Roles> roleSet = new HashSet<>(roleRepo.findAllById(rawRoleList));
+		Set<Role> roleSet = new HashSet<>(roleRepo.findAllById(rawRoleList));
 		
-		Users user = new Users();
+		User user = new User();
 		user
 			.setName(userCreateDTO.getName())
 			.setUsername(userCreateDTO.getUsername())
@@ -167,22 +167,22 @@ public class UserDatatableDPO {
 
 	public Optional<UserUpdateVO> getUserForUserUpdate(int id) {
 
-		Optional<Users> optionalUser = userRepo.findById(id);
+		Optional<User> optionalUser = userRepo.findById(id);
 
 		if (optionalUser.isPresent()) {
-			Users user = optionalUser.get();
+			User user = optionalUser.get();
 
 			UserUpdateVO userUpdateVO = new UserUpdateVO();
 
-			List<Roles> roleList = roleRepo.findAll();
+			List<Role> roleList = roleRepo.findAll();
 
 			List<RoleVO> roleVOList = new ArrayList<>();
-			for (Roles role : roleList) {
+			for (Role role : roleList) {
 				RoleVO roleVO = new RoleVO();
 				roleVO
 						.setId(role.getId())
 						.setName(role.getName());
-				for(Roles userRole : user.getRoles()) {
+				for(Role userRole : user.getRoles()) {
 					if (role.getId() == userRole.getId()) {
 						roleVO.setChecked(true);
 					}
@@ -204,9 +204,9 @@ public class UserDatatableDPO {
 
 	public boolean userUpdate(UserUpdateDTO userUpdateDTO, int id) {
 		List<Integer> rawRoleList = userUpdateDTO.getRoles();
-		Set<Roles> roleSet = new HashSet<>(roleRepo.findAllById(rawRoleList));
+		Set<Role> roleSet = new HashSet<>(roleRepo.findAllById(rawRoleList));
 
-		Users user = new Users();
+		User user = new User();
 		user
 				.setId(id)
 				.setName(userUpdateDTO.getName())
@@ -223,10 +223,10 @@ public class UserDatatableDPO {
 
 	// Other
 	private List<RoleVO> getAllRoleList() {
-		List<Roles> roleList = roleRepo.findAll();
+		List<Role> roleList = roleRepo.findAll();
 
 		List<RoleVO> roleVOList = new ArrayList<>();
-		for (Roles role : roleList) {
+		for (Role role : roleList) {
 			RoleVO roleVO = new RoleVO();
 			roleVO
 					.setId(role.getId())

@@ -26,9 +26,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-import com.imyc.SBAP.Http.role.dao.Roles;
+import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
-import com.imyc.SBAP.Http.user.dao.Users;
+import com.imyc.SBAP.Http.user.dao.User;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.Http.user.viewobject.UserDatatableVO;
@@ -46,15 +46,15 @@ public class UserDatatableDPOTest {
 	private RoleRepository roleRepo;
 	private DatatableServerSideConfig dummyDatatableServerSideConfig;
 	private UserDatatableVO userDatatableVO;
-	private List<Users> userList;
+	private List<User> userList;
 	private int id = 1;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		
-		userList = new ArrayList<Users>();
-		Users user = new DummyUserFactory("ADMIN").make();
+		userList = new ArrayList<User>();
+		User user = new DummyUserFactory("ADMIN").make();
 		userList.add(user);
 	}
 	
@@ -68,9 +68,9 @@ public class UserDatatableDPOTest {
 
 		
 		PageRequest pagable = PageRequest.of(dummyDatatableServerSideConfig.getStart(), dummyDatatableServerSideConfig.getLength());
-		Page<Users> pageUserList = new PageImpl<>(userList, pagable, userList.size());
+		Page<User> pageUserList = new PageImpl<>(userList, pagable, userList.size());
 		
-		Mockito.when(userRepo.findAll(ArgumentMatchers.<Specification<Users>>any(), ArgumentMatchers.<Pageable>any()))
+		Mockito.when(userRepo.findAll(ArgumentMatchers.<Specification<User>>any(), ArgumentMatchers.<Pageable>any()))
 				.thenReturn(pageUserList);
 		UserDatatableVO actual = new UserDatatableDPO(userRepo, roleRepo).getUserDatatableVO(dummyDatatableServerSideConfig);
 		
@@ -86,7 +86,7 @@ public class UserDatatableDPOTest {
 	@Test
 	public void testGetUserDetailForRead() {
 		int id = 1;
-		Optional<Users> optionalUser = Optional.of(new DummyUserFactory("ADMIN").make());
+		Optional<User> optionalUser = Optional.of(new DummyUserFactory("ADMIN").make());
 		
 		Mockito.when(userRepo.findById(ArgumentMatchers.any(Integer.class))).thenReturn(optionalUser);
 		Optional<UserReadVO> actual = new UserDatatableDPO(userRepo, roleRepo).getUserDetailForRead(id);
@@ -133,7 +133,7 @@ public class UserDatatableDPOTest {
 		
 		UserCreateVO dummyUserCreateVO = new DummyUserCreateVOFactory().make();
 		
-		List<Roles> dummyUserRoleList = new ArrayList<Roles>();
+		List<Role> dummyUserRoleList = new ArrayList<Role>();
 		dummyUserRoleList.add(new DummyRoleFactory(1, "ADMIN").make());
 		dummyUserRoleList.add(new DummyRoleFactory(2, "USER").make());
 		
@@ -149,12 +149,12 @@ public class UserDatatableDPOTest {
 	@Test
 	public void testGetUserForUserUpdate() {
 		UserUpdateVO dummyUserUpdateVO = new DummyUserUpdateVOFactory().make();
-		Users dummyUsers = new DummyUserFactory("Admin").make();
+		User dummyUser = new DummyUserFactory("Admin").make();
 
-		List<Roles> dummyUserRoleList = new ArrayList<Roles>();
+		List<Role> dummyUserRoleList = new ArrayList<Role>();
 		dummyUserRoleList.add(new DummyRoleFactory(2, "USER").make());
 
-		Mockito.when(userRepo.findById(id)).thenReturn(Optional.of(dummyUsers));
+		Mockito.when(userRepo.findById(id)).thenReturn(Optional.of(dummyUser));
 		Mockito.when(roleRepo.findAll()).thenReturn(dummyUserRoleList);
 		Optional<UserUpdateVO> actual = new UserDatatableDPO(userRepo, roleRepo).getUserForUserUpdate(id);
 

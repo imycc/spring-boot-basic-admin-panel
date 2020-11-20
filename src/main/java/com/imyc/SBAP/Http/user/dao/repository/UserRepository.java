@@ -5,10 +5,10 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import com.imyc.SBAP.Http.user.dao.Users;
+import com.imyc.SBAP.Http.user.dao.User;
 
-public interface UserRepository extends JpaRepository<Users, Integer>, JpaSpecificationExecutor<Users>{
+public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User>{
 
-	Optional<Users> findByUsername(String username);
+	Optional<User> findByUsername(String username);
 
 }

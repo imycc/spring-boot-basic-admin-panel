@@ -4,12 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.imyc.SBAP.Http.role.dao.Roles;
+import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.factories.dummy.DummyFactory;
 
-public class DummyRoleFactory implements DummyFactory<Roles>{
+public class DummyRoleFactory implements DummyFactory<Role>{
 
-	private Roles dummyRole;
+	private Role dummyRole;
 	private Boolean isAdmin;
 	private int id;
 	private String roleName;
@@ -34,8 +34,8 @@ public class DummyRoleFactory implements DummyFactory<Roles>{
 	}
 	
 	@Override
-	public Roles make() {
-		dummyRole = new Roles();
+	public Role make() {
+		dummyRole = new Role();
 		dummyRole
 			.setId(id)
 			.setAdmin(isAdmin)

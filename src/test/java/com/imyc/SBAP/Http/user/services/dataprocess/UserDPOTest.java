@@ -14,8 +14,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.imyc.SBAP.Http.role.dao.Roles;
-import com.imyc.SBAP.Http.user.dao.Users;
+import com.imyc.SBAP.Http.role.dao.Role;
+import com.imyc.SBAP.Http.user.dao.User;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
@@ -24,27 +24,27 @@ public class UserDPOTest {
 
 	@Mock
 	private UserRepository userRepo;
-	private Users users;
-	private Roles dummyAdminRole;
+	private User user;
+	private Role dummyAdminRole;
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		users = new Users();
+		user = new User();
 		dummyAdminRole = new DummyRoleFactory(1, "ADMIN").make();
 	}
 	
 	@Test
 	public void testGetByUsername() {
 		String username = "admin";
-		Set<Roles> dummyRoleSet = new HashSet<>();
+		Set<Role> dummyRoleSet = new HashSet<>();
 		dummyRoleSet.add(dummyAdminRole);
 		
-		users
+		user
 			.setUsername("admin")
 			.setPassword("admin")
 			.setRoles(dummyRoleSet);
-		Optional<Users> dummyUser = Optional.ofNullable(users);
+		Optional<User> dummyUser = Optional.ofNullable(user);
 		
 		Mockito.when(userRepo.findByUsername(ArgumentMatchers.any(String.class))).thenReturn(dummyUser);
 		Optional<UserVO> resultUser = new UserDPO(userRepo).getUserByUsername(username);

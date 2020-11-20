@@ -1,7 +1,6 @@
 package com.imyc.SBAP.Http.user.dao;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,10 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
-import com.imyc.SBAP.Http.role.dao.Roles;
+import com.imyc.SBAP.Http.role.dao.Role;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,8 +24,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain=true)
 @Entity
-@Table(name = "users")
-public class Users {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,10 +43,10 @@ public class Users {
 	private Date updatedAt;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinTable(name = "role_user", 
+	@JoinTable(name = "role_user",
 		joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, 
 		inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
 	)
-	private Set<Roles> roles = new HashSet<>();
+	private Set<Role> roles;
 
 }

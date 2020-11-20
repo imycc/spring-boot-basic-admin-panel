@@ -1,12 +1,12 @@
 package com.imyc.SBAP.Http.role.dao;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 
-import com.imyc.SBAP.Http.user.dao.Users;
+import com.imyc.SBAP.Http.privilege.Privilege;
+import com.imyc.SBAP.Http.user.dao.User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +16,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain=true)
 @Entity
-@Table(name="roles")
-public class Roles {
+public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +29,15 @@ public class Roles {
 	private Date updatedAt;
 
 	@ManyToMany(mappedBy = "roles")
-	private Set<Users> users = new HashSet<>();
+	private Set<User> users;
+
+	@ManyToMany
+	@JoinTable(
+			name = "roles_privileges",
+			joinColumns = @JoinColumn(
+					name = "role_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(
+					name = "privilege_id", referencedColumnName = "id"))
+	private Set<Privilege> privileges;
 
 }

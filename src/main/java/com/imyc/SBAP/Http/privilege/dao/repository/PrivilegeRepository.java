@@ -1,6 +1,6 @@
-package com.imyc.SBAP.Http.permission.dao.repository;
+package com.imyc.SBAP.Http.privilege.dao.repository;
 
-import com.imyc.SBAP.Http.permission.Privilege;
+import com.imyc.SBAP.Http.privilege.Privilege;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PrivilegeRepository extends JpaRepository<Privilege, Integer> {

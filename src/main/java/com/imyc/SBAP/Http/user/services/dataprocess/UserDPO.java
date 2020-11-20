@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.imyc.SBAP.Http.role.dao.Roles;
-import com.imyc.SBAP.Http.user.dao.Users;
+import com.imyc.SBAP.Http.role.dao.Role;
+import com.imyc.SBAP.Http.user.dao.User;
 import com.imyc.SBAP.Http.user.dao.repository.UserRepository;
 import com.imyc.SBAP.Http.user.viewobject.UserVO;
 
@@ -24,13 +24,13 @@ public class UserDPO {
 
 	public Optional<UserVO> getUserByUsername(String username) {
 
-		Optional<Users> optionalUser = userRepo.findByUsername(username);
+		Optional<User> optionalUser = userRepo.findByUsername(username);
 
 		if (optionalUser.isPresent()) {
-			Users user = optionalUser.get();
+			User user = optionalUser.get();
 
 			List<String> roleList = new ArrayList<String>();
-			for (Roles role : user.getRoles()) {
+			for (Role role : user.getRoles()) {
 				roleList.add(role.getName());
 			}
 

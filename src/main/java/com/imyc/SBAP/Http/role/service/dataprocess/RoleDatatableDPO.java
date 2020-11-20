@@ -1,7 +1,7 @@
 package com.imyc.SBAP.Http.role.service.dataprocess;
 
 import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
-import com.imyc.SBAP.Http.role.dao.Roles;
+import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
 import com.imyc.SBAP.Http.role.dao.repository.RoleSpecification;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
@@ -41,9 +41,9 @@ public class RoleDatatableDPO {
         RoleSpecification spec1 = new RoleSpecification(new SearchCriteria("name", ":", keyword));
 
         Pageable pageRequest = PageRequest.of(start, length);
-        Page<Roles> allRole = roleRepo.findAll(Specification.where(spec1), pageRequest);
+        Page<Role> allRole = roleRepo.findAll(Specification.where(spec1), pageRequest);
 
-        for(Roles role : allRole) {
+        for(Role role : allRole) {
             RoleRow roleRow = new RoleRow();
             roleRow
                     .setId(role.getId())

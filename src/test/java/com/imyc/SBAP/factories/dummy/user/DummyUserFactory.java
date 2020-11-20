@@ -6,17 +6,17 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.imyc.SBAP.Http.role.dao.Roles;
-import com.imyc.SBAP.Http.user.dao.Users;
+import com.imyc.SBAP.Http.role.dao.Role;
+import com.imyc.SBAP.Http.user.dao.User;
 import com.imyc.SBAP.factories.dummy.DummyFactory;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
 
-public class DummyUserFactory implements DummyFactory<Users>{
+public class DummyUserFactory implements DummyFactory<User>{
 
-	private Users dummyUser;
-	private Roles dummyRole;
+	private User dummyUser;
+	private Role dummyRole;
 	private Date date;
-	private Set<Roles> dummyRoleSet;
+	private Set<Role> dummyRoleSet;
 	
 	public DummyUserFactory(String role) {
 		
@@ -39,8 +39,8 @@ public class DummyUserFactory implements DummyFactory<Users>{
 	}
 	
 	@Override
-	public Users make() {
-		dummyUser = new Users();
+	public User make() {
+		dummyUser = new User();
 		dummyUser
 			.setId(1)
 			.setName("admin")

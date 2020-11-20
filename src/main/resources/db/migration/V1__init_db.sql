@@ -42,7 +42,7 @@ CREATE TABLE `role_user` (
 insert into `role_user` (id, role_id, user_id)
 values ('1', '1', '1');
 
-CREATE TABLE `permissions` (
+CREATE TABLE `privilege` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `group` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -51,16 +51,7 @@ CREATE TABLE `permissions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `permission_user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `permission_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `permission_user_permission_id_index` (`permission_id`),
-  KEY `permission_user_user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE `permission_role` (
+CREATE TABLE `privilege_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `permission_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
