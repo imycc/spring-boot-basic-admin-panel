@@ -77,5 +77,8 @@ class DemoCommandLineRunner implements CommandLineRunner{
 
         role.setPrivileges(Set.copyOf(priilegeList));
         rolesRepository.save(role);
+
+        role2.setPrivileges(Set.copyOf(priilegeList));
+        rolesRepository.save(role2);
 	}
 }

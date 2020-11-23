@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class RoleDatatableDPOTest {
 
@@ -58,7 +58,7 @@ public class RoleDatatableDPOTest {
 	//Index
 
 	@Test
-	public void testGetUserDatatableVO() {
+	public void testGetRoleDatatableVO() {
 
 		dummyDatatableServerSideConfig = new DummyDatatableServerSideConfigFactory(1, 0, 10, null).make();
 		roleDatatableVO = new DummyRoleDatatableVOFactory().make();
@@ -80,7 +80,7 @@ public class RoleDatatableDPOTest {
 	// Crrate
 
 	@Test
-	public void testGetRoleListForUserCreate() {
+	public void testGetRoleListForRoleCreate() {
 
 		RoleCreateVO dummyRoleCreateVO = new DummyRoleCreateVOFactory().make();
 
@@ -93,6 +93,28 @@ public class RoleDatatableDPOTest {
 
 		assertNotNull(actual.getPrivilegeList());
 		assertThat(actual).usingRecursiveComparison().isEqualTo(dummyRoleCreateVO);
+	}
+
+	//Delete
+
+	@Test
+	public void testDeleteRoleWithRelationById() {
+		int id = 1;
+
+		Mockito.when(roleRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(true);
+		boolean actual = new RoleDatatableDPO(roleRepo, privilegeRepo).deleteRoleWithRelationById(id);
+
+		assertTrue(actual);
+	}
+
+	@Test
+	public void testDeleteRoleWithRelationByIdIfRoleIsNotExist() {
+		int id = 1;
+
+		Mockito.when(roleRepo.existsById(ArgumentMatchers.any(Integer.class))).thenReturn(false);
+		boolean actual = new RoleDatatableDPO(roleRepo, privilegeRepo).deleteRoleWithRelationById(id);
+
+		assertFalse(actual);
 	}
 
 }

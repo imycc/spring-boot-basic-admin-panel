@@ -2,6 +2,7 @@ package com.imyc.SBAP.Http.role.services.requester;
 
 import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import com.imyc.SBAP.Exception.web.WebCreateDataException;
+import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Http.role.dto.RoleCreateDTO;
 import com.imyc.SBAP.Http.role.service.dataprocess.RoleDatatableDPO;
 import com.imyc.SBAP.Http.role.service.requester.RoleDatatableProvider;
@@ -36,7 +37,7 @@ public class RoleDatatableProviderTest {
 	// Index
 	
 	@Test
-	public void testGetAllUserForDatatable() {
+	public void testGetAllRoleForDatatable() {
 
 		dummyRoleDatatableVO = new DummyRoleDatatableVOFactory().make();
 		dummyDatatableServerSideConfig = new DummyDatatableServerSideConfigFactory(1, 0, 10, null).make();
@@ -86,6 +87,33 @@ public class RoleDatatableProviderTest {
 		});
 
 		String expectedMessage = "Unable to create: " + dummyRoleCreateDTO.getName();
+		String actualMessage = exception.getMessage();
+
+		assertTrue(actualMessage.contains(expectedMessage));
+	}
+
+	// Delete
+
+	@Test
+	public void testDeleteRole() throws WebDeleteDataException {
+
+		Mockito.when(roleDatatableDPO.deleteRoleWithRelationById(id)).thenReturn(true);
+
+		boolean actual = new RoleDatatableProvider(roleDatatableDPO).deleteRequest(id);
+
+		assertTrue(actual);
+	}
+
+	@Test
+	public void testDeleteRoleWithException() throws WebDeleteDataException {
+
+		Mockito.when(roleDatatableDPO.deleteRoleWithRelationById(id)).thenReturn(false);
+
+		Exception exception = assertThrows(WebDeleteDataException.class, () -> {
+			new RoleDatatableProvider(roleDatatableDPO).deleteRequest(id);
+		});
+
+		String expectedMessage = "Unable to delete: " + id;
 		String actualMessage = exception.getMessage();
 
 		assertTrue(actualMessage.contains(expectedMessage));
