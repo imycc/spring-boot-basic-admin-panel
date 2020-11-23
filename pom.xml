@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.juststarinfo</groupId>
 	<artifactId>Spring-Boot-Admin-Panel</artifactId>
-	<version>0.0.1-First</version>
+	<version>0.9.0-PRERELEASE</version>
 	<name>SBAP</name>
 	<description>Basic admin panel base on Spring Boot</description>
 

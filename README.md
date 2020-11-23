@@ -6,10 +6,9 @@ Provide a basic admin panel base on Spring boot and MySQL.
 SBAP provide basic CRUD function of User, Role and Permission management.
 
 ## TODO
-1. sql schema for migration
-2. permission
-3. Role View
-4. Unit Test
+1. Assign Permission per view.
+2. Release a Demo Admin panel
+3. Add Screenshot
 
 ### Authors
 IMYCC
