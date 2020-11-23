@@ -133,11 +133,11 @@ public class UserDatatableDPOTest {
 		
 		UserCreateVO dummyUserCreateVO = new DummyUserCreateVOFactory().make();
 		
-		List<Role> dummyUserRoleList = new ArrayList<Role>();
-		dummyUserRoleList.add(new DummyRoleFactory(1, "ADMIN").make());
-		dummyUserRoleList.add(new DummyRoleFactory(2, "USER").make());
+		List<Role> dummyRoleList = new ArrayList<Role>();
+		dummyRoleList.add(new DummyRoleFactory(1, "ADMIN").make());
+		dummyRoleList.add(new DummyRoleFactory(2, "USER").make());
 		
-		Mockito.when(roleRepo.findAll()).thenReturn(dummyUserRoleList);
+		Mockito.when(roleRepo.findAll()).thenReturn(dummyRoleList);
 		UserCreateVO actual = new UserDatatableDPO(userRepo, roleRepo).getRoleListForUserCreate();
 
 		assertNotNull(actual.getRoleVOList());
