@@ -96,7 +96,7 @@ public class UserDatatableProviderImplTest {
 
 		Mockito.when(userDatatableDPO.deleteUserWithRelationById(id)).thenReturn(true);
 		
-		boolean actual = new UserDatatableProvider(userDatatableDPO).deleteUser(id);
+		boolean actual = new UserDatatableProvider(userDatatableDPO).deleteRequest(id);
 		
 		assertTrue(actual);
 	}
@@ -107,7 +107,7 @@ public class UserDatatableProviderImplTest {
 		Mockito.when(userDatatableDPO.deleteUserWithRelationById(id)).thenReturn(false);
 		
 		Exception exception = assertThrows(WebDeleteDataException.class, () -> {
-			new UserDatatableProvider(userDatatableDPO).deleteUser(id);
+			new UserDatatableProvider(userDatatableDPO).deleteRequest(id);
 	    });
 		
 	    String expectedMessage = "Unable to delete: " + id;

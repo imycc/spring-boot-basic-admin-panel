@@ -60,7 +60,7 @@ public class UserDatatableProvider implements UserCreateRequester, UserDeleteReq
 	// Delete
 	
 	@Override
-	public boolean deleteUser(int id) throws WebDeleteDataException {
+	public boolean deleteRequest(int id) throws WebDeleteDataException {
 
 		boolean isDeleted = userDatatableDPO.deleteUserWithRelationById(id);
 		

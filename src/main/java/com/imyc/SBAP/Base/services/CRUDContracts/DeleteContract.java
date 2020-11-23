@@ -4,6 +4,6 @@ import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 
 public interface DeleteContract {
 	
-	boolean deleteRequest() throws WebDeleteDataException;
+	boolean deleteRequest(int id) throws WebDeleteDataException;
 	
 }

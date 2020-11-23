@@ -28,7 +28,7 @@ public class UserDeleteTest {
 	public void testHandleWithUserExist() throws WebDeleteDataException {
 		int id = 1;
 		
-		Mockito.when(userDeleteRequester.deleteUser(id)).thenReturn(true);
+		Mockito.when(userDeleteRequester.deleteRequest(id)).thenReturn(true);
 		String actual = userDelete.handle(id);
 		
 		assertNotNull(actual);

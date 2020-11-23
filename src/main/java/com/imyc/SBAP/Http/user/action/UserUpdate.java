@@ -1,6 +1,5 @@
 package com.imyc.SBAP.Http.user.action;
 
-import com.imyc.SBAP.Exception.web.WebCreateDataException;
 import com.imyc.SBAP.Exception.web.WebPageNotFoundException;
 import com.imyc.SBAP.Exception.web.WebUpdateDataException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +20,17 @@ import javax.validation.Valid;
 @Controller
 public class UserUpdate {
 	
-	private UserUpdateRequester userUpdateContract;
+	private UserUpdateRequester userUpdateRequester;
 	
 	@Autowired
-	public UserUpdate (@Qualifier("UserDatatableProvider") UserUpdateRequester userUpdateContract) {
-		this.userUpdateContract = userUpdateContract;
+	public UserUpdate (@Qualifier("UserDatatableProvider") UserUpdateRequester userUpdateRequester) {
+		this.userUpdateRequester = userUpdateRequester;
 	}
 
 	@GetMapping("/user/update/{id}")
 	public ModelAndView render(@PathVariable(value="id") int id) throws WebPageNotFoundException {
 		
-		UserUpdateVO userUpdateVO = userUpdateContract.updateResponse(id);
+		UserUpdateVO userUpdateVO = userUpdateRequester.updateResponse(id);
 		
 		UserUpdateDTO userUpdateDTO = new UserUpdateDTO();
 		
@@ -46,7 +45,7 @@ public class UserUpdate {
 	@PostMapping("/user/update/{id}")
 	public String handle(@Valid @ModelAttribute UserUpdateDTO userUpdateDTO, @PathVariable(value="id") int id) throws WebUpdateDataException {
 
-		userUpdateContract.updateRequest(userUpdateDTO, id);
+		userUpdateRequester.updateRequest(userUpdateDTO, id);
 
 		return "redirect:/user?update=success";
 	}

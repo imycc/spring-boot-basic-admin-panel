@@ -14,17 +14,17 @@ import com.imyc.SBAP.Http.user.viewobject.UserReadVO;
 @Controller
 public class UserRead {
 
-	private UserReadRequester userReadContract;
+	private UserReadRequester userReadRequester;
 	
 	@Autowired
-	public UserRead (@Qualifier("UserDatatableProvider") UserReadRequester userReadContract) {
-		this.userReadContract = userReadContract;
+	public UserRead (@Qualifier("UserDatatableProvider") UserReadRequester userReadRequester) {
+		this.userReadRequester = userReadRequester;
 	}
 	
 	@GetMapping("/user/read/{id}")
 	public ModelAndView render(@PathVariable(value="id") int id) throws WebPageNotFoundException {
 		
-		UserReadVO userReadVO = userReadContract.readResponse(id);
+		UserReadVO userReadVO = userReadRequester.readResponse(id);
 		
 		return new ModelAndView("admin-panel/user/read", "userReadVO", userReadVO);
 	}

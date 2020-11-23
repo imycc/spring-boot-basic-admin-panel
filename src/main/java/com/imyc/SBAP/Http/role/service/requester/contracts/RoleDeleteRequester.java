@@ -1,4 +1,6 @@
 package com.imyc.SBAP.Http.role.service.requester.contracts;
 
-public interface RoleDeleteRequester {
+import com.imyc.SBAP.Base.services.CRUDContracts.DeleteContract;
+
+public interface RoleDeleteRequester extends DeleteContract {
 }

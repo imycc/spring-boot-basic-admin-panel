@@ -2,9 +2,11 @@ package com.imyc.SBAP.Http.role.service.requester;
 
 import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 import com.imyc.SBAP.Exception.web.WebCreateDataException;
+import com.imyc.SBAP.Exception.web.WebDeleteDataException;
 import com.imyc.SBAP.Http.role.dto.RoleCreateDTO;
 import com.imyc.SBAP.Http.role.service.dataprocess.RoleDatatableDPO;
 import com.imyc.SBAP.Http.role.service.requester.contracts.RoleCreateRequester;
+import com.imyc.SBAP.Http.role.service.requester.contracts.RoleDeleteRequester;
 import com.imyc.SBAP.Http.role.service.requester.contracts.RoleIndexRequester;
 import com.imyc.SBAP.Http.role.viewobject.RoleCreateVO;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier(value="RoleDatatableProvider")
-public class RoleDatatableProvider implements RoleIndexRequester, RoleCreateRequester {
+public class RoleDatatableProvider implements RoleIndexRequester, RoleCreateRequester, RoleDeleteRequester {
 
     private RoleDatatableDPO roleDatatableDPO;
 
@@ -25,7 +27,6 @@ public class RoleDatatableProvider implements RoleIndexRequester, RoleCreateRequ
     }
 
     // Index
-
     @Override
     public RoleDatatableVO indexResponse(DatatableServerSideConfig datatableServerSideConfig) {
         RoleDatatableVO roleDatatableVO = roleDatatableDPO.getRoleDatatableVO(datatableServerSideConfig);
@@ -52,7 +53,18 @@ public class RoleDatatableProvider implements RoleIndexRequester, RoleCreateRequ
         }
     }
 
+    // Delete
+    @Override
+    public boolean deleteRequest(int id) throws WebDeleteDataException {
+        boolean isDeleted = roleDatatableDPO.deleteRoleWithRelationById(id);
+
+        if (isDeleted) {
+            return true;
+        } else {
+            throw new WebDeleteDataException("Unable to delete: " + id);
+        }
+    }
+
     // Update
 
-    // Delete
 }

@@ -74,6 +74,18 @@ public class RoleDatatableDPO {
         return roleDatatableVO;
     }
 
+    // Delete
+    public boolean deleteRoleWithRelationById(int id) {
+        boolean isExist = roleRepo.existsById(id);
+
+        if (isExist) {
+            roleRepo.deleteById(id);
+        }else {
+            return false;
+        }
+        return true;
+    }
+
     // Create
     public RoleCreateVO getPrivilegeList() {
         List<PrivilegeVO> privilegeVOList = getAllPrivilegeList();

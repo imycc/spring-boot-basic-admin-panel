@@ -15,14 +15,14 @@ public class UserDelete {
 	private UserDeleteRequester userDeleteContract;
 	
 	@Autowired
-	public UserDelete(@Qualifier("UserDatatableProvider") UserDeleteRequester userDatatableProvider) {
-		this.userDeleteContract = userDatatableProvider;
+	public UserDelete(@Qualifier("UserDatatableProvider") UserDeleteRequester userDeleteContract) {
+		this.userDeleteContract = userDeleteContract;
 	}
 	
 	@PostMapping("/user/delete/{id}")
 	public String handle(@PathVariable(value="id") int id) throws WebDeleteDataException {
 		
-		userDeleteContract.deleteUser(id);
+		userDeleteContract.deleteRequest(id);
 		
 		return "redirect:/user?delete=success";
 	}
