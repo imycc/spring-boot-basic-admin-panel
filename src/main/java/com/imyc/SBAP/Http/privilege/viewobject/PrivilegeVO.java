@@ -11,5 +11,6 @@ public class PrivilegeVO {
 
     private int id;
     private String name;
+    private boolean checked = false;
 
 }

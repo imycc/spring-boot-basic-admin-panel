@@ -2,7 +2,7 @@ package com.imyc.SBAP;
 
 import java.util.*;
 
-import com.imyc.SBAP.Http.privilege.Privilege;
+import com.imyc.SBAP.Http.privilege.dao.Privilege;
 import com.imyc.SBAP.Http.privilege.dao.repository.PrivilegeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

@@ -1,21 +1,18 @@
 package com.imyc.SBAP.Http.role.services.dataprocess;
 
 import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
-import com.imyc.SBAP.Http.privilege.Privilege;
+import com.imyc.SBAP.Http.privilege.dao.Privilege;
 import com.imyc.SBAP.Http.privilege.dao.repository.PrivilegeRepository;
 import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
 import com.imyc.SBAP.Http.role.service.dataprocess.RoleDatatableDPO;
 import com.imyc.SBAP.Http.role.viewobject.RoleCreateVO;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
-import com.imyc.SBAP.Http.user.services.dataprocess.UserDatatableDPO;
-import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
 import com.imyc.SBAP.factories.dummy.base.DummyDatatableServerSideConfigFactory;
 import com.imyc.SBAP.factories.dummy.privilege.DummyPrivilegeFactory;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleCreateVOFactory;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleDatatableVOFactory;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
-import com.imyc.SBAP.factories.dummy.user.DummyUserCreateVOFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;

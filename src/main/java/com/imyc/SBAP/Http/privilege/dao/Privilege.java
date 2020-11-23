@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Http.privilege;
+package com.imyc.SBAP.Http.privilege.dao;
 
 import com.imyc.SBAP.Http.role.dao.Role;
 import lombok.Getter;

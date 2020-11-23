@@ -2,8 +2,6 @@ package com.imyc.SBAP.Http.user.services;
 
 import java.util.*;
 
-import com.imyc.SBAP.Http.privilege.Privilege;
-import com.imyc.SBAP.Http.role.dao.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

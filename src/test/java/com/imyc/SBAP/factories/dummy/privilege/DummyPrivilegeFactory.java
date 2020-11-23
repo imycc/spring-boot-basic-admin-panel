@@ -1,6 +1,6 @@
 package com.imyc.SBAP.factories.dummy.privilege;
 
-import com.imyc.SBAP.Http.privilege.Privilege;
+import com.imyc.SBAP.Http.privilege.dao.Privilege;
 import com.imyc.SBAP.factories.dummy.DummyFactory;
 
 import java.util.Date;

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.imyc.SBAP.Http.privilege.Privilege;
+import com.imyc.SBAP.Http.privilege.dao.Privilege;
 import com.imyc.SBAP.Http.user.dao.User;
 
 import lombok.Getter;

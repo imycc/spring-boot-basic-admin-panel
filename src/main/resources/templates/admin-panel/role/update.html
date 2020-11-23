@@ -7,68 +7,48 @@
 <h4 class="page-title pull-left">User Update</h4>
 
 <section>
-	<form id="user-create-form" method="POST" th:action="@{|/user/update/${id}|}" th:object="${userUpdateDTO}">
+	<form id="role-create-form" method="POST" th:action="@{|/role/update/${id}|}" th:object="${roleUpdateDTO}">
 		<div class="list-group" style="padding: 15px;">
 	        <div class="list-group-item">
 	            <div class="form-group row mb-0">
 	                <label for="name" class="col-md-2 col-form-label">Name</label>
 	                <div class="col-md-8">
-	                    <input type="text" name="name" id="name" class="form-control" th:value="${userUpdateVO.name}" required>
-	                </div>
-	            </div>
-	        </div>
-	        
-	       	<div class="list-group-item">
-	            <div class="form-group row mb-0">
-	                <label for="email" class="col-md-2 col-form-label">Username</label>
-	                <div class="col-md-8">
-	                    <input type="text" name="username" id=username class="form-control" th:value="${userUpdateVO.username}" required>
-	                </div>
-	            </div>
-	        </div>
-	
-	        <div class="list-group-item">
-	            <div class="form-group row mb-0">
-	                <label for="email" class="col-md-2 col-form-label">Email</label>
-	                <div class="col-md-8">
-	                    <input type="email" name="email" id="email" class="form-control" th:value="${userUpdateVO.email}" required>
-	                </div>
-	            </div>
-	        </div>
-	        
-	        <div class="list-group-item">
-	            <div class="form-group row mb-0">
-	                <label for="password" class="col-md-2 col-form-label">Password</label>
-	                <div class="col-md-8">
-	                    <input type="password" name="password" id="password" class="form-control" th:value="*{password}">
-	                </div>
-	            </div>
-	        </div>
-	
-	        <div class="list-group-item">
-	            <div class="form-group row mb-0">
-	                <label for="password_confirmation" class="col-md-2 col-form-label">Confirm Password</label>
-	                <div class="col-md-8">
-	                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
-	                    <span id='message'></span>
+	                    <input type="text" name="name" id="name" class="form-control" th:value="${roleUpdateVO.name}" required>
 	                </div>
 	            </div>
 	        </div>
 
-	        <div class="list-group-item">
-	            <div class="form-group row mb-0">
-	                <label class="col-md-2 col-form-label">Roles</label>
-	                <div class="col-md-8">
-	                    <div class="form-control-plaintext">
-	                		 <div class="custom-control custom-checkbox" th:each="role: ${userUpdateVO.roleVOList}">
-	                             <input type="checkbox" th:id="'role_' + ${role.id}" name="roles" class="custom-control-input"
-										th:value="${role.id}" th:checked="${role.checked}">
-	                             <label th:attr="for='role_' + ${role.id}" class="custom-control-label" th:text="${role.name}"></label>
-	                         </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
+			<div class="list-group-item">
+				<div class="form-group row mb-0">
+					<label class="col-md-2 col-form-label">Admin</label>
+					<div class="col-md-8">
+						<div class="form-control-plaintext">
+							<div class="custom-control custom-checkbox" >
+								<input type="checkbox" name="admin" id="admin" class="custom-control-input" th:value="true"
+									   th:checked="${roleUpdateVO.isAdmin}">
+								<label for="admin" class="custom-control-label">Admin</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="list-group-item">
+				<div class="form-group row mb-0">
+					<label class="col-md-2 col-form-label">Privileges</label>
+					<div class="col-md-8">
+						<div class="form-control-plaintext">
+							<div class="custom-control custom-checkbox" th:each="privilege: ${roleUpdateVO.privilegeList}">
+								<input type="checkbox" th:id="'privilege_' + ${privilege.id}" name="privileges"
+									   class="custom-control-input" th:value="${privilege.id}" th:checked="${privilege.checked}">
+								<label th:attr="for='privilege_' + ${privilege.id}" class="custom-control-label"
+									   th:text="${privilege.name}">
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 	        
 	        <div class="list-group-item bg-light text-left text-md-right pb-1">
 	            <button type="submit" name="_submit" class="btn btn-primary mb-2" value="redirect">Save & Back</button>
@@ -79,32 +59,18 @@
 
 <script th:inline="javascript">
 $(document).ready( function () {
-	checkPasswordValid()
 	checkSubmitForm()
 });
 
-function checkPasswordValid() {
-	$('#password, #password_confirmation').on('keyup', function () {
-	  if ($('#password').val() == $('#password_confirmation').val()) {
-	  	$('#message').html('Matching').css('color', 'green');
-	  } else {
-	    $('#message').html('Not Matching').css('color', 'red');
-	  }
-	})
-}
-
 function checkSubmitForm() {
     
-	$("#user-create-form").submit(function(event) {
-	    let roles = $('input[name="roles"]:checked').map(function() {
+	$("#role-create-form").submit(function(event) {
+	    let privileges = $('input[name="privileges"]:checked').map(function() {
 	        return $(this).val()
 	    }).get().join()
 	    
-		if ($('#password').val() != $('#password_confirmation').val()) {
-			alert("Password Not Matching.");
-			event.preventDefault();
-		}else if (checkEmpty(roles)) {
-			alert('Roles must select at least one.')
+		if (checkEmpty(privileges)) {
+			alert('Must select at least one privilege.')
 			event.preventDefault();
 		}else{
 			

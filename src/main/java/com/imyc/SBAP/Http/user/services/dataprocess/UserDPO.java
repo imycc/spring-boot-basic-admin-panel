@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.imyc.SBAP.Http.privilege.Privilege;
+import com.imyc.SBAP.Http.privilege.dao.Privilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

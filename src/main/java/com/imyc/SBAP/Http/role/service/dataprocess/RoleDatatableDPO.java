@@ -1,20 +1,20 @@
 package com.imyc.SBAP.Http.role.service.dataprocess;
 
 import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
-import com.imyc.SBAP.Http.privilege.Privilege;
+import com.imyc.SBAP.Http.privilege.dao.Privilege;
 import com.imyc.SBAP.Http.privilege.dao.repository.PrivilegeRepository;
 import com.imyc.SBAP.Http.privilege.viewobject.PrivilegeVO;
-import com.imyc.SBAP.Http.role.action.RoleCreate;
 import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
 import com.imyc.SBAP.Http.role.dao.repository.RoleSpecification;
 import com.imyc.SBAP.Http.role.dto.RoleCreateDTO;
+import com.imyc.SBAP.Http.role.dto.RoleUpdateDTO;
 import com.imyc.SBAP.Http.role.viewobject.RoleCreateVO;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
-import com.imyc.SBAP.Http.role.viewobject.RoleVO;
+import com.imyc.SBAP.Http.role.viewobject.RoleUpdateVO;
 import com.imyc.SBAP.Http.role.viewobject.datatable.RoleRow;
 import com.imyc.SBAP.Http.user.dao.User;
-import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
+import com.imyc.SBAP.Http.user.dto.UserUpdateDTO;
 import com.imyc.SBAP.config.repositroy.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,10 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RoleDatatableDPO {
@@ -83,6 +80,58 @@ public class RoleDatatableDPO {
         }else {
             return false;
         }
+        return true;
+    }
+
+    // Update
+    public Optional<RoleUpdateVO> getRoleForUserUpdate(int id) {
+        Optional<Role> optionalRole = roleRepo.findById(id);
+
+        if (optionalRole.isPresent()) {
+            Role role = optionalRole.get();
+
+            RoleUpdateVO roleUpdateVO = new RoleUpdateVO();
+
+            List<Privilege> privilegeList = privilegeRepo.findAll();
+
+            List<PrivilegeVO> privilegeVOList = new ArrayList<>();
+            for (Privilege privilege : privilegeList) {
+                PrivilegeVO privilegeVO = new PrivilegeVO();
+                privilegeVO
+                        .setId(privilege.getId())
+                        .setName(privilege.getName());
+                for(Privilege rolePrivilege : role.getPrivileges()) {
+                    if (privilege.getId() == rolePrivilege.getId()) {
+                        privilegeVO.setChecked(true);
+                    }
+                }
+                privilegeVOList.add(privilegeVO);
+            }
+
+            roleUpdateVO
+                    .setName(role.getName())
+                    .setIsAdmin(role.getAdmin())
+                    .setPrivilegeList(privilegeVOList);
+
+            return Optional.of(roleUpdateVO);
+        }else{
+            return Optional.empty();
+        }
+    }
+
+    public boolean roleUpdate(RoleUpdateDTO roleUpdateDTO, int id) {
+
+        List<Integer> rawPrivilegeList = roleUpdateDTO.getPrivileges();
+        Set<Privilege> privilegeSet = new HashSet<>(privilegeRepo.findAllById(rawPrivilegeList));
+
+        Role role = new Role();
+        role
+                .setId(id)
+                .setName(roleUpdateDTO.getName())
+                .setAdmin(roleUpdateDTO.getAdmin())
+                .setPrivileges(privilegeSet);
+
+        roleRepo.save(role);
         return true;
     }
 
