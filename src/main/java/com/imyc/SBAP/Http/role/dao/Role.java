@@ -31,7 +31,7 @@ public class Role {
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(
 			name = "roles_privileges",
 			joinColumns = @JoinColumn(

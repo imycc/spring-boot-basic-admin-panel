@@ -36,9 +36,9 @@ public class UserDPO {
 				roleList.add(role.getName());
 				collection.addAll(role.getPrivileges());
 			}
-			List<String> privileges = new ArrayList<>();
+			List<String> privilegeList = new ArrayList<>();
 			for (Privilege item : collection) {
-				privileges.add(item.getName());
+				privilegeList.add(item.getName());
 			}
 
 			UserVO userVO = new UserVO();
@@ -51,7 +51,7 @@ public class UserDPO {
 				.setAccountLocked(user.isAccountLocked())
 				.setCredentialsExpired(user.isCredentialsExpired())
 				.setRoles(roleList.toArray(new String[0]))
-				.setPrivilege(privileges);
+				.setPrivilege(privilegeList);
 			
 			return Optional.of(userVO);
 		}else{

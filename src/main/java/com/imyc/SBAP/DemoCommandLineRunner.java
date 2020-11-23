@@ -1,9 +1,6 @@
 package com.imyc.SBAP;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import com.imyc.SBAP.Http.privilege.Privilege;
 import com.imyc.SBAP.Http.privilege.dao.repository.PrivilegeRepository;
@@ -64,20 +61,21 @@ class DemoCommandLineRunner implements CommandLineRunner{
         role2.setUpdatedAt(date);
         rolesRepository.save(role2);
 
-        Privilege privilege = new Privilege();
-        privilege.setName("Dashboard_INDEX");
-        privilege.setName("Role_INDEX");
-        privilege.setName("User_INDEX");
-        privilege.setName("User_READ");
-        privilege.setName("User_UPDATE");
-        privilege.setName("User_CREATE");
-        privilege.setName("User_DELETE");
-        privilegeRepository.save(privilege);
-
         user.setRoles(Set.copyOf(Arrays.asList(role)));
         usersRepository.save(user);
 
-        role.setPrivileges(Set.copyOf(Arrays.asList(privilege)));
+        String[] priilegeNameList = {"Dashboard_INDEX", "Role_INDEX", "Role_READ", "Role_CREATE",
+                                    "Role_UPDATE", "Role_DELETE", "User_INDEX", "User_READ", "User_CREATE",
+                                    "User_UPDATE", "User_DELETE"};
+        List<Privilege> priilegeList = new ArrayList<>();
+        for(String name : priilegeNameList) {
+            Privilege privilege = new Privilege();
+            privilege.setName(name);
+            privilegeRepository.save(privilege);
+            priilegeList.add(privilege);
+        }
+
+        role.setPrivileges(Set.copyOf(priilegeList));
         rolesRepository.save(role);
 	}
 }
