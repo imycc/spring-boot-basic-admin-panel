@@ -9,14 +9,10 @@ import com.imyc.SBAP.factories.dummy.DummyFactory;
 public class DummyUserCreateDTOFactory implements DummyFactory<UserCreateDTO>{
 
 	private UserCreateDTO userCreateDTO;
-	
-	public DummyUserCreateDTOFactory() {
-
-	}
 
 	@Override
 	public UserCreateDTO make() {
-		List<Integer> roles = new ArrayList<Integer>();
+		List<Integer> roles = new ArrayList<>();
 		roles.add(1);
 		
 		userCreateDTO = new UserCreateDTO();

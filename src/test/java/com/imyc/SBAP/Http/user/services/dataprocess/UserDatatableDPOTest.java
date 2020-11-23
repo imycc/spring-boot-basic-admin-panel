@@ -148,7 +148,6 @@ public class UserDatatableDPOTest {
 
 	@Test
 	public void testGetUserForUserUpdate() {
-		UserUpdateVO dummyUserUpdateVO = new DummyUserUpdateVOFactory().make();
 		User dummyUser = new DummyUserFactory("Admin").make();
 
 		List<Role> dummyUserRoleList = new ArrayList<Role>();
@@ -156,7 +155,7 @@ public class UserDatatableDPOTest {
 
 		Mockito.when(userRepo.findById(id)).thenReturn(Optional.of(dummyUser));
 		Mockito.when(roleRepo.findAll()).thenReturn(dummyUserRoleList);
-		Optional<UserUpdateVO> actual = new UserDatatableDPO(userRepo, roleRepo).getUserForUserUpdate(id);
+		Optional<UserUpdateVO> actual = new UserDatatableDPO(userRepo, roleRepo).getUserForUpdate(id);
 
 		assertNotNull(actual.get());
 	}

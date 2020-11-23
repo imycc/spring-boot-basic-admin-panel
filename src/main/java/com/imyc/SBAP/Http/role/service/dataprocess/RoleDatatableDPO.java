@@ -84,7 +84,7 @@ public class RoleDatatableDPO {
     }
 
     // Update
-    public Optional<RoleUpdateVO> getRoleForUserUpdate(int id) {
+    public Optional<RoleUpdateVO> getRoleForUpdate(int id) {
         Optional<Role> optionalRole = roleRepo.findById(id);
 
         if (optionalRole.isPresent()) {

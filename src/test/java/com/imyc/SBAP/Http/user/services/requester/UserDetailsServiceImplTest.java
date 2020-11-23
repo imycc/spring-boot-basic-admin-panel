@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.imyc.SBAP.Http.user.services.UserDetailsServiceImpl;
+import com.imyc.SBAP.factories.dummy.user.DummyUserVOFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -26,14 +27,12 @@ public class UserDetailsServiceImplTest {
 	@Mock
 	private UserDPO userDAO;
 	
-	private UserVO userVO;
 	private List<String> roleList;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		roleList = new ArrayList<String>();
-		userVO = new UserVO();
 	}
 	
 	@Test
@@ -42,11 +41,8 @@ public class UserDetailsServiceImplTest {
 		String username = "admin";
 		roleList.add("ADMIN");
 		
-		userVO
-			.setUsername("admin")
-			.setPassword("admin")
-			.setRoles(roleList.toArray(new String[0]));
-		Optional<UserVO> dummyUserPO = Optional.ofNullable(userVO);
+		UserVO dummyUserVO = new DummyUserVOFactory().make();
+		Optional<UserVO> dummyUserPO = Optional.ofNullable(dummyUserVO);
 		
 		Mockito.when(userDAO.getUserByUsername(ArgumentMatchers.any(String.class))).thenReturn(dummyUserPO);
 		UserDetails userDetail = new UserDetailsServiceImpl(userDAO).loadUserByUsername(username);

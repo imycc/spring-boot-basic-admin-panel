@@ -12,7 +12,7 @@ public class DummyUserUpdateDTOFactory implements DummyFactory<UserUpdateDTO> {
     private List<Integer> roles;
 
     public DummyUserUpdateDTOFactory() {
-        roles = new ArrayList<Integer>();
+        roles = new ArrayList<>();
         roles.add(1);
     }
 

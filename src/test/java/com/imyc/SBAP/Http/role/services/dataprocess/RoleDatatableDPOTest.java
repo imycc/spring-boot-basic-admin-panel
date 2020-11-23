@@ -8,11 +8,18 @@ import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
 import com.imyc.SBAP.Http.role.service.dataprocess.RoleDatatableDPO;
 import com.imyc.SBAP.Http.role.viewobject.RoleCreateVO;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
+import com.imyc.SBAP.Http.role.viewobject.RoleUpdateVO;
+import com.imyc.SBAP.Http.user.dao.User;
+import com.imyc.SBAP.Http.user.services.dataprocess.UserDatatableDPO;
+import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
 import com.imyc.SBAP.factories.dummy.base.DummyDatatableServerSideConfigFactory;
 import com.imyc.SBAP.factories.dummy.privilege.DummyPrivilegeFactory;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleCreateVOFactory;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleDatatableVOFactory;
 import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
+import com.imyc.SBAP.factories.dummy.role.DummyRoleUpdateVOFactory;
+import com.imyc.SBAP.factories.dummy.user.DummyUserFactory;
+import com.imyc.SBAP.factories.dummy.user.DummyUserUpdateVOFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -27,6 +34,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -112,6 +120,22 @@ public class RoleDatatableDPOTest {
 		boolean actual = new RoleDatatableDPO(roleRepo, privilegeRepo).deleteRoleWithRelationById(id);
 
 		assertFalse(actual);
+	}
+
+	// Update
+
+	@Test
+	public void testGetRoleForUpdate() {
+		Role dummyRole = new DummyRoleFactory(1, "ADMIN").make();
+
+		List<Privilege> dummyPrivilegeList = new ArrayList<>();
+		dummyPrivilegeList.add(new DummyPrivilegeFactory(1, "User_TEST").make());
+
+		Mockito.when(roleRepo.findById(id)).thenReturn(Optional.of(dummyRole));
+		Mockito.when(privilegeRepo.findAll()).thenReturn(dummyPrivilegeList);
+		Optional<RoleUpdateVO> actual = new RoleDatatableDPO(roleRepo, privilegeRepo).getRoleForUpdate(id);
+
+		assertNotNull(actual.get());
 	}
 
 }

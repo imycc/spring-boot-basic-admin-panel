@@ -13,21 +13,13 @@ import com.imyc.SBAP.factories.dummy.role.DummyRoleFactory;
 
 public class DummyUserFactory implements DummyFactory<User>{
 
-	private User dummyUser;
+	private User user;
 	private Role dummyRole;
 	private Date date;
 	private Set<Role> dummyRoleSet;
 	
 	public DummyUserFactory(String role) {
-		
-		String source = "2019-12-31";
-		String pattern = "yyyy-mm-dd";
-		try {
-		    this.date = new SimpleDateFormat(pattern).parse(source);
-		} catch (ParseException e) {
-		    System.out.printf("Parse date string [%1$s] with pattern [%2$s] error.%n", source, pattern);
-		}
-		
+		this.date = currentDate();
 		if (role.equals("ADMIN")) {
 			dummyRole = new DummyRoleFactory(1, "ADMIN").make();
 		}else{
@@ -40,8 +32,8 @@ public class DummyUserFactory implements DummyFactory<User>{
 	
 	@Override
 	public User make() {
-		dummyUser = new User();
-		dummyUser
+		user = new User();
+		user
 			.setId(1)
 			.setName("admin")
 			.setEmail("test@test.com")
@@ -54,7 +46,7 @@ public class DummyUserFactory implements DummyFactory<User>{
 			.setCreatedAt(date)
 			.setUpdatedAt(date);
 		
-		return dummyUser;
+		return user;
 	}
 
 }

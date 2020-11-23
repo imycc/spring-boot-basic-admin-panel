@@ -15,8 +15,6 @@ import com.imyc.SBAP.Http.role.service.requester.contracts.RoleUpdateRequester;
 import com.imyc.SBAP.Http.role.viewobject.RoleCreateVO;
 import com.imyc.SBAP.Http.role.viewobject.RoleDatatableVO;
 import com.imyc.SBAP.Http.role.viewobject.RoleUpdateVO;
-import com.imyc.SBAP.Http.user.viewobject.UserCreateVO;
-import com.imyc.SBAP.Http.user.viewobject.UserUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -77,7 +75,7 @@ public class RoleDatatableProvider implements RoleIndexRequester, RoleCreateRequ
 
     @Override
     public RoleUpdateVO updateResponse(int id) throws WebPageNotFoundException {
-        Optional<RoleUpdateVO> optionalRoleUpdateVO = roleDatatableDPO.getRoleForUserUpdate(id);
+        Optional<RoleUpdateVO> optionalRoleUpdateVO = roleDatatableDPO.getRoleForUpdate(id);
 
         if (optionalRoleUpdateVO.isPresent()) {
             return optionalRoleUpdateVO.get();

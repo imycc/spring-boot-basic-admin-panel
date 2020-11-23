@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DummyRoleDatatableVOFactory implements DummyFactory<RoleDatatableVO> {
 
-    private RoleDatatableVO dummyRoleDatatableVO;
+    private RoleDatatableVO roleDatatableVO;
     private List<RoleRow> dummyRoleRowList;
 
     public DummyRoleDatatableVOFactory() {
@@ -18,19 +18,19 @@ public class DummyRoleDatatableVOFactory implements DummyFactory<RoleDatatableVO
         dummyRoleRowList = new ArrayList<>();
         dummyRoleRowList.add(dummyRoleRow);
 
-        dummyRoleDatatableVO = new RoleDatatableVO();
+        roleDatatableVO = new RoleDatatableVO();
     }
 
     @Override
     public RoleDatatableVO make() {
 
-        dummyRoleDatatableVO
+        roleDatatableVO
                 .setDraw(1)
                 .setRecordsFiltered((long) 1) //dummyUserRowList only have 1 record;
                 .setRecordsTotal((long) 1) //dummyUserRowList only have 1 record;
                 .setData(dummyRoleRowList);
 
-        return dummyRoleDatatableVO;
+        return roleDatatableVO;
     }
 
 }

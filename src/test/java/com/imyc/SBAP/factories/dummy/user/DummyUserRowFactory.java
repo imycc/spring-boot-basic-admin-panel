@@ -5,20 +5,20 @@ import com.imyc.SBAP.factories.dummy.DummyFactory;
 
 public class DummyUserRowFactory implements DummyFactory<UserRow>{
 
-	private UserRow dummyUserRow;
+	private UserRow userRow;
 	
 	public DummyUserRowFactory() {
-		dummyUserRow = new UserRow();
+		userRow = new UserRow();
 	}
 
 	@Override
 	public UserRow make() {
-		dummyUserRow
+		userRow
 			.setId(1)
 			.setName("test")
 			.setEmail("test@test.com")
 			.setDisabled(false);
 		
-		return dummyUserRow;
+		return userRow;
 	}
 }

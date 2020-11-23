@@ -99,7 +99,7 @@ public class UserDatatableProvider implements UserCreateRequester, UserDeleteReq
 	@Override
 	public UserUpdateVO updateResponse(int id) throws WebPageNotFoundException {
 
-		Optional<UserUpdateVO> optionalUserUpdateVO = userDatatableDPO.getUserForUserUpdate(id);
+		Optional<UserUpdateVO> optionalUserUpdateVO = userDatatableDPO.getUserForUpdate(id);
 
 		if (optionalUserUpdateVO.isPresent()) {
 			return optionalUserUpdateVO.get();

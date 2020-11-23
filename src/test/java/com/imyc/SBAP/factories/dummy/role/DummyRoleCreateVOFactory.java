@@ -11,20 +11,20 @@ import java.util.List;
 public class DummyRoleCreateVOFactory implements DummyFactory<RoleCreateVO> {
 
     private RoleCreateVO roleCreateVO;
-    private List<PrivilegeVO> privilegeVOList;
+    private List<PrivilegeVO> dummyPrivilegeVOList;
 
     public DummyRoleCreateVOFactory() {
-        PrivilegeVO privilegeVO = new DummyPrivilegeVOFactory().make();
+        PrivilegeVO dummyPrivilegeVO = new DummyPrivilegeVOFactory().make();
 
-        privilegeVOList = new ArrayList<>();
-        privilegeVOList.add(privilegeVO);
+        dummyPrivilegeVOList = new ArrayList<>();
+        dummyPrivilegeVOList.add(dummyPrivilegeVO);
     }
 
     @Override
     public RoleCreateVO make() {
 
         roleCreateVO = new RoleCreateVO();
-        roleCreateVO.setPrivilegeList(privilegeVOList);
+        roleCreateVO.setPrivilegeList(dummyPrivilegeVOList);
 
         return roleCreateVO;
     }

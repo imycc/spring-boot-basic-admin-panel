@@ -14,12 +14,12 @@ public class DummyUserCreateVOFactory implements DummyFactory<UserCreateVO>{
 	private List<RoleVO> roleVOList;
 	
 	public DummyUserCreateVOFactory() {
-		RoleVO adminRoleVO = new DummyRoleVOFactory(1, "ADMIN").make();
-		RoleVO userRoleVO = new DummyRoleVOFactory(2, "USER").make();
+		RoleVO dummyAdminRoleVO = new DummyRoleVOFactory(1, "ADMIN").make();
+		RoleVO dummyUserRoleVO = new DummyRoleVOFactory(2, "USER").make();
 
-		roleVOList = new ArrayList<RoleVO>();
-		roleVOList.add(adminRoleVO);
-		roleVOList.add(userRoleVO);
+		roleVOList = new ArrayList<>();
+		roleVOList.add(dummyAdminRoleVO);
+		roleVOList.add(dummyUserRoleVO);
 	}
 
 	@Override

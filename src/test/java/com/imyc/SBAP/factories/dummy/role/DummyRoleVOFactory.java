@@ -5,7 +5,7 @@ import com.imyc.SBAP.factories.dummy.DummyFactory;
 
 public class DummyRoleVOFactory implements DummyFactory<RoleVO>{
 
-	private RoleVO dummyRoleVO;
+	private RoleVO roleVO;
 	private String roleName;
 	private int id;
 	
@@ -16,11 +16,11 @@ public class DummyRoleVOFactory implements DummyFactory<RoleVO>{
 	
 	@Override
 	public RoleVO make() {
-		dummyRoleVO = new RoleVO();
-		dummyRoleVO
+		roleVO = new RoleVO();
+		roleVO
 			.setId(id)
 			.setName(roleName);
-		return dummyRoleVO;
+		return roleVO;
 	}
 
 }

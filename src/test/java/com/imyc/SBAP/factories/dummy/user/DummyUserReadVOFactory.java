@@ -11,30 +11,24 @@ import com.imyc.SBAP.factories.dummy.DummyFactory;
 
 public class DummyUserReadVOFactory implements DummyFactory<UserReadVO>{
 
-	private UserReadVO dummyUserReadVO;
+	private UserReadVO userReadVO;
 	private Date date;
 	private List<String> roleList;
 
 	public DummyUserReadVOFactory() {
-		String source = "2019-12-31";
-		String pattern = "yyyy-mm-dd";
-		try {
-		    date = new SimpleDateFormat(pattern).parse(source);
-		} catch (ParseException e) {
-		    System.out.printf("Parse date string [%1$s] with pattern [%2$s] error.%n", source, pattern);
-		}
+		this.date = currentDate();
 		
-		roleList = new ArrayList<String>();
+		roleList = new ArrayList<>();
 		roleList.add("Admin");
 		roleList.add("User");
 		
-		dummyUserReadVO = new UserReadVO();
+		userReadVO = new UserReadVO();
 	}
 
 	@Override
 	public UserReadVO make() {
 		
-		dummyUserReadVO
+		userReadVO
 			.setId(1)
 			.setName("Admin")
 			.setEmail("test@test.com")
@@ -44,7 +38,7 @@ public class DummyUserReadVOFactory implements DummyFactory<UserReadVO>{
 			.setDisabled(false)
 			.setRoles(roleList.toArray(new String[0]));
 		
-		return dummyUserReadVO;
+		return userReadVO;
 	}
 	
 }

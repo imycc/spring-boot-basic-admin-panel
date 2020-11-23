@@ -165,7 +165,7 @@ public class UserDatatableDPO {
 
 	// Update
 
-	public Optional<UserUpdateVO> getUserForUserUpdate(int id) {
+	public Optional<UserUpdateVO> getUserForUpdate(int id) {
 
 		Optional<User> optionalUser = userRepo.findById(id);
 

@@ -12,7 +12,7 @@ public class DummyRoleCreateDTOFactory implements DummyFactory<RoleCreateDTO> {
 
     @Override
     public RoleCreateDTO make() {
-        List<Integer> privileges = new ArrayList<Integer>();
+        List<Integer> privileges = new ArrayList<>();
         privileges.add(1);
 
         roleCreateDTO = new RoleCreateDTO();

@@ -1,48 +1,51 @@
 package com.imyc.SBAP.factories.dummy.role;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.imyc.SBAP.Http.privilege.dao.Privilege;
 import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.factories.dummy.DummyFactory;
+import com.imyc.SBAP.factories.dummy.privilege.DummyPrivilegeFactory;
 
 public class DummyRoleFactory implements DummyFactory<Role>{
 
-	private Role dummyRole;
+	private Role role;
 	private Boolean isAdmin;
 	private int id;
 	private String roleName;
 	private Date date;
+	private Set<Privilege> dummyPrivilegeSet;
 	
 	public DummyRoleFactory(int id, String roleName) {
 		this.id = id;
-		this.roleName = roleName;  
+		this.roleName = roleName;
+
 		if (roleName.equals("ADMIN")) {
 			this.isAdmin = true;
 		}else {
 			this.isAdmin = false;
 		}
-		
-		String source = "2019-12-31";
-		String pattern = "yyyy-mm-dd";
-		try {
-		    this.date = new SimpleDateFormat(pattern).parse(source);
-		} catch (ParseException e) {
-		    System.out.printf("Parse date string [%1$s] with pattern [%2$s] error.%n", source, pattern);
-		}
+
+		this.date = currentDate();
+
+		Privilege dummyPrivilege = new DummyPrivilegeFactory(1, "User_TEST").make();
+		this.dummyPrivilegeSet = new HashSet<>();
+		dummyPrivilegeSet.add(dummyPrivilege);
 	}
 	
 	@Override
 	public Role make() {
-		dummyRole = new Role();
-		dummyRole
-			.setId(id)
-			.setAdmin(isAdmin)
-			.setName(roleName)
-			.setCreatedAt(date)
-			.setUpdatedAt(date);
-		return dummyRole;
+		role = new Role();
+		role
+				.setId(id)
+				.setAdmin(isAdmin)
+				.setName(roleName)
+				.setPrivileges(dummyPrivilegeSet)
+				.setCreatedAt(date)
+				.setUpdatedAt(date);
+		return role;
 	}
 
 }

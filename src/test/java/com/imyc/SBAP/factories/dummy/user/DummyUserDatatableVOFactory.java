@@ -9,28 +9,28 @@ import com.imyc.SBAP.factories.dummy.DummyFactory;
 
 public class DummyUserDatatableVOFactory implements DummyFactory<UserDatatableVO>{
 
-	private UserDatatableVO dummyUserDatatableVO;
+	private UserDatatableVO userDatatableVO;
 	private List<UserRow> dummyUserRowList;
 	
 	public DummyUserDatatableVOFactory() {
 		
 		UserRow dummyUserRow = new DummyUserRowFactory().make();
-		dummyUserRowList = new ArrayList<UserRow>();
+		dummyUserRowList = new ArrayList<>();
 		dummyUserRowList.add(dummyUserRow);
 		
-		dummyUserDatatableVO = new UserDatatableVO();
+		userDatatableVO = new UserDatatableVO();
 	}
 	
 	@Override
 	public UserDatatableVO make() {
-		
-		dummyUserDatatableVO
+
+		userDatatableVO
 			.setDraw(1)
 			.setRecordsFiltered((long) 1) //dummyUserRowList only have 1 record;
 			.setRecordsTotal((long) 1) //dummyUserRowList only have 1 record;
 			.setData(dummyUserRowList);
 		
-		return dummyUserDatatableVO;
+		return userDatatableVO;
 	}
 
 }

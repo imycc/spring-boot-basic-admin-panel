@@ -5,18 +5,18 @@ import com.imyc.SBAP.factories.dummy.DummyFactory;
 
 public class DummyRoleRowFactory implements DummyFactory<RoleRow> {
 
-    private RoleRow dummyRoleRow;
+    private RoleRow roleRow;
 
     public DummyRoleRowFactory() {
-        dummyRoleRow = new RoleRow();
+        roleRow = new RoleRow();
     }
 
     @Override
     public RoleRow make() {
-        dummyRoleRow
+        roleRow
                 .setId(1)
                 .setName("test");
 
-        return dummyRoleRow;
+        return roleRow;
     }
 }

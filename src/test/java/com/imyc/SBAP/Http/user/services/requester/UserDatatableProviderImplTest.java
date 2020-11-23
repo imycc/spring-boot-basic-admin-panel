@@ -166,7 +166,7 @@ public class UserDatatableProviderImplTest {
 	public void testUpdateResponse() throws WebPageNotFoundException {
 		UserUpdateVO dummyUserUpdateVO = new DummyUserUpdateVOFactory().make();
 
-		Mockito.when(userDatatableDPO.getUserForUserUpdate(id)).thenReturn(Optional.of(dummyUserUpdateVO));
+		Mockito.when(userDatatableDPO.getUserForUpdate(id)).thenReturn(Optional.of(dummyUserUpdateVO));
 		UserUpdateVO actual = new UserDatatableProvider(userDatatableDPO).updateResponse(id);
 
 		assertNotNull(actual);
