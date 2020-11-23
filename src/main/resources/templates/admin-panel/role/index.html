@@ -12,7 +12,7 @@
             <h2 class="mb-0"></h2>
         </div>
 		<div class="col-md-auto mt-2">
-			<a th:href="@{/user/create}" class="btn btn-primary">Create Role</a>
+			<a th:href="@{/role/create}" class="btn btn-primary">Create Role</a>
 	    </div>
     </div>
 
@@ -43,9 +43,7 @@
 
 <script>
 $(document).ready( function () {
-
 	initDatatable()
-	
 	checkActionStatus()
 });
 
@@ -96,29 +94,28 @@ function formDelete(id) {
 
 function checkActionStatus() {
 	if (getUrlVars()["delete"] == "success"){
-		showSnack("Delete User Success!", "info")
+		showSnack("Delete Role Success!", "info")
     }else if (getUrlVars()["create"] == "success"){
-    	showSnack("Create User Success!", "info")
+    	showSnack("Create Role Success!", "info")
     }else if (getUrlVars()["update"] == "success"){
-    	showSnack("Update User Success!", "info")
+    	showSnack("Update Role Success!", "info")
     }else if (getUrlVars()["delete"] == "failure"){
-    	showSnack("Create User Failure!", "error")
+    	showSnack("Create Role Failure!", "error")
     }else if (getUrlVars()["create"] == "failure"){
-    	showSnack("Update User Failure!", "error")
+    	showSnack("Update Role Failure!", "error")
     }else if (getUrlVars()["update"] == "failure"){
-    	showSnack("update User Failure!", "error")
+    	showSnack("update Role Failure!", "error")
     }
 }
 
 function getUrlVars() 
 {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    let vars = {};
+	window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
         vars[key] = value;
     });
     return vars;
 }
-
 </script>
 
 </html>

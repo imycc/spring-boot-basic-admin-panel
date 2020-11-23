@@ -1,4 +1,4 @@
-package com.imyc.SBAP.Base.dao.CRUDContracts;
+package com.imyc.SBAP.Base.services.CRUDContracts;
 
 import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
 

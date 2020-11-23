@@ -1,6 +1,7 @@
 package com.imyc.SBAP.Http.role.services.dataprocess;
 
 import com.imyc.SBAP.Base.dto.DatatableServerSideConfig;
+import com.imyc.SBAP.Http.privilege.dao.repository.PrivilegeRepository;
 import com.imyc.SBAP.Http.role.dao.Role;
 import com.imyc.SBAP.Http.role.dao.repository.RoleRepository;
 import com.imyc.SBAP.Http.role.service.dataprocess.RoleDatatableDPO;
@@ -30,6 +31,8 @@ public class RoleDatatableDPOTest {
 
 	@Mock
 	private RoleRepository roleRepo;
+	@Mock
+	private PrivilegeRepository privilegeRepo;
 	private DatatableServerSideConfig dummyDatatableServerSideConfig;
 	private RoleDatatableVO roleDatatableVO;
 	private List<Role> roleList;
@@ -57,7 +60,7 @@ public class RoleDatatableDPOTest {
 		
 		Mockito.when(roleRepo.findAll(ArgumentMatchers.<Specification<Role>>any(), ArgumentMatchers.<Pageable>any()))
 				.thenReturn(pageRoleList);
-		RoleDatatableVO actual = new RoleDatatableDPO(roleRepo).getRoleDatatableVO(dummyDatatableServerSideConfig);
+		RoleDatatableVO actual = new RoleDatatableDPO(roleRepo, privilegeRepo).getRoleDatatableVO(dummyDatatableServerSideConfig);
 		
 		assertNotNull(actual);
 		assertNotNull(actual.getData());

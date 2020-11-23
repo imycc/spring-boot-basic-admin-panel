@@ -64,7 +64,7 @@ class DemoCommandLineRunner implements CommandLineRunner{
         user.setRoles(Set.copyOf(Arrays.asList(role)));
         usersRepository.save(user);
 
-        String[] priilegeNameList = {"Dashboard_INDEX", "Role_INDEX", "Role_READ", "Role_CREATE",
+        String[] priilegeNameList = {"Dashboard_INDEX", "Role_INDEX", "Role_CREATE",
                                     "Role_UPDATE", "Role_DELETE", "User_INDEX", "User_READ", "User_CREATE",
                                     "User_UPDATE", "User_DELETE"};
         List<Privilege> priilegeList = new ArrayList<>();

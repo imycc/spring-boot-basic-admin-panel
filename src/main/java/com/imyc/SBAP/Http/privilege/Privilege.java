@@ -17,7 +17,7 @@ public class Privilege {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private int id;
 	private String name;
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private Date created_at;
