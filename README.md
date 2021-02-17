@@ -17,9 +17,6 @@ Use Thymeleaf for template engine.
 * JUnit
 * Gson
 
-## Launch Demo
-
-
 ## TODO
 - [ ] Assign Permission per view.
 - [ ] Release a Demo Admin panel
