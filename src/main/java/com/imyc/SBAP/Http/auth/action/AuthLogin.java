@@ -13,7 +13,7 @@ import com.imyc.SBAP.Http.auth.dto.LoginDTO;
 public class AuthLogin {
 	
 	@GetMapping("/login")
-	public String login(Model model, @RequestParam Optional<String> error) {
+	public String render(Model model, @RequestParam Optional<String> error) {
 		
 		model.addAttribute("login", new LoginDTO());
 		return "admin-panel/auth/login";
