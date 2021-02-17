@@ -1,6 +1,6 @@
-package com.imyc.SBAP.Http.auth.viewobject;
+package com.imyc.SBAP.Http.auth.dto;
 
-public class LoginVO {
+public class LoginDTO {
 
 	private String username;
 	private String password;
