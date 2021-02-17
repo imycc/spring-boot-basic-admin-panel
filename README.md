@@ -24,5 +24,5 @@ Use Thymeleaf for template engine.
 ### Authors
 IMYCC
 
-Html Templates is [srtdash-admin-dashboard](https://github.com/puikinsh/srtdash-admin-dashboard)
+Html Templates is [srtdash-admin-dashboard](https://github.com/puikinsh/srtdash-admin-dashboard)\
 [Colorlib](https://colorlib.com) is the original author of this template.
